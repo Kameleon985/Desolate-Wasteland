@@ -37,6 +37,8 @@ public class UICamp : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        UpdateUIValues();
     }
 
     public void BuildingScreenOpen()
@@ -157,56 +159,43 @@ public class UICamp : MonoBehaviour
         ArmoryBuild = LoadArmoryBuild;
         HydroponicsBuild = LoadHydroponicsBuild;
 
-        if (LabBuild)
-        {
-            buildLaboButton.interactable = false;
-        }
-        else
-        {
-            buildLaboButton.interactable = true;
-        }
-        if (MarketBuild)
-        {
-            buildMarketButton.interactable = false;
-        }
-        else
-        {
-            buildMarketButton.interactable = true;
-        }
-        if (BarracksBuild)
-        {
-            buildBarracksButton.interactable = false;
-        }
-        else
-        {
-            buildBarracksButton.interactable = true;
-        }
-        if (ShootingRangeBuild)
-        {
-            buildShootingRangeButton.interactable = false;
-        }
-        else
-        {
-            buildShootingRangeButton.interactable = true;
-        }
-        if (ArmoryBuild)
-        {
-            buildArmoryButton.interactable = false;
-        }
-        else
-        {
-            buildArmoryButton.interactable = true;
-        }
-        if (HydroponicsBuild)
-        {
-            buildHydroponicsButton.interactable = false;
-        }
-        else
-        {
-            buildHydroponicsButton.interactable = true;
-        }
+        UpdateUIValues();
     }
 
+    void updateLabBuild()
+    {        
+            buildLaboButton.interactable = !(SaveSerial.LabBuild);       
+    }
+    void updateMarketBuild()
+    {
+            buildMarketButton.interactable = !(SaveSerial.MarketBuild);
+    }
+    void updateBarracksBuild()
+    {
+        buildBarracksButton.interactable = !(SaveSerial.BarracksBuild);
+    }
+    void updateShootingRangeBuild()
+    {
+        buildShootingRangeButton.interactable = !(SaveSerial.ShootingRangeBuild);
+    }
+    void updateArmoryBuild()
+    {
+        buildArmoryButton.interactable = !(SaveSerial.ArmoryBuild);
+    }
+    void updateHydroponicsBuild()
+    {
+        buildHydroponicsButton.interactable = !(SaveSerial.HydroponicsBuild);
+    }
+
+    public void UpdateUIValues()
+    {
+        updateLabBuild();
+        updateMarketBuild();
+        updateBarracksBuild();
+        updateShootingRangeBuild();
+        updateArmoryBuild();
+        updateHydroponicsBuild();
+    }
 
 
     public void ReturnToMap()

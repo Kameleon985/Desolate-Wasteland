@@ -19,6 +19,8 @@ public class UIUpdate : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        UpdateUIValues();
     }
 
     public Text VitalsCount;
@@ -53,6 +55,15 @@ public class UIUpdate : MonoBehaviour
     {
         RoundTracker.text = "Dzień " + number;
         SaveSerial.CurrentRound = number;
+    }
+
+    public void UpdateUIValues()
+    {
+        SetVitals(SaveSerial.Vitals);
+        SetScrap(SaveSerial.Scrap);
+        SetPlastic(SaveSerial.Plastic);
+        SetElectronics(SaveSerial.Electronics);
+        UpdateRound(SaveSerial.CurrentRound);
     }
 
     public void GoToCampView()
