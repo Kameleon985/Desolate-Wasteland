@@ -6,8 +6,11 @@ public class RoundTracker : MonoBehaviour
 {
     public void IncrementRound()
     {
-        TempPlayerData.CurrentRound++;
-        UIUpdate.Instance.UpdateRound(TempPlayerData.CurrentRound);
+        //TempPlayerData.CurrentRound++;
+        //UIUpdate.Instance.UpdateRound(TempPlayerData.CurrentRound);
+
+        SaveSerial.CurrentRound++;
+        UIUpdate.Instance.UpdateRound(SaveSerial.CurrentRound);
     }
 
     // Start is called before the first frame update

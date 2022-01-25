@@ -30,23 +30,28 @@ public class UIUpdate : MonoBehaviour
     public void SetVitals(int number)
     {
         VitalsCount.text = number + "";
+        SaveSerial.Vitals = number;
     }
     public void SetScrap(int number)
     {
         ScrapCount.text = number + "";
+        SaveSerial.Scrap = number;
     }
     public void SetPlastic(int number)
     {
         PlasticCount.text = number + "";
+        SaveSerial.Plastic = number;
     }
     public void SetElectronics(int number)
     {
         ElectronicsCount.text = number + "";
+        SaveSerial.Electronics = number;
     }
 
     public void UpdateRound(int number)
     {
         RoundTracker.text = "Dzień " + number;
+        SaveSerial.CurrentRound = number;
     }
 
     // Start is called before the first frame update
