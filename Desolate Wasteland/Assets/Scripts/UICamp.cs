@@ -31,6 +31,14 @@ public class UICamp : MonoBehaviour
     public Button goMarketButton;
 
     public ResourcesHandler resourcesHandler;
+    public ArmyHandler armyHandler;
+
+    public Text campMeleeAmount;
+    public Text MeleeAmount;
+    public Text campRangeAmount;
+    public Text RangeAmount;
+    public Text campEliteAmount;
+    public Text EliteAmount;
 
     private void Awake()
     {
@@ -139,6 +147,7 @@ public class UICamp : MonoBehaviour
                 BarracksBuild = true;
                 SaveSerial.BarracksBuild = BarracksBuild;
                 buildBarracksButton.interactable = false;
+                armyHandler.BarrackBuiltIncrease();
             }
         }
         else
@@ -164,6 +173,7 @@ public class UICamp : MonoBehaviour
                 ShootingRangeBuild = true;
                 SaveSerial.ShootingRangeBuild = ShootingRangeBuild;
                 buildShootingRangeButton.interactable = false;
+                armyHandler.ShootingRangeBuiltIncrease();
             }
         }
         else
@@ -189,6 +199,7 @@ public class UICamp : MonoBehaviour
                 ArmoryBuild = true;
                 SaveSerial.ArmoryBuild = ArmoryBuild;
                 buildArmoryButton.interactable = false;
+                armyHandler.ArmoryBuiltIncrease();
             }
         }
         else
@@ -264,6 +275,29 @@ public class UICamp : MonoBehaviour
         buildHydroponicsButton.interactable = !(SaveSerial.HydroponicsBuild);
     }
 
+    void updateCampArmy()
+    {
+        SetCampMelee(SaveSerial.CampMeleeUnit);
+        SetCampRange(SaveSerial.CampRangeUnit);
+        SetCampElite(SaveSerial.CampEliteUnit);
+    }
+
+    public void SetCampMelee(int number)
+    {
+        campMeleeAmount.text = number + "";
+        SaveSerial.CampMeleeUnit = number;
+    }
+    public void SetCampRange(int number)
+    {
+        campRangeAmount.text = number + "";
+        SaveSerial.CampRangeUnit = number;
+    }
+    public void SetCampElite(int number)
+    {
+        campEliteAmount.text = number + "";
+        SaveSerial.CampEliteUnit = number;
+    }
+
     public void UpdateUIValues()
     {
         updateLabBuild();
@@ -272,6 +306,8 @@ public class UICamp : MonoBehaviour
         updateShootingRangeBuild();
         updateArmoryBuild();
         updateHydroponicsBuild();
+
+        updateCampArmy();
     }
 
 

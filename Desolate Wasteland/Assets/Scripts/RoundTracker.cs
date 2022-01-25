@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RoundTracker : MonoBehaviour
 {
+    public ArmyHandler armyHandler;
+
     public void IncrementRound()
     {
         //TempPlayerData.CurrentRound++;
@@ -11,6 +13,11 @@ public class RoundTracker : MonoBehaviour
 
         SaveSerial.CurrentRound++;
         UIUpdate.Instance.UpdateRound(SaveSerial.CurrentRound);
+
+        if(SaveSerial.CurrentRound % 7 == 0)
+        {
+            armyHandler.campIncrease();
+        }
     }
 
     // Start is called before the first frame update

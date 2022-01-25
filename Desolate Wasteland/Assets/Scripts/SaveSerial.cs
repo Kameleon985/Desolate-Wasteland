@@ -32,9 +32,14 @@ public class SaveSerial : MonoBehaviour
     //TO-DO
 
     //PlayerArmy
-    public static int MeleeUnit;
+    public static int MeleeUnit = 4; //To determine
     public static int RangeUnit;
     public static int EliteUnit;
+
+    //ArmyInCamp
+    public static int CampMeleeUnit; //To determine
+    public static int CampRangeUnit;
+    public static int CampEliteUnit;
 
     //Drugs
     //TO-DO
@@ -79,10 +84,15 @@ public class SaveSerial : MonoBehaviour
         data.savedRangeUnit = RangeUnit;
         data.savedEliteUnit = EliteUnit;
 
-        //Drugs
-        //TO-DO
+        //ArmyInCamp
+        data.savedCampMeleeUnit = CampMeleeUnit;
+        data.savedCampRangeUnit = CampRangeUnit;
+        data.savedCampEliteUnit = CampEliteUnit;
 
-        bf.Serialize(file, data);
+    //Drugs
+    //TO-DO
+
+    bf.Serialize(file, data);
         file.Close();
         Debug.Log("Data Saved to " + Application.persistentDataPath + "/SavedData.dat");
     }
@@ -127,13 +137,18 @@ public class SaveSerial : MonoBehaviour
             RangeUnit = data.savedRangeUnit;
             EliteUnit = data.savedEliteUnit;
 
-            //Drugs
-            //TO-DO
+            //ArmyInCamp
+            CampMeleeUnit = data.savedCampMeleeUnit;
+            CampRangeUnit = data.savedCampRangeUnit;
+            CampEliteUnit = data.savedCampEliteUnit;
 
-            //UI UPDATE
+    //Drugs
+    //TO-DO
+
+    //UI UPDATE
 
 
-            UIUpdate.Instance.UpdateRound(CurrentRound);
+    UIUpdate.Instance.UpdateRound(CurrentRound);
             UIUpdate.Instance.SetVitals(Vitals);
             UIUpdate.Instance.SetScrap(Scrap);
             UIUpdate.Instance.SetPlastic(Plastic);
@@ -182,6 +197,11 @@ public class SaveSerial : MonoBehaviour
             RangeUnit = 0;
             EliteUnit = 0;
 
+            //ArmyInCamp
+            CampMeleeUnit = 0;
+            CampRangeUnit = 0;
+            CampEliteUnit = 0;
+
             //Drugs
             //TO-DO
 
@@ -228,6 +248,11 @@ public class SaveSerial : MonoBehaviour
         public int savedMeleeUnit;
         public int savedRangeUnit;
         public int savedEliteUnit;
+
+        //ArmyInCamp
+        public int savedCampMeleeUnit;
+        public int savedCampRangeUnit;
+        public int savedCampEliteUnit;
 
     }
 }
