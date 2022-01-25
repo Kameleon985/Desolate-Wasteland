@@ -49,9 +49,9 @@ public class SaveSerial : MonoBehaviour
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/SavedData.dat");
         SaveData data = new SaveData();
-        
 
-    //Resources
+
+        //Resources
         data.savedVitals = Vitals;
         data.savedScrap = Scrap;
         data.savedPlastic = Plastic;
@@ -85,7 +85,7 @@ public class SaveSerial : MonoBehaviour
         bf.Serialize(file, data);
         file.Close();
         Debug.Log("Data Saved to " + Application.persistentDataPath + "/SavedData.dat");
-}
+    }
 
     public void LoadGame()
     {
@@ -99,40 +99,40 @@ public class SaveSerial : MonoBehaviour
             file.Close();
 
             //DATA
-                //Resources
-                Vitals = data.savedVitals;
-                Scrap = data.savedScrap;
-                Plastic = data.savedPlastic;
-                Electronics = data.savedElectronics;
+            //Resources
+            Vitals = data.savedVitals;
+            Scrap = data.savedScrap;
+            Plastic = data.savedPlastic;
+            Electronics = data.savedElectronics;
 
-                //Round
-                CurrentRound = data.savedCurrentRound;
+            //Round
+            CurrentRound = data.savedCurrentRound;
 
-                //Camp
-                LabBuild = data.savedLabBuild;
-                MarketBuild = data.savedMarketBuild;
-                BarracksBuild = data.savedBarracksBuild;
-                ShootingRangeBuild = data.savedShootingRangeBuild;
-                ArmoryBuild = data.savedArmoryBuild;
-                HydroponicsBuild = data.savedHydroponicsBuild;
+            //Camp
+            LabBuild = data.savedLabBuild;
+            MarketBuild = data.savedMarketBuild;
+            BarracksBuild = data.savedBarracksBuild;
+            ShootingRangeBuild = data.savedShootingRangeBuild;
+            ArmoryBuild = data.savedArmoryBuild;
+            HydroponicsBuild = data.savedHydroponicsBuild;
 
-                //PlayerPosition
-                //TO-DO
+            //PlayerPosition
+            //TO-DO
 
-                //OnMapLocationsCaptured
-                //TO-DO
+            //OnMapLocationsCaptured
+            //TO-DO
 
-                //PlayerArmy
-                MeleeUnit = data.savedMeleeUnit;
-                RangeUnit = data.savedRangeUnit;
-                EliteUnit = data.savedEliteUnit;
+            //PlayerArmy
+            MeleeUnit = data.savedMeleeUnit;
+            RangeUnit = data.savedRangeUnit;
+            EliteUnit = data.savedEliteUnit;
 
             //Drugs
             //TO-DO
 
             //UI UPDATE
 
-            
+
             UIUpdate.Instance.UpdateRound(CurrentRound);
             UIUpdate.Instance.SetVitals(Vitals);
             UIUpdate.Instance.SetScrap(Scrap);
@@ -148,44 +148,84 @@ public class SaveSerial : MonoBehaviour
         }
     }
 
-// Start is called before the first frame update
-    void Start()
+    void ResetData()
     {
-        
+        if (File.Exists(Application.persistentDataPath + "/SavedData.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/SavedData.dat");
+
+            //Resources
+            Vitals = 5;
+            Scrap = 0;
+            Plastic = 0;
+            Electronics = 0;
+
+            //Round
+            CurrentRound = 1;
+
+            //Camp
+            LabBuild = false;
+            MarketBuild = false;
+            BarracksBuild = false;
+            ShootingRangeBuild = false;
+            ArmoryBuild = false;
+            HydroponicsBuild = false;
+
+            //PlayerPosition
+            //TO-DO
+
+            //OnMapLocationsCaptured
+            //TO-DO
+
+            //PlayerArmy
+            MeleeUnit = 4; //To determine
+            RangeUnit = 0;
+            EliteUnit = 0;
+
+            //Drugs
+            //TO-DO
+
+
+        }
+        else
+        {
+            Debug.Log("No save data to delete!");
+        }
     }
 
-}
 
-[Serializable]
-class SaveData
-{
 
-    //Resources
-    public int savedVitals;
-    public int savedScrap;
-    public int savedPlastic;
-    public int savedElectronics;
+    [Serializable]
+    class SaveData
+    {
 
-    //Round
-    public int savedCurrentRound;
+        //Resources
+        public int savedVitals;
+        public int savedScrap;
+        public int savedPlastic;
+        public int savedElectronics;
 
-    //Camp
-    public bool savedLabBuild;
-    public bool savedMarketBuild;
-    public bool savedBarracksBuild;
-    public bool savedShootingRangeBuild;
-    public bool savedArmoryBuild;
-    public bool savedHydroponicsBuild;
+        //Round
+        public int savedCurrentRound;
 
-    //PlayerPosition
-    //TO-DO
+        //Camp
+        public bool savedLabBuild;
+        public bool savedMarketBuild;
+        public bool savedBarracksBuild;
+        public bool savedShootingRangeBuild;
+        public bool savedArmoryBuild;
+        public bool savedHydroponicsBuild;
 
-    //OnMapLocationsCaptured
-    //TO-DO
+        //PlayerPosition
+        //TO-DO
 
-    //PlayerArmy
-    public int savedMeleeUnit;
-    public int savedRangeUnit;
-    public int savedEliteUnit;
+        //OnMapLocationsCaptured
+        //TO-DO
 
+        //PlayerArmy
+        public int savedMeleeUnit;
+        public int savedRangeUnit;
+        public int savedEliteUnit;
+
+    }
 }
