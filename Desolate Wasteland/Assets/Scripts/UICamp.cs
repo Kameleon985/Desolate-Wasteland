@@ -30,6 +30,8 @@ public class UICamp : MonoBehaviour
     public Button goLaboButton;
     public Button goMarketButton;
 
+    public ResourcesHandler resourcesHandler;
+
     private void Awake()
     {
         if (Instance == null)
@@ -72,6 +74,7 @@ public class UICamp : MonoBehaviour
             else
             {
                 //Sets
+                resourcesHandler.RemoveResources(5, 5, 3);
                 LabBuild = true;
                 SaveSerial.LabBuild = LabBuild;
                 Debug.Log("Labo Built");
@@ -102,6 +105,7 @@ public class UICamp : MonoBehaviour
             else
             {
                 //Sets
+                resourcesHandler.RemoveResources(5, 3, 0);
                 MarketBuild = true;
                 SaveSerial.MarketBuild = MarketBuild;
                 buildMarketButton.interactable = false;
@@ -131,6 +135,7 @@ public class UICamp : MonoBehaviour
             }
             else
             {
+                resourcesHandler.RemoveResources(5, 3, 0);
                 BarracksBuild = true;
                 SaveSerial.BarracksBuild = BarracksBuild;
                 buildBarracksButton.interactable = false;
@@ -155,6 +160,7 @@ public class UICamp : MonoBehaviour
             }
             else
             {
+                resourcesHandler.RemoveResources(5, 5, 3);
                 ShootingRangeBuild = true;
                 SaveSerial.ShootingRangeBuild = ShootingRangeBuild;
                 buildShootingRangeButton.interactable = false;
@@ -179,6 +185,7 @@ public class UICamp : MonoBehaviour
             }
             else
             {
+                resourcesHandler.RemoveResources(10, 5, 7);
                 ArmoryBuild = true;
                 SaveSerial.ArmoryBuild = ArmoryBuild;
                 buildArmoryButton.interactable = false;
@@ -203,6 +210,7 @@ public class UICamp : MonoBehaviour
             }
             else
             {
+                resourcesHandler.RemoveResources(10, 15, 3);
                 HydroponicsBuild = true;
                 SaveSerial.HydroponicsBuild = HydroponicsBuild;
                 buildHydroponicsButton.interactable = false;

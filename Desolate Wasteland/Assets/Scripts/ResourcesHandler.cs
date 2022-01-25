@@ -69,6 +69,13 @@ public class ResourcesHandler : MonoBehaviour
         UIUpdate.Instance.SetElectronics(SaveSerial.Electronics);
     }
 
+    public void RemoveResources(int scrap, int plastic, int electronics)
+    {
+        RemoveScrap(scrap);
+        RemovePlastic(plastic);
+        RemoveElectronics(electronics);
+    }
+
 
     // Start is called before the first frame update
     void Start()
