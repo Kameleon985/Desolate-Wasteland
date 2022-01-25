@@ -148,7 +148,7 @@ public class SaveSerial : MonoBehaviour
         }
     }
 
-    void ResetData()
+    public void ResetData()
     {
         if (File.Exists(Application.persistentDataPath + "/SavedData.dat"))
         {
@@ -185,6 +185,8 @@ public class SaveSerial : MonoBehaviour
             //Drugs
             //TO-DO
 
+            UIUpdate.Instance.UpdateUIValues();
+            UICamp.Instance.UpdateUIValues();
 
         }
         else

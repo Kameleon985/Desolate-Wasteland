@@ -8,6 +8,7 @@ public class UICamp : MonoBehaviour
 {
     public GameObject campView;
     public GameObject buildingView;
+    public GameObject ErrorView;
     public GameObject marketView;
     public GameObject labView;
     public static UICamp Instance;
@@ -25,6 +26,9 @@ public class UICamp : MonoBehaviour
     public Button buildShootingRangeButton;
     public Button buildArmoryButton;
     public Button buildHydroponicsButton;
+
+    public Button goLaboButton;
+    public Button goMarketButton;
 
     private void Awake()
     {
@@ -50,22 +54,39 @@ public class UICamp : MonoBehaviour
         buildingView.gameObject.SetActive(false);
     }
 
+    public void ErrorScreenClose()
+    {
+        ErrorView.gameObject.SetActive(false);
+    }
+
     public void buildLab()
     {
         if (!LabBuild)
         {
             //Cost
-            //IF
-            LabBuild = true;
-            SaveSerial.LabBuild = LabBuild;
-            Debug.Log("Labo Built");
-            buildLaboButton.interactable = false;
+            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 5 && SaveSerial.Electronics < 3)
+            {
+                Debug.Log("Not enough Materials");
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                //Sets
+                LabBuild = true;
+                SaveSerial.LabBuild = LabBuild;
+                Debug.Log("Labo Built");
+                buildLaboButton.interactable = false;
+                goLaboButton.interactable = true;
+            }            
         }
         else
         {
             buildLaboButton.interactable = false;
+            goLaboButton.interactable = true;
         }
+
         
+
     }
 
     public void buildMarket()
@@ -73,15 +94,28 @@ public class UICamp : MonoBehaviour
         if (!MarketBuild)
         {
             //Cost
-            //IF
-            MarketBuild = true;
-            SaveSerial.MarketBuild = MarketBuild;
-            buildMarketButton.interactable = false;
+            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 3)
+            {
+                Debug.Log("Not enough Materials");
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                //Sets
+                MarketBuild = true;
+                SaveSerial.MarketBuild = MarketBuild;
+                buildMarketButton.interactable = false;
+                goMarketButton.interactable = true;
+            }
+            
         }
         else
         {
             buildMarketButton.interactable = false;
+            goMarketButton.interactable = true;
         }
+
+        
 
     }
     public void buildBarracks()
@@ -90,13 +124,22 @@ public class UICamp : MonoBehaviour
         {
             //Cost
             //IF
-            BarracksBuild = true;
-            SaveSerial.BarracksBuild = BarracksBuild;
-            buildBarracksButton.interactable = false;
+            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 3)
+            {
+                Debug.Log("Not enough Materials");
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                BarracksBuild = true;
+                SaveSerial.BarracksBuild = BarracksBuild;
+                buildBarracksButton.interactable = false;
+            }
         }
         else
         {
             buildBarracksButton.interactable = false;
+            //SpawnUNITS - TO-DO
         }
 
     }
@@ -105,14 +148,22 @@ public class UICamp : MonoBehaviour
         if (!ShootingRangeBuild)
         {
             //Cost
-            //IF
-            ShootingRangeBuild = true;
-            SaveSerial.ShootingRangeBuild = ShootingRangeBuild;
-            buildShootingRangeButton.interactable = false;
+            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 5 && SaveSerial.Electronics < 3)
+            {
+                Debug.Log("Not enough Materials");
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                ShootingRangeBuild = true;
+                SaveSerial.ShootingRangeBuild = ShootingRangeBuild;
+                buildShootingRangeButton.interactable = false;
+            }
         }
         else
         {
             buildShootingRangeButton.interactable = false;
+            //SpawnUnits - To-Do
         }
 
     }
@@ -121,14 +172,22 @@ public class UICamp : MonoBehaviour
         if (!ArmoryBuild)
         {
             //Cost
-            //IF
-            ArmoryBuild = true;
-            SaveSerial.ArmoryBuild = ArmoryBuild;
-            buildArmoryButton.interactable = false;
+            if (SaveSerial.Scrap < 10 && SaveSerial.Plastic < 5 && SaveSerial.Electronics<7)
+            {
+                Debug.Log("Not enough Materials");
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                ArmoryBuild = true;
+                SaveSerial.ArmoryBuild = ArmoryBuild;
+                buildArmoryButton.interactable = false;
+            }
         }
         else
         {
             buildArmoryButton.interactable = false;
+            //To-Do Spawn Units
         }
 
     }
@@ -137,14 +196,22 @@ public class UICamp : MonoBehaviour
         if (!HydroponicsBuild)
         {
             //Cost
-            //IF
-            HydroponicsBuild = true;
-            SaveSerial.HydroponicsBuild = HydroponicsBuild;
-            buildHydroponicsButton.interactable = false;
+            if (SaveSerial.Scrap < 10 && SaveSerial.Plastic < 15 && SaveSerial.Electronics < 3)
+            {
+                Debug.Log("Not enough Materials");
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                HydroponicsBuild = true;
+                SaveSerial.HydroponicsBuild = HydroponicsBuild;
+                buildHydroponicsButton.interactable = false;
+            }
         }
         else
         {
             buildHydroponicsButton.interactable = false;
+            //To-Do Steady growth of Vitals
         }
 
     }
@@ -164,11 +231,13 @@ public class UICamp : MonoBehaviour
 
     void updateLabBuild()
     {        
-            buildLaboButton.interactable = !(SaveSerial.LabBuild);       
+            buildLaboButton.interactable = !(SaveSerial.LabBuild);
+            goLaboButton.interactable = SaveSerial.LabBuild;
     }
     void updateMarketBuild()
     {
             buildMarketButton.interactable = !(SaveSerial.MarketBuild);
+            goMarketButton.interactable = SaveSerial.MarketBuild;
     }
     void updateBarracksBuild()
     {

@@ -52,6 +52,23 @@ public class ResourcesHandler : MonoBehaviour
         //TO-DO what to do if below 0
     }
 
+    public void RemoveScrap(int number)
+    {
+        SaveSerial.Scrap -= number;
+        UIUpdate.Instance.SetScrap(SaveSerial.Scrap);
+    } 
+
+    public void RemovePlastic(int number)
+    {
+        SaveSerial.Plastic -= number;
+        UIUpdate.Instance.SetPlastic(SaveSerial.Plastic);
+    }
+    public void RemoveElectronics(int number)
+    {
+        SaveSerial.Electronics -= number;
+        UIUpdate.Instance.SetElectronics(SaveSerial.Electronics);
+    }
+
 
     // Start is called before the first frame update
     void Start()
