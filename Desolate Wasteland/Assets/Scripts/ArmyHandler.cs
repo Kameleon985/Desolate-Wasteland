@@ -47,4 +47,5 @@ public class ArmyHandler : MonoBehaviour
             UICamp.Instance.campEliteAmount.text = SaveSerial.CampEliteUnit + "";
         }
     }
+
 }

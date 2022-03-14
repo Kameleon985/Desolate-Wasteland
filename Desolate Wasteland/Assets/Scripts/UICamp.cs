@@ -11,6 +11,7 @@ public class UICamp : MonoBehaviour
     public GameObject ErrorView;
     public GameObject marketView;
     public GameObject labView;
+
     public static UICamp Instance;
 
     bool LabBuild = false;
@@ -32,6 +33,9 @@ public class UICamp : MonoBehaviour
 
     public ResourcesHandler resourcesHandler;
     public ArmyHandler armyHandler;
+
+    public GameObject ArmyTransferView;
+    public Slider armyTransferSlider;
 
     public Text campMeleeAmount;
     public Text MeleeAmount;
@@ -62,6 +66,16 @@ public class UICamp : MonoBehaviour
     public void BuildingScreenClose()
     {
         buildingView.gameObject.SetActive(false);
+    }
+
+    public void ArmyTransferScreenClose()
+    {
+        ArmyTransferView.gameObject.SetActive(false);
+        armyTransferSlider.value = 0;
+    }
+    public void ArmyTransferScreenOpen()
+    {
+        ArmyTransferView.gameObject.SetActive(true);
     }
 
     public void ErrorScreenClose()
