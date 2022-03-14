@@ -83,7 +83,7 @@ public class SaveSerial : MonoBehaviour
         data.savedMeleeUnit = MeleeUnit;
         data.savedRangeUnit = RangeUnit;
         data.savedEliteUnit = EliteUnit;
-        Debug.Log("TEST UNIT SAVE " + MeleeUnit+", " + RangeUnit+", " + EliteUnit);
+        //Debug.Log("TEST UNIT SAVE " + MeleeUnit+", " + RangeUnit+", " + EliteUnit);
 
         //ArmyInCamp
         data.savedCampMeleeUnit = CampMeleeUnit;
