@@ -11,11 +11,15 @@ public class ArmySlot : MonoBehaviour, IDropHandler
     public Text sliderMaxValueText;
     public Slider slider;
 
+    private int amount;
+    private string type;
+
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("Dropped on item slot - ArmySlot");
-        if(eventData.pointerDrag != null && eventData.pointerDrag.gameObject.tag == this.gameObject.tag)
+        if(eventData.pointerDrag != null)// && eventData.pointerDrag.gameObject.tag == this.gameObject.tag)
         {
+            type = eventData.pointerDrag.gameObject.tag;
             //Open Transfer
             armyTransferView.gameObject.SetActive(true);
             string stringMaxValue = eventData.pointerDrag.transform.GetChild(0).gameObject.GetComponent<Text>().text;
@@ -24,10 +28,16 @@ public class ArmySlot : MonoBehaviour, IDropHandler
             slider.maxValue = intMaxValue;
             Debug.Log("Dropped on slot - Same Tag");
 
-        } else if (eventData.pointerDrag != null) //To delete Debug only
-        {
-            Debug.Log("Dropped on slot - Different Tag");
+
         }
         
+    }
+
+    public void armyTransfer()
+    {
+       
+        amount = (int)slider.value;
+        Debug.LogWarning("armyTransfer amount: " + amount);
+        ArmyHandler.ArmyCampTransfer(amount, type);
     }
 }

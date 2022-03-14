@@ -48,4 +48,33 @@ public class ArmyHandler : MonoBehaviour
         }
     }
 
+    public static void ArmyCampTransfer(int amount, string armyType)
+    {
+        Debug.Log("ArmyCampTransfer called \n Amount: " + amount + " armyType: " + armyType);
+        if (armyType.Equals("Melee"))
+        {
+            SaveSerial.MeleeUnit += amount;
+            Debug.Log("Transferred " + amount + " of Melee Units");
+            SaveSerial.CampMeleeUnit -= amount;
+            UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit + "";
+            UICamp.Instance.MeleeAmount.text = SaveSerial.MeleeUnit + "";
+        } else if (armyType.Equals("Range"))
+        {
+            SaveSerial.RangeUnit += amount;
+            Debug.Log("Transferred " + amount + " of Ranged Units");
+            SaveSerial.CampRangeUnit -= amount;
+            UICamp.Instance.campRangeAmount.text = SaveSerial.CampRangeUnit + "";
+            UICamp.Instance.RangeAmount.text = SaveSerial.RangeUnit + "";
+        }
+        else if (armyType.Equals("Elite"))
+        {
+            SaveSerial.EliteUnit += amount;
+            Debug.Log("Transferred " + amount + " of Elite Units");
+            SaveSerial.CampEliteUnit -= amount;
+            UICamp.Instance.campEliteAmount.text = SaveSerial.CampEliteUnit + "";
+            UICamp.Instance.EliteAmount.text = SaveSerial.EliteUnit + "";
+        } else {
+            Debug.LogError("Unknown army type in transfer attempt: ["+ armyType+"]");
+        }
+    }
 }

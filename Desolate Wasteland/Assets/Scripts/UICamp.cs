@@ -296,6 +296,13 @@ public class UICamp : MonoBehaviour
         SetCampElite(SaveSerial.CampEliteUnit);
     }
 
+    void updatePlayerArmy()
+    {
+        MeleeAmount.text = SaveSerial.MeleeUnit+ "";
+        RangeAmount.text = SaveSerial.RangeUnit+ "";
+        EliteAmount.text = SaveSerial.EliteUnit+ "";
+    }
+
     public void SetCampMelee(int number)
     {
         campMeleeAmount.text = number + "";
@@ -322,6 +329,7 @@ public class UICamp : MonoBehaviour
         updateHydroponicsBuild();
 
         updateCampArmy();
+        updatePlayerArmy();
     }
 
 
