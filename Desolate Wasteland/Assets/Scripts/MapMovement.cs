@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapMovement : MonoBehaviour
 {
@@ -10,17 +12,26 @@ public class MapMovement : MonoBehaviour
     private Vector2 destPosition;
     private bool moving;
     private SpriteRenderer sprite;
+    private string atLocation;
+    private bool mouseOver;
+
+
 
     private void Start()
     {
+        mouseOver = false;
         moving = false;
         destPosition = (Vector2)transform.position;
         sprite = GetComponent<SpriteRenderer>();
+        atLocation = null;
+        GameEventSystem.Instance.OnEnterLocation += SavePosition;
+        GameEventSystem.Instance.OnEnterMap += LoadPosition;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0) && !mouseOver)
         {
             destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             moving = true;
@@ -42,12 +53,63 @@ public class MapMovement : MonoBehaviour
         }
     }
 
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Location"))
+        {
+            atLocation = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Location"))
+        {
+            atLocation = collision.name;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Location"))
+        {
+            atLocation = collision.name;
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        mouseOver = true;
+    }
+
+    private void OnMouseExit()
+    {
+        mouseOver = false;
+    }
+
     private void OnMouseUp()
     {
-        if (moving == false)
+        if (moving == false && atLocation != null)
         {
-            Debug.Log("Enter location");
+            GameEventSystem.Instance.EnterLocation(atLocation);
         }
+    }
+
+    public void SavePosition(PlayerData data)
+    {
+        data.position = transform.position;
+    }
+
+    public void LoadPosition(PlayerData data)
+    {
+        transform.position = data.position;
+    }
+
+    public void OnDestroy()
+    {
+        GameEventSystem.Instance.OnEnterLocation -= SavePosition;
+        GameEventSystem.Instance.OnEnterMap -= LoadPosition;
     }
 
 }
