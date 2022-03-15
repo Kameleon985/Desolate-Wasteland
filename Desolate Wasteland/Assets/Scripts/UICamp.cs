@@ -78,6 +78,26 @@ public class UICamp : MonoBehaviour
         ArmyTransferView.gameObject.SetActive(true);
     }
 
+    public void MarketScreenOpen()
+    {
+        marketView.SetActive(true);
+    }
+
+    public void MarketScreenClose()
+    {
+        marketView.SetActive(false);
+    }
+
+    public void LaboScreenOpen()
+    {
+        labView.SetActive(true);
+    }
+
+    public void LaboScreenClose()
+    {
+        labView.SetActive(false);
+    }
+
     public void ErrorScreenClose()
     {
         ErrorView.gameObject.SetActive(false);
