@@ -35,14 +35,11 @@ public class GameEventSystem : MonoBehaviour
 
             SceneManager.LoadScene(name);
             StartCoroutine(LoadPosition());
-
-            Debug.Log(data.position);
         }
         else
         {
             OnEnterLocation?.Invoke(data);
             SceneManager.LoadScene(name);
-            Debug.Log(data.position);
         }
 
     }
@@ -63,7 +60,6 @@ public class GameEventSystem : MonoBehaviour
         }
         OnEnterMap?.Invoke(data);
         OnPlayerMovement?.Invoke(data);
-        Debug.Log(data.movePoints);
     }
 
     public event Action<PlayerData> OnPlayerMovement;
