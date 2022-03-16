@@ -14,23 +14,29 @@ public class MapMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private string atLocation;
     private bool mouseOver;
+    private float movePoints;
 
 
 
     private void Start()
     {
+        movePoints = 4;
         mouseOver = false;
         moving = false;
         destPosition = (Vector2)transform.position;
         sprite = GetComponent<SpriteRenderer>();
         atLocation = null;
         GameEventSystem.Instance.OnEnterLocation += SavePosition;
-        GameEventSystem.Instance.OnEnterMap += LoadPosition;
+        GameEventSystem.Instance.OnEnterMap += LoadData;
     }
 
     void Update()
     {
-
+        if (moving)
+        {
+            movePoints -= Time.deltaTime;
+            GameEventSystem.Instance.PlayerMovement(movePoints);
+        }
         if (Input.GetMouseButtonDown(0) && !mouseOver)
         {
             destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -41,7 +47,7 @@ public class MapMovement : MonoBehaviour
             destPosition = (Vector2)transform.position;
             moving = false;
         }
-        if (moving && (Vector2)transform.position != destPosition)
+        if (movePoints > 0 && moving && (Vector2)transform.position != destPosition)
         {
             transform.position = Vector2.MoveTowards(transform.position, destPosition, Time.deltaTime * speed);
             sprite.sprite = Moving;
@@ -99,17 +105,19 @@ public class MapMovement : MonoBehaviour
     public void SavePosition(PlayerData data)
     {
         data.position = transform.position;
+        data.movePoints = movePoints;
     }
 
-    public void LoadPosition(PlayerData data)
+    public void LoadData(PlayerData data)
     {
+        movePoints = data.movePoints;
         transform.position = data.position;
     }
 
     public void OnDestroy()
     {
         GameEventSystem.Instance.OnEnterLocation -= SavePosition;
-        GameEventSystem.Instance.OnEnterMap -= LoadPosition;
+        GameEventSystem.Instance.OnEnterMap -= LoadData;
     }
 
 }

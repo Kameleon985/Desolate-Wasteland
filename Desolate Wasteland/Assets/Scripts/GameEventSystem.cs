@@ -50,7 +50,6 @@ public class GameEventSystem : MonoBehaviour
     {
         if (level == 3)
         {
-            Debug.Log("xd");
             OnEnterMap?.Invoke(data);
         }
     }
@@ -63,6 +62,19 @@ public class GameEventSystem : MonoBehaviour
             yield return null;
         }
         OnEnterMap?.Invoke(data);
+        OnPlayerMovement?.Invoke(data);
+        Debug.Log(data.movePoints);
+    }
+
+    public event Action<PlayerData> OnPlayerMovement;
+
+    public void PlayerMovement(float points)
+    {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Map"))
+        {
+            data.SetMovePoints(points);
+        }
+        OnPlayerMovement?.Invoke(data);
     }
 
 }

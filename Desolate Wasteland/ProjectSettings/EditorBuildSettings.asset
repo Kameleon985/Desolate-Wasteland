@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map&UI.unity
     guid: e230e56eec6f32748aacf80c599360a3
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: d59c80ffcaac0824fbd2a62b8b629001
+  - enabled: 1
+    path: Assets/Scenes/Junkyard.unity
+    guid: 4e8668f8d51155346bb4615f708ce69f
   m_configObjects: {}
