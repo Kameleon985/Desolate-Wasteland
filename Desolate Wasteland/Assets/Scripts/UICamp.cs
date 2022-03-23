@@ -44,6 +44,14 @@ public class UICamp : MonoBehaviour
     public Text campEliteAmount;
     public Text EliteAmount;
 
+    public Text ChemAAmount;
+    public Text ChemBAmount;
+    public Text ChemCAmount;
+    public Text ChemDAmount;
+    public Text BuffAAmount;
+    public Text BuffBAmount;
+    public Text BuffCAmount;
+
     private void Awake()
     {
         if (Instance == null)
@@ -323,6 +331,18 @@ public class UICamp : MonoBehaviour
         EliteAmount.text = SaveSerial.EliteUnit+ "";
     }
 
+    void updateLabo()
+    {
+        BuffAAmount.text = "BuffA: " + SaveSerial.BuffA;
+        BuffBAmount.text = "BuffB: " + SaveSerial.BuffB;
+        BuffCAmount.text = "BuffC: " + SaveSerial.BuffC;
+
+        ChemAAmount.text = "ChemA: " + SaveSerial.ChemA;
+        ChemBAmount.text = "ChemB: " + SaveSerial.ChemB;
+        ChemCAmount.text = "ChemC: " + SaveSerial.ChemC;
+        ChemDAmount.text = "ChemD: " + SaveSerial.ChemD;
+    }
+
     public void SetCampMelee(int number)
     {
         campMeleeAmount.text = number + "";
@@ -350,23 +370,13 @@ public class UICamp : MonoBehaviour
 
         updateCampArmy();
         updatePlayerArmy();
+
+        updateLabo();
     }
 
 
     public void ReturnToMap()
     {
         SceneManager.LoadScene("Map&UI");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

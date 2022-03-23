@@ -42,11 +42,23 @@ public class SaveSerial : MonoBehaviour
     public static int CampEliteUnit;
 
     //Drugs
-    //TO-DO
+    public static int ChemA;
+    public static int ChemB;
+    public static int ChemC;
+    public static int ChemD;
+
+    public static int BuffA;
+    public static int BuffB;
+    public static int BuffC;
+
+    public static int[] RecipeBuffA = { -1 };
+    public static int[] RecipeBuffB = { -1 };
+    public static int[] RecipeBuffC = { -1 };
 
 
-    public GameObject CampUI;
-    public GameObject MainUI;
+
+    //public GameObject CampUI;
+    //public GameObject MainUI;
 
 
     public void SaveGame()
@@ -90,8 +102,19 @@ public class SaveSerial : MonoBehaviour
         data.savedCampRangeUnit = CampRangeUnit;
         data.savedCampEliteUnit = CampEliteUnit;
 
-    //Drugs
-    //TO-DO
+        //Drugs
+        data.savedChemA = ChemA;
+        data.savedChemB = ChemB;
+        data.savedChemC = ChemC;
+        data.savedChemD = ChemD;
+
+        data.savedBuffA = BuffA;
+        data.savedBuffB = BuffB;
+        data.savedBuffC = BuffC;
+
+        data.savedRecipeBuffA = RecipeBuffA;
+        data.savedRecipeBuffB = RecipeBuffB;
+        data.savedRecipeBuffC = RecipeBuffC;
 
     bf.Serialize(file, data);
         file.Close();
@@ -143,8 +166,19 @@ public class SaveSerial : MonoBehaviour
             CampRangeUnit = data.savedCampRangeUnit;
             CampEliteUnit = data.savedCampEliteUnit;
 
-    //Drugs
-    //TO-DO
+            //Drugs
+            ChemA = data.savedChemA;
+            ChemB = data.savedChemB;
+            ChemC = data.savedChemC;
+            ChemD = data.savedChemD;
+
+            BuffA = data.savedBuffA;
+            BuffB = data.savedBuffB;
+            BuffC = data.savedBuffC;
+
+            RecipeBuffA = data.savedRecipeBuffA;
+            RecipeBuffB = data.savedRecipeBuffB;
+            RecipeBuffC = data.savedRecipeBuffC;
 
     //UI UPDATE
 
@@ -204,7 +238,18 @@ public class SaveSerial : MonoBehaviour
             CampEliteUnit = 0;
 
             //Drugs
-            //TO-DO
+            ChemA = 0;
+            ChemB = 0;
+            ChemC = 0;
+            ChemD = 0;
+
+            BuffA = 0;
+            BuffB = 0;
+            BuffC = 0;
+
+            RecipeBuffA[0] = -1;
+            RecipeBuffB[0] = -1;
+            RecipeBuffC[0] = -1;
 
             UIUpdate.Instance.UpdateUIValues();
             UICamp.Instance.UpdateUIValues();
@@ -254,6 +299,20 @@ public class SaveSerial : MonoBehaviour
         public int savedCampMeleeUnit;
         public int savedCampRangeUnit;
         public int savedCampEliteUnit;
+
+        //Drugs
+        public int savedChemA;
+        public int savedChemB;
+        public int savedChemC;
+        public int savedChemD;
+
+        public int savedBuffA;
+        public int savedBuffB;
+        public int savedBuffC;
+
+        public int[] savedRecipeBuffA;
+        public int[] savedRecipeBuffB;
+        public int[] savedRecipeBuffC;
 
     }
 }
