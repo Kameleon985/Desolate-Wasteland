@@ -21,5 +21,11 @@ public class GrassTile : Tile
             baseColor.a = 255;
             renderer.color = baseColor;
         }
+
+        this.x = x;
+        this.y = y;
+        gCost = int.MaxValue;
+        CalculateFCost();
+        previouseTile = null;
     }
 }

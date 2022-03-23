@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTile: {fileID: 0}
-  faction: 0
+  faction: 1
   unitName: MeleeEnemy

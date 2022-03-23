@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Tile : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer renderer;
     public GameObject highlight;
+    public GameObject pathHighlight;
     public string tileName;
 
     public bool isWakable;
@@ -13,9 +14,17 @@ public abstract class Tile : MonoBehaviour
     public BaseUnit OccupiedUnit;
     public bool isWalkableFinal => isWakable && OccupiedUnit == null;
 
+    public int x;
+    public int y;
+    public int gCost;
+    public int hCost;
+    public int fCost;
+
+    public Tile previouseTile;
+
     public virtual void init(int x, int y)
     {
-     
+        
     }
 
     private void OnMouseEnter()
@@ -36,11 +45,16 @@ public abstract class Tile : MonoBehaviour
 
         if (OccupiedUnit != null)
         {
-            if (OccupiedUnit.faction == Faction.Hero) UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+            if (OccupiedUnit.faction == Faction.Hero)
+            {
+                //Select
+                UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+            }
             else
             {
                 if (UnitManager.Instance.SelectedHero != null)
                 {
+                    //Attack
                     var enemy = (BaseEnemy)OccupiedUnit;
                     Destroy(enemy.gameObject);
                     UnitManager.Instance.SetSelectedHero(null);
@@ -51,6 +65,8 @@ public abstract class Tile : MonoBehaviour
         {
             if (UnitManager.Instance.SelectedHero != null && isWakable)
             {
+                //Move
+                UnitManager.Instance.SelectedHero.Move(this);
                 SetUnit(UnitManager.Instance.SelectedHero);
                 UnitManager.Instance.SetSelectedHero(null);
             }
@@ -63,5 +79,10 @@ public abstract class Tile : MonoBehaviour
         unit.transform.position = transform.position;
         OccupiedUnit = unit;
         unit.occupiedTile = this;
+    }
+
+    public void CalculateFCost()
+    {
+        fCost = gCost + hCost;
     }
 }

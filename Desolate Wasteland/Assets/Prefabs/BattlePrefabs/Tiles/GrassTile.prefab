@@ -14,9 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderer: {fileID: 6630870901878386307}
   highlight: {fileID: 4470144655035609992}
+  pathHighlight: {fileID: 1935693518911177531}
   tileName: Grass
   isWakable: 1
   OccupiedUnit: {fileID: 0}
+  x: 0
+  y: 0
+  gCost: 0
+  hCost: 0
+  fCost: 0
+  previouseTile: {fileID: 0}
   baseColor: {r: 0.4392157, g: 0.7411765, b: 0.36862746, a: 0}
   offsetColor: {r: 0.4, g: 0.6901961, b: 0.33333334, a: 0}
 --- !u!1001 &6498847986204889585
@@ -130,6 +137,12 @@ SpriteRenderer:
 --- !u!1 &4470144655035609992 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7221996093343752825, guid: 15f17308b910c3e4cbd2d24613c6281a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6498847986204889585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1935693518911177531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4678251759380681418, guid: 15f17308b910c3e4cbd2d24613c6281a,
     type: 3}
   m_PrefabInstance: {fileID: 6498847986204889585}
   m_PrefabAsset: {fileID: 0}
