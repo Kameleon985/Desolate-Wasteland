@@ -11,6 +11,7 @@ public class UICamp : MonoBehaviour
     public GameObject ErrorView;
     public GameObject marketView;
     public GameObject labView;
+    public GameObject craftingResultView;
 
     public static UICamp Instance;
 
@@ -104,6 +105,16 @@ public class UICamp : MonoBehaviour
     public void LaboScreenClose()
     {
         labView.SetActive(false);
+    }
+
+    public void CraftingResultScreenOpen()
+    {
+        craftingResultView.SetActive(true);
+    }
+
+    public void CraftingResultScreenClose()
+    {
+        craftingResultView.SetActive(false);
     }
 
     public void ErrorScreenClose()
