@@ -77,4 +77,59 @@ public class ArmyHandler : MonoBehaviour
             Debug.LogError("Unknown army type in transfer attempt: ["+ armyType+"]");
         }
     }
+
+    public void ArmyCostPerTurn()
+    {
+        //for each 3 melee units eat 1 vitals
+        //for each 2 range units eat 1 vitals
+        //for each 1 elite units eat 1 vitals
+
+        int meleeSoldiersAmount = SaveSerial.MeleeUnit;
+        int rangeSoldiersAmount = SaveSerial.RangeUnit;
+        int eliteSoldiersAmount = SaveSerial.EliteUnit;
+        int toEat = 0;
+
+        for(int i = 0; i <= meleeSoldiersAmount; i += 3)
+        {
+            //toEat++;
+            //Debug.Log("meleeEat i:"+i);
+            //Debug.Log("ToEat: "+toEat);
+            if(i % 3 == 0 && i!=0)
+            {
+                //Debug.Log("meleeEat i-1: " + i);
+                
+                toEat++;
+
+                //Debug.Log("Melee toEat: " + toEat);
+            }
+        }
+        for(int i = 0; i <= rangeSoldiersAmount; i += 2)
+        {
+            if(i % 2 == 0 && i!=0)
+            {
+                toEat++;
+                //Debug.Log("Range toEat: " + toEat);
+            }
+        }
+
+        for(int i = 0; i < eliteSoldiersAmount; i++)
+        {
+            Debug.Log(i);
+            if(eliteSoldiersAmount > 0)
+            {
+                toEat++;
+                //Debug.Log("Elite toEat: " + toEat);
+            }            
+        }
+        int tempResult = SaveSerial.Vitals - toEat;
+        //Debug.Log("This turn cost equals: " + toEat + " M: "+SaveSerial.Vitals+" = "+tempResult);
+        SaveSerial.Vitals -= toEat;
+        if (toEat > 0 && SaveSerial.Vitals < toEat) 
+        {
+            //inflict penalty
+            Debug.Log("Inflict penalty for lack of Vitals");
+            SaveSerial.Vitals = 0;
+        }
+        UIUpdate.Instance.UpdateUIValues();
+    }
 }

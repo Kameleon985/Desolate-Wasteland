@@ -17,7 +17,10 @@ public class RoundTracker : MonoBehaviour
         if(SaveSerial.CurrentRound % 7 == 0)
         {
             armyHandler.campIncrease();
+            
         }
+
+        armyHandler.ArmyCostPerTurn();
     }
 
     // Start is called before the first frame update

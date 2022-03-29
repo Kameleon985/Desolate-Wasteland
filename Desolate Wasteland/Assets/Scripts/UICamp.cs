@@ -127,10 +127,20 @@ public class UICamp : MonoBehaviour
         if (!LabBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 5 && SaveSerial.Electronics < 3)
+            if (SaveSerial.Scrap < 5)
             {
-                Debug.Log("Not enough Materials");
+                //Debug.Log("Not enough Materials");
                 ErrorView.gameObject.SetActive(true);
+                if (SaveSerial.Plastic < 5) 
+                {
+                    //Debug.Log("Not enough Materials");
+                    ErrorView.gameObject.SetActive(true);
+                    if (SaveSerial.Electronics < 3)
+                    {
+                        //Debug.Log("Not enough Materials");
+                        ErrorView.gameObject.SetActive(true);
+                    }
+                }
             }
             else
             {
@@ -158,10 +168,14 @@ public class UICamp : MonoBehaviour
         if (!MarketBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 3)
+            if (SaveSerial.Scrap < 5)
             {
-                Debug.Log("Not enough Materials");
+                //Debug.Log("Not enough Materials");
                 ErrorView.gameObject.SetActive(true);
+                if (SaveSerial.Plastic < 3) 
+                {
+                    ErrorView.gameObject.SetActive(true);
+                }
             }
             else
             {
@@ -189,10 +203,14 @@ public class UICamp : MonoBehaviour
         {
             //Cost
             //IF
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 3)
+            if (SaveSerial.Scrap < 5)
             {
-                Debug.Log("Not enough Materials");
+                //Debug.Log("Not enough Materials");
                 ErrorView.gameObject.SetActive(true);
+                if (SaveSerial.Plastic < 3)
+                {
+                    ErrorView.gameObject.SetActive(true);
+                }
             }
             else
             {
@@ -215,10 +233,18 @@ public class UICamp : MonoBehaviour
         if (!ShootingRangeBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 5 && SaveSerial.Electronics < 3)
+            if (SaveSerial.Scrap < 5)
             {
-                Debug.Log("Not enough Materials");
+                //Debug.Log("Not enough Materials");
                 ErrorView.gameObject.SetActive(true);
+                if (SaveSerial.Plastic < 5)
+                {
+                    ErrorView.gameObject.SetActive(true);
+                    if (SaveSerial.Electronics < 3)
+                    {
+                        ErrorView.gameObject.SetActive(true);
+                    }
+                }
             }
             else
             {
@@ -241,10 +267,18 @@ public class UICamp : MonoBehaviour
         if (!ArmoryBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 10 && SaveSerial.Plastic < 5 && SaveSerial.Electronics<7)
+            if (SaveSerial.Scrap < 10)
             {
-                Debug.Log("Not enough Materials");
+                //Debug.Log("Not enough Materials");
                 ErrorView.gameObject.SetActive(true);
+                if (SaveSerial.Plastic < 5)
+                {
+                    ErrorView.gameObject.SetActive(true);
+                    if (SaveSerial.Electronics < 7)
+                    {
+                        ErrorView.gameObject.SetActive(true);
+                    }
+                }
             }
             else
             {
@@ -267,10 +301,18 @@ public class UICamp : MonoBehaviour
         if (!HydroponicsBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 10 && SaveSerial.Plastic < 15 && SaveSerial.Electronics < 3)
+            if (SaveSerial.Scrap < 10)
             {
-                Debug.Log("Not enough Materials");
+                //Debug.Log("Not enough Materials");
                 ErrorView.gameObject.SetActive(true);
+                if (SaveSerial.Plastic < 15)
+                {
+                    ErrorView.gameObject.SetActive(true);
+                    if (SaveSerial.Electronics < 3)
+                    {
+                        ErrorView.gameObject.SetActive(true);
+                    }
+                }
             }
             else
             {

@@ -40,13 +40,13 @@ public class ResourcesHandler : MonoBehaviour
 
     //############ Removing Below
 
-    public void RemoveVitals()
+    public void RemoveVitals(int number)
     {
         //TempPlayerData.VitalsCount--; //TO-DO remove amount dependent on how many units are recruited
         
         //UIUpdate.Instance.SetVitals(TempPlayerData.VitalsCount);
 
-        SaveSerial.Vitals--;
+        SaveSerial.Vitals -= number;
         UIUpdate.Instance.SetVitals(SaveSerial.Vitals);
 
         //TO-DO what to do if below 0

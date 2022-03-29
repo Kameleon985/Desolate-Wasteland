@@ -9,7 +9,7 @@ using System.IO;
 public class SaveSerial : MonoBehaviour
 {
     //Resources
-    public static int Vitals = 5;
+    public static int Vitals = 10;
     public static int Scrap = 0;
     public static int Plastic = 0;
     public static int Electronics = 0;
