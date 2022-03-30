@@ -5,12 +5,12 @@ using UnityEngine;
 public class ResourcesHandler : MonoBehaviour
 {
 
-    public void AddVitals()
+    public void AddVitals(int number)
     {
         //TempPlayerData.VitalsCount++;
         //UIUpdate.Instance.SetVitals(TempPlayerData.VitalsCount);
 
-        SaveSerial.Vitals++;
+        SaveSerial.Vitals += number;
         UIUpdate.Instance.SetVitals(SaveSerial.Vitals);
 
     }

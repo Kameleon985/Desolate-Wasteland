@@ -881,6 +881,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armyHandler: {fileID: 2002490679}
+  resourcesHandler: {fileID: 60681868}
+  isHydroponicsBuilt: 0
 --- !u!1001 &90263298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20838,6 +20840,7 @@ MonoBehaviour:
   marketView: {fileID: 1593841290}
   labView: {fileID: 541726299}
   craftingResultView: {fileID: 916972230}
+  roundTracker: {fileID: 60681873}
   buildLaboButton: {fileID: 97371129}
   buildMarketButton: {fileID: 1545062337}
   buildBarracksButton: {fileID: 1876994737}

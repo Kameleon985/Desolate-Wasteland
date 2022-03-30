@@ -15,6 +15,8 @@ public class UICamp : MonoBehaviour
 
     public static UICamp Instance;
 
+    public RoundTracker roundTracker;
+
     bool LabBuild = false;
     bool MarketBuild = false;
     bool BarracksBuild = false;
@@ -300,6 +302,7 @@ public class UICamp : MonoBehaviour
     {
         if (!HydroponicsBuild)
         {
+            roundTracker.isHydroponicsBuilt = false;
             //Cost
             if (SaveSerial.Scrap < 10)
             {
@@ -320,12 +323,13 @@ public class UICamp : MonoBehaviour
                 HydroponicsBuild = true;
                 SaveSerial.HydroponicsBuild = HydroponicsBuild;
                 buildHydroponicsButton.interactable = false;
+                roundTracker.isHydroponicsBuilt = true;
             }
         }
         else
         {
             buildHydroponicsButton.interactable = false;
-            //To-Do Steady growth of Vitals
+            roundTracker.isHydroponicsBuilt = true;            
         }
 
     }
