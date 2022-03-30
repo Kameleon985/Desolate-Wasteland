@@ -14,13 +14,12 @@ public class MapMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private string atLocation;
     private bool mouseOver;
-    private float movePoints;
+    public float movePoints;
 
 
 
     private void Start()
     {
-        movePoints = 4;
         mouseOver = false;
         moving = false;
         destPosition = (Vector2)transform.position;
@@ -40,6 +39,21 @@ public class MapMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !mouseOver)
         {
             destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            float distance = Vector3.Distance(transform.position, (Vector3)destPosition);
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, ((Vector3)destPosition - transform.position), distance, LayerMask.GetMask("Terrain"));
+
+            Debug.DrawRay(transform.position, ((Vector3)destPosition - transform.position), Color.red);
+
+
+            if (hit)
+            {
+                Ray2D ray = new Ray2D(transform.position, (Vector3)hit.point - transform.position);
+                distance = Vector3.Distance(transform.position, hit.point);
+                destPosition = ray.GetPoint(distance - 0.2f);
+            }
+            GameEventSystem.Instance.PlayerClick(distance / speed);
             moving = true;
         }
         if (Input.GetMouseButtonDown(1))
@@ -74,6 +88,7 @@ public class MapMovement : MonoBehaviour
         {
             atLocation = collision.name;
         }
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -82,6 +97,7 @@ public class MapMovement : MonoBehaviour
         {
             atLocation = collision.name;
         }
+
     }
 
     private void OnMouseOver()
@@ -98,6 +114,8 @@ public class MapMovement : MonoBehaviour
     {
         if (moving == false && atLocation != null)
         {
+            movePoints -= 1;
+            GameEventSystem.Instance.PlayerMovement(movePoints);
             GameEventSystem.Instance.EnterLocation(atLocation);
         }
     }

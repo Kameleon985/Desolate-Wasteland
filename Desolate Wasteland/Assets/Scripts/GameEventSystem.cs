@@ -73,4 +73,11 @@ public class GameEventSystem : MonoBehaviour
         OnPlayerMovement?.Invoke(data);
     }
 
+    public event Action<float> OnPlayerClick;
+
+    public void PlayerClick(float cost)
+    {
+        OnPlayerClick?.Invoke(cost);
+    }
+
 }
