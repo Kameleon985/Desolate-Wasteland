@@ -27,13 +27,24 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
-                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
-                spawnedTile.name = $"Tile {x} {y}";
+                if (x < 2 || x > width - 3)
+                {
+                    var spawnedTile = Instantiate(grassTile, new Vector3(x, y), Quaternion.identity);
+                    spawnedTile.name = $"Tile {x} {y}";
 
-                spawnedTile.init(x,y);
+                    spawnedTile.init(x, y);
 
-                tiles[new Vector2(x, y)] = spawnedTile;
+                    tiles[new Vector2(x, y)] = spawnedTile;
+                }
+                else {
+                    var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
+                    var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
+                    spawnedTile.name = $"Tile {x} {y}";
+
+                    spawnedTile.init(x, y);
+
+                    tiles[new Vector2(x, y)] = spawnedTile;
+                }
              
             }
         }
@@ -45,17 +56,30 @@ public class GridManager : MonoBehaviour
 
     public Tile GetHeroSpawn()
     {
-        return tiles.Where(t => t.Key.x < width / 2 && t.Value.isWalkableFinal).OrderBy(t => Random.value).First().Value;
+        return tiles.Where(t => t.Key.x < 2 && t.Value.isWalkableFinal).OrderBy(t => Random.value).First().Value;
     }
 
     public Tile GetEnemySpawn()
     {
-        return tiles.Where(t => t.Key.x > width / 2 && t.Value.isWalkableFinal).OrderBy(t => Random.value).First().Value;
+        return tiles.Where(t => t.Key.x > width - 3 && t.Value.isWalkableFinal).OrderBy(t => Random.value).First().Value;
     }
 
     public Tile GetTileAtPosition(Vector2 pos)
     {
         if (tiles.TryGetValue(pos, out var tile)) return tile;
         return null;
+    }
+
+    public void ClearAStarTiles()
+    {
+        for (int x = 0 ; x < width ; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                GetTileAtPosition(new Vector2(x, y)).previouseTile = null;
+                GetTileAtPosition(new Vector2(x, y)).gCost = int.MaxValue;
+                GetTileAtPosition(new Vector2(x, y)).CalculateFCost();
+            }
+        }
     }
 }

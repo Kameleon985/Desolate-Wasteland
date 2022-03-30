@@ -19,7 +19,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnHeroes()
     {
-        var heroCount = 1;
+        var heroCount = 2;
 
         for (int i = 0; i < heroCount; i++)
         {
@@ -48,7 +48,12 @@ public class UnitManager : MonoBehaviour
 
         }
 
-        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        BattleMenager.instance.ChangeState(GameState.PrepareHeroes);
+    }
+
+    public void PrepareHeroes()
+    {
+        
     }
 
     private T GetRandomUnit<T>(Faction faction) where T : BaseUnit

@@ -19,7 +19,6 @@ public class BaseUnit : MonoBehaviour
         {
             for (int i = 0; i < path.Count - 1; i++)
             {
-                Debug.Log(path[i].x + " " + path[i].y);
                 path[i].pathHighlight.SetActive(true);
             }
         }

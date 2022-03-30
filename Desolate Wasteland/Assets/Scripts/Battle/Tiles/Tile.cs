@@ -24,7 +24,7 @@ public class Tile : MonoBehaviour
 
     public virtual void init(int x, int y)
     {
-        
+
     }
 
     private void OnMouseEnter()
@@ -41,34 +41,61 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (BattleMenager.instance.gameState != GameState.HeroesTurn) return;
-
-        if (OccupiedUnit != null)
+        if (BattleMenager.instance.gameState == GameState.PrepareHeroes)
         {
-            if (OccupiedUnit.faction == Faction.Hero)
+            if (OccupiedUnit != null)
             {
-                //Select
-                UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                if (OccupiedUnit.faction == Faction.Hero)
+                {
+                    UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                }
             }
             else
             {
-                if (UnitManager.Instance.SelectedHero != null)
+                if (UnitManager.Instance.SelectedHero != null && isWakable)
                 {
-                    //Attack
-                    var enemy = (BaseEnemy)OccupiedUnit;
-                    Destroy(enemy.gameObject);
-                    UnitManager.Instance.SetSelectedHero(null);
+                    if (x < 2)
+                    {
+                        SetUnit(UnitManager.Instance.SelectedHero);
+                        UnitManager.Instance.SetSelectedHero(null);
+                    }
                 }
             }
         }
         else
         {
-            if (UnitManager.Instance.SelectedHero != null && isWakable)
+            if (BattleMenager.instance.gameState != GameState.HeroesTurn) return;
+
+            if (OccupiedUnit != null)
             {
-                //Move
-                UnitManager.Instance.SelectedHero.Move(this);
-                SetUnit(UnitManager.Instance.SelectedHero);
-                UnitManager.Instance.SetSelectedHero(null);
+                if (OccupiedUnit.faction == Faction.Hero)
+                {
+                    //Select
+                    UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                }
+                else
+                {
+                    if (UnitManager.Instance.SelectedHero != null)
+                    {
+                        //Attack
+                        if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile)) {
+                            var enemy = (BaseEnemy)OccupiedUnit;
+                            Destroy(enemy.gameObject);
+                            UnitManager.Instance.SetSelectedHero(null);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (UnitManager.Instance.SelectedHero != null && isWakable)
+                {
+                    //Move
+                    UnitManager.Instance.SelectedHero.Move(this);
+                    SetUnit(UnitManager.Instance.SelectedHero);
+                    UnitManager.Instance.SetSelectedHero(null);
+                    GridManager.Instance.ClearAStarTiles();
+                }
             }
         }
     }
@@ -84,5 +111,29 @@ public class Tile : MonoBehaviour
     public void CalculateFCost()
     {
         fCost = gCost + hCost;
+    }
+
+    public bool IsNeighborOccupied(Tile tile)
+    {
+        if (tile.x - 1 >= 0)
+        {
+            if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y)).OccupiedUnit != null) return true;
+            if (tile.y - 1 >= 0)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y - 1)).OccupiedUnit != null) return true;
+            if (tile.y + 1 >= 0)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y + 1)).OccupiedUnit != null) return true;
+        }
+        if (tile.x + 1 < GridManager.Instance.width)
+        {
+            if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y)).OccupiedUnit != null) return true;
+            if (tile.y - 1 >= 0)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y - 1)).OccupiedUnit != null) return true;
+            if (tile.y + 1 <= GridManager.Instance.height)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y + 1)).OccupiedUnit != null) return true;
+        }
+        if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)).OccupiedUnit != null) return true;
+        if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) return true;
+
+        return false;
     }
 }

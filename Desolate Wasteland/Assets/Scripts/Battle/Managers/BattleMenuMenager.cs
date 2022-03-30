@@ -10,7 +10,8 @@ public class BattleMenuMenager : MonoBehaviour
     public GameObject selectedHeroObject;
     public GameObject tileObject;
     public GameObject tileUnitObject;
-    
+
+    public GameObject endPrepareHeroes;
 
     private void Awake()
     {
@@ -46,5 +47,11 @@ public class BattleMenuMenager : MonoBehaviour
 
         selectedHeroObject.GetComponentInChildren<Text>().text = hero.unitName;
         selectedHeroObject.SetActive(true);
+    }
+
+    public void EndPrepareHeroes()
+    {
+        endPrepareHeroes.SetActive(false);
+        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 }

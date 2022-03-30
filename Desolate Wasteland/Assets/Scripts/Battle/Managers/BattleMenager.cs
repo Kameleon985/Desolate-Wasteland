@@ -31,6 +31,9 @@ public class BattleMenager : MonoBehaviour
             case GameState.SpawnEnemies:
                 UnitManager.Instance.SpawnEnemies();
                 break;
+            case GameState.PrepareHeroes:
+                UnitManager.Instance.PrepareHeroes();
+                break;
             case GameState.HeroesTurn:
                 break;
             case GameState.EnemiesTurn:
@@ -44,6 +47,7 @@ public enum GameState
     GenerateGrid = 0,
     SpawnHeroes = 1,
     SpawnEnemies = 2,
-    HeroesTurn = 3,
-    EnemiesTurn = 4
+    PrepareHeroes = 3,
+    HeroesTurn = 4,
+    EnemiesTurn = 5
 }
