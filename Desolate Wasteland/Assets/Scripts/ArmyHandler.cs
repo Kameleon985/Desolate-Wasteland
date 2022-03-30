@@ -122,13 +122,14 @@ public class ArmyHandler : MonoBehaviour
             }            
         }
         int tempResult = SaveSerial.Vitals - toEat;
-        //Debug.Log("This turn cost equals: " + toEat + " M: "+SaveSerial.Vitals+" = "+tempResult);
+        Debug.Log("This turn cost equals: " + toEat + " M: "+SaveSerial.Vitals+" = "+tempResult);
         SaveSerial.Vitals -= toEat;
         if (toEat > 0 && SaveSerial.Vitals < toEat) 
         {
             //inflict penalty
             Debug.Log("Inflict penalty for lack of Vitals");
             SaveSerial.Vitals = 0;
+            UIUpdate.Instance.UpdateUIValues();
         }
         UIUpdate.Instance.UpdateUIValues();
     }
