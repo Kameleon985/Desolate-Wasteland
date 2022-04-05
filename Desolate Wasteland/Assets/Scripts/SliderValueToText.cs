@@ -8,7 +8,7 @@ public class SliderValueToText : MonoBehaviour
     public Slider sliderUI;
     private Text textSliderValue;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         textSliderValue = GetComponent<Text>();

@@ -25,11 +25,6 @@ public class Marketplace : MonoBehaviour
     //public ToggleGroup fromGroup;
     //public ToggleGroup toGroup;
 
-    private void Awake()
-    {
-        
-    }
-
     private void Start()
     {
         ShowSliderValue();
