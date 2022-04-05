@@ -11,7 +11,11 @@ public class UICamp : MonoBehaviour
     public GameObject ErrorView;
     public GameObject marketView;
     public GameObject labView;
+    public GameObject craftingResultView;
+
     public static UICamp Instance;
+
+    public RoundTracker roundTracker;
 
     bool LabBuild = false;
     bool MarketBuild = false;
@@ -33,12 +37,23 @@ public class UICamp : MonoBehaviour
     public ResourcesHandler resourcesHandler;
     public ArmyHandler armyHandler;
 
+    public GameObject ArmyTransferView;
+    public Slider armyTransferSlider;
+
     public Text campMeleeAmount;
     public Text MeleeAmount;
     public Text campRangeAmount;
     public Text RangeAmount;
     public Text campEliteAmount;
     public Text EliteAmount;
+
+    public Text ChemAAmount;
+    public Text ChemBAmount;
+    public Text ChemCAmount;
+    public Text ChemDAmount;
+    public Text BuffAAmount;
+    public Text BuffBAmount;
+    public Text BuffCAmount;
 
     private void Awake()
     {
@@ -64,6 +79,46 @@ public class UICamp : MonoBehaviour
         buildingView.gameObject.SetActive(false);
     }
 
+    public void ArmyTransferScreenClose()
+    {
+        ArmyTransferView.gameObject.SetActive(false);
+        armyTransferSlider.value = 0;
+    }
+    public void ArmyTransferScreenOpen()
+    {
+        ArmyTransferView.gameObject.SetActive(true);
+    }
+
+    public void MarketScreenOpen()
+    {
+        marketView.SetActive(true);
+    }
+
+    public void MarketScreenClose()
+    {
+        marketView.SetActive(false);
+    }
+
+    public void LaboScreenOpen()
+    {
+        labView.SetActive(true);
+    }
+
+    public void LaboScreenClose()
+    {
+        labView.SetActive(false);
+    }
+
+    public void CraftingResultScreenOpen()
+    {
+        craftingResultView.SetActive(true);
+    }
+
+    public void CraftingResultScreenClose()
+    {
+        craftingResultView.SetActive(false);
+    }
+
     public void ErrorScreenClose()
     {
         ErrorView.gameObject.SetActive(false);
@@ -71,24 +126,45 @@ public class UICamp : MonoBehaviour
 
     public void buildLab()
     {
+        bool sufficientScrap = false;
+        bool sufficientPlastic = false;
+        bool sufficientElectronics = false;
+        if (SaveSerial.Scrap >= 5)
+        {
+            sufficientScrap = true;
+        }
+        if (SaveSerial.Plastic >= 5)
+        {
+            sufficientPlastic = true;
+        }
+        if (SaveSerial.Electronics >= 3)
+        {
+            sufficientElectronics = true;
+        }
+
+
         if (!LabBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 5 && SaveSerial.Electronics < 3)
+            if (sufficientScrap && sufficientPlastic && sufficientElectronics)
             {
-                Debug.Log("Not enough Materials");
-                ErrorView.gameObject.SetActive(true);
-            }
-            else
-            {
-                //Sets
+
                 resourcesHandler.RemoveResources(5, 5, 3);
                 LabBuild = true;
                 SaveSerial.LabBuild = LabBuild;
                 Debug.Log("Labo Built");
                 buildLaboButton.interactable = false;
                 goLaboButton.interactable = true;
-            }            
+
+            }
+            else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
+            {
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Error LaboBuild something weird happened to resources");
+            }
         }
         else
         {
@@ -102,15 +178,22 @@ public class UICamp : MonoBehaviour
 
     public void buildMarket()
     {
+
+        bool sufficientScrap = false;
+        bool sufficientPlastic = false;
+        if (SaveSerial.Scrap >= 5)
+        {
+            sufficientScrap = true;
+        }
+        if (SaveSerial.Plastic >= 3)
+        {
+            sufficientPlastic = true;
+        }
+
         if (!MarketBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 3)
-            {
-                Debug.Log("Not enough Materials");
-                ErrorView.gameObject.SetActive(true);
-            }
-            else
+            if (sufficientScrap && sufficientPlastic)
             {
                 //Sets
                 resourcesHandler.RemoveResources(5, 3, 0);
@@ -118,8 +201,17 @@ public class UICamp : MonoBehaviour
                 SaveSerial.MarketBuild = MarketBuild;
                 buildMarketButton.interactable = false;
                 goMarketButton.interactable = true;
+
             }
-            
+            else if (!sufficientScrap || !sufficientPlastic)
+            {
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Error MarketBuild something weird happened to resources");
+            }
+
         }
         else
         {
@@ -132,42 +224,72 @@ public class UICamp : MonoBehaviour
     }
     public void buildBarracks()
     {
+
+        bool sufficientScrap = false;
+        bool sufficientPlastic = false;
+        if (SaveSerial.Scrap >= 5)
+        {
+            sufficientScrap = true;
+        }
+        if (SaveSerial.Plastic >= 3)
+        {
+            sufficientPlastic = true;
+        }
+
         if (!BarracksBuild)
         {
             //Cost
             //IF
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 3)
-            {
-                Debug.Log("Not enough Materials");
-                ErrorView.gameObject.SetActive(true);
-            }
-            else
+            if (sufficientScrap && sufficientPlastic)
             {
                 resourcesHandler.RemoveResources(5, 3, 0);
                 BarracksBuild = true;
                 SaveSerial.BarracksBuild = BarracksBuild;
                 buildBarracksButton.interactable = false;
                 armyHandler.BarrackBuiltIncrease();
+
+
             }
+            else if (!sufficientScrap || !sufficientPlastic)
+            {
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Error BarracksBuild something weird happened to resources");
+            }
+
         }
         else
         {
             buildBarracksButton.interactable = false;
-            //SpawnUNITS - TO-DO
+            
         }
 
     }
     public void buildShootingRange()
     {
+        bool sufficientScrap = false;
+        bool sufficientPlastic = false;
+        bool sufficientElectronics = false;
+        if(SaveSerial.Scrap >= 5)
+        {
+            sufficientScrap = true;
+        }
+        if (SaveSerial.Plastic >= 5)
+        {
+            sufficientPlastic = true;
+        }
+        if (SaveSerial.Electronics >= 3)
+        {
+            sufficientElectronics = true;
+        }
+
+
         if (!ShootingRangeBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 5 && SaveSerial.Plastic < 5 && SaveSerial.Electronics < 3)
-            {
-                Debug.Log("Not enough Materials");
-                ErrorView.gameObject.SetActive(true);
-            }
-            else
+            if (sufficientScrap && sufficientPlastic && sufficientElectronics)
             {
                 resourcesHandler.RemoveResources(5, 5, 3);
                 ShootingRangeBuild = true;
@@ -175,25 +297,44 @@ public class UICamp : MonoBehaviour
                 buildShootingRangeButton.interactable = false;
                 armyHandler.ShootingRangeBuiltIncrease();
             }
+            else if(!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
+            {
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Error ShootingRangeBuild something weird happened to resources");
+            }
         }
         else
         {
             buildShootingRangeButton.interactable = false;
-            //SpawnUnits - To-Do
+            
         }
 
     }
     public void buildArmory()
     {
+        bool sufficientScrap = false;
+        bool sufficientPlastic = false;
+        bool sufficientElectronics = false;
+        if (SaveSerial.Scrap >= 10)
+        {
+            sufficientScrap = true;
+        }
+        if (SaveSerial.Plastic >= 5)
+        {
+            sufficientPlastic = true;
+        }
+        if (SaveSerial.Electronics >= 7)
+        {
+            sufficientElectronics = true;
+        }
+
         if (!ArmoryBuild)
         {
             //Cost
-            if (SaveSerial.Scrap < 10 && SaveSerial.Plastic < 5 && SaveSerial.Electronics<7)
-            {
-                Debug.Log("Not enough Materials");
-                ErrorView.gameObject.SetActive(true);
-            }
-            else
+            if (sufficientScrap && sufficientPlastic && sufficientElectronics)
             {
                 resourcesHandler.RemoveResources(10, 5, 7);
                 ArmoryBuild = true;
@@ -201,11 +342,19 @@ public class UICamp : MonoBehaviour
                 buildArmoryButton.interactable = false;
                 armyHandler.ArmoryBuiltIncrease();
             }
+            else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
+            {
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Error ArmoryBuild something weird happened to resources");
+            }
         }
         else
         {
             buildArmoryButton.interactable = false;
-            //To-Do Spawn Units
+            
         }
 
     }
@@ -213,24 +362,46 @@ public class UICamp : MonoBehaviour
     {
         if (!HydroponicsBuild)
         {
-            //Cost
-            if (SaveSerial.Scrap < 10 && SaveSerial.Plastic < 15 && SaveSerial.Electronics < 3)
+            roundTracker.isHydroponicsBuilt = false;
+
+            bool sufficientScrap = false;
+            bool sufficientPlastic = false;
+            bool sufficientElectronics = false;
+            if (SaveSerial.Scrap >= 10)
             {
-                Debug.Log("Not enough Materials");
-                ErrorView.gameObject.SetActive(true);
+                sufficientScrap = true;
             }
-            else
+            if (SaveSerial.Plastic >= 15)
+            {
+                sufficientPlastic = true;
+            }
+            if (SaveSerial.Electronics >= 3)
+            {
+                sufficientElectronics = true;
+            }
+
+            //Cost
+            if (sufficientScrap && sufficientPlastic && sufficientElectronics)
             {
                 resourcesHandler.RemoveResources(10, 15, 3);
                 HydroponicsBuild = true;
                 SaveSerial.HydroponicsBuild = HydroponicsBuild;
                 buildHydroponicsButton.interactable = false;
+                roundTracker.isHydroponicsBuilt = true;
+            }
+            else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
+            {
+                ErrorView.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Error HydroponicsBuild something weird happened to resources");
             }
         }
         else
         {
             buildHydroponicsButton.interactable = false;
-            //To-Do Steady growth of Vitals
+            roundTracker.isHydroponicsBuilt = true;            
         }
 
     }
@@ -282,6 +453,25 @@ public class UICamp : MonoBehaviour
         SetCampElite(SaveSerial.CampEliteUnit);
     }
 
+    void updatePlayerArmy()
+    {
+        MeleeAmount.text = SaveSerial.MeleeUnit+ "";
+        RangeAmount.text = SaveSerial.RangeUnit+ "";
+        EliteAmount.text = SaveSerial.EliteUnit+ "";
+    }
+
+    void updateLabo()
+    {
+        BuffAAmount.text = "BuffA: " + SaveSerial.BuffA;
+        BuffBAmount.text = "BuffB: " + SaveSerial.BuffB;
+        BuffCAmount.text = "BuffC: " + SaveSerial.BuffC;
+
+        ChemAAmount.text = "ChemA: " + SaveSerial.ChemA;
+        ChemBAmount.text = "ChemB: " + SaveSerial.ChemB;
+        ChemCAmount.text = "ChemC: " + SaveSerial.ChemC;
+        ChemDAmount.text = "ChemD: " + SaveSerial.ChemD;
+    }
+
     public void SetCampMelee(int number)
     {
         campMeleeAmount.text = number + "";
@@ -308,23 +498,14 @@ public class UICamp : MonoBehaviour
         updateHydroponicsBuild();
 
         updateCampArmy();
+        updatePlayerArmy();
+
+        updateLabo();
     }
 
 
     public void ReturnToMap()
     {
         SceneManager.LoadScene("Map&UI");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

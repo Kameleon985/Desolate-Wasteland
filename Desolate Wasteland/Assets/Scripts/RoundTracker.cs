@@ -5,6 +5,8 @@ using UnityEngine;
 public class RoundTracker : MonoBehaviour
 {
     public ArmyHandler armyHandler;
+    public ResourcesHandler resourcesHandler;
+    public bool isHydroponicsBuilt = false;
 
     public void IncrementRound()
     {
@@ -17,18 +19,15 @@ public class RoundTracker : MonoBehaviour
         if(SaveSerial.CurrentRound % 7 == 0)
         {
             armyHandler.campIncrease();
+            
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        armyHandler.ArmyCostPerTurn();
+        Debug.Log("hydro: " + isHydroponicsBuilt);
+        if (isHydroponicsBuilt)
+        {
+            resourcesHandler.AddVitals(3);
+        }
         
     }
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class ResourcesHandler : MonoBehaviour
 {
 
-    public void AddVitals()
+    public void AddVitals(int number)
     {
         //TempPlayerData.VitalsCount++;
         //UIUpdate.Instance.SetVitals(TempPlayerData.VitalsCount);
 
-        SaveSerial.Vitals++;
+        SaveSerial.Vitals += number;
         UIUpdate.Instance.SetVitals(SaveSerial.Vitals);
 
     }
@@ -40,13 +40,13 @@ public class ResourcesHandler : MonoBehaviour
 
     //############ Removing Below
 
-    public void RemoveVitals()
+    public void RemoveVitals(int number)
     {
         //TempPlayerData.VitalsCount--; //TO-DO remove amount dependent on how many units are recruited
         
         //UIUpdate.Instance.SetVitals(TempPlayerData.VitalsCount);
 
-        SaveSerial.Vitals--;
+        SaveSerial.Vitals -= number;
         UIUpdate.Instance.SetVitals(SaveSerial.Vitals);
 
         //TO-DO what to do if below 0
@@ -74,18 +74,5 @@ public class ResourcesHandler : MonoBehaviour
         RemoveScrap(scrap);
         RemovePlastic(plastic);
         RemoveElectronics(electronics);
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
