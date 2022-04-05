@@ -358,7 +358,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 300547612}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 696396402}
+        m_MethodName: EndPrepareHeroes
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &300547612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,7 +497,7 @@ MonoBehaviour:
   selectedHeroObject: {fileID: 1980790422}
   tileObject: {fileID: 859924010}
   tileUnitObject: {fileID: 1294871622}
-  endPrepareUnits: {fileID: 300547611}
+  endPrepareHeroes: {fileID: 300547609}
 --- !u!1 &859924010
 GameObject:
   m_ObjectHideFlags: 0
