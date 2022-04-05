@@ -7,6 +7,9 @@ TagManager:
   - Melee
   - Range
   - Elite
+  - Location
+  - Terrain
+  - Tile
   layers:
   - Default
   - TransparentFX
@@ -16,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Terrain
+  - Locations
   - 
   - 
   - 
