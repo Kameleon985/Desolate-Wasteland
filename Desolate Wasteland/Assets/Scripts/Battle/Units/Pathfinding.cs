@@ -49,6 +49,7 @@ public class Pathfinding
             }
         }
 
+        Debug.Log("Nie znaleziono ścierzki");
         return null;
     }
 
