@@ -128,7 +128,7 @@ public class ArmyHandler : MonoBehaviour
         {
             //inflict penalty
             MeleeUnit.Hungry();
-            Debug.Log("Inflict penalty for lack of Vitals");
+            //Debug.Log("Inflict penalty for lack of Vitals");
             SaveSerial.Vitals = 0;
             UIUpdate.Instance.UpdateUIValues();
         }

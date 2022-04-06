@@ -13,7 +13,7 @@ public class MeleeUnit : BaseHero
     int movementSpeed;
     int initiative;
 
-    static int quantity; //To read from SaveSerial PlayerArmy
+    static int quantity = SaveSerial.MeleeUnit; //To read from SaveSerial PlayerArmy
 
     bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     bool buffBGiven = false; //Attack buff ?
@@ -32,6 +32,8 @@ public class MeleeUnit : BaseHero
                 
                 SaveSerial.MeleeUnit = quantity;
                 Debug.Log("Unit died, only "+quantity+" units left");
+
+                UICamp.Instance.updatePlayerArmy();
 
                 if (quantity <= 0)
                 {
