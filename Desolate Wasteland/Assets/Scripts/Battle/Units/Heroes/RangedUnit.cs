@@ -4,31 +4,38 @@ using UnityEngine;
 
 public class RangedUnit : MonoBehaviour
 {
-    readonly int maxHealth = 20;
+    static readonly int maxHealth = 20;
 
-    int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
+    static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    int currentHealth = 20;
+    static int currentHealth = 20;
     int attackDamage = 8;
     int movementSpeed;
     int initiative;
 
     int range;
 
-    int quantity; //To read from SaveSerial PlayerArmy
+    static int quantity = SaveSerial.RangeUnit; //To read from SaveSerial PlayerArmy
 
     bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     bool buffBGiven = false; //Attack buff ?
     bool buffCGiven = false; //Initiative buff ?
 
-    void dealDamage(int dmg)
+    static void dealDamage(int dmg)
     {
         if (quantity > 0)
         {
             currentHealth -= dmg;
+            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
-                quantity--; //One unit in stack died                
+                quantity--; //One unit in stack died
+
+                SaveSerial.RangeUnit = quantity;
+                Debug.Log("Unit died, only " + quantity + " units left");
+
+                UICamp.Instance.updatePlayerArmy();
+
                 if (quantity <= 0)
                 {
                     //Kill unit on Map
@@ -40,5 +47,41 @@ public class RangedUnit : MonoBehaviour
             }
         }
 
+    }
+
+    internal static void Hungry()
+    {
+        if (feedness > 0)
+        {
+            feedness -= 1;
+            Debug.Log("RU feedness: " + feedness);
+        }
+        else if (feedness <= 0)
+        {
+            dealDamage(5);
+            Debug.Log("RU health decreased due to hunger, current: " + currentHealth);
+        }
+
+    }
+
+    internal static void Feed()
+    {
+        if (feedness < 3)
+        {
+            feedness += 1;
+            Debug.Log("RU are feed from hunger currently: " + feedness);
+            if (currentHealth < maxHealth)
+            {
+                Debug.Log("RU Healed from: " + currentHealth);
+                currentHealth += 5;
+                Debug.Log("RU Healed to: " + currentHealth);
+            }
+
+        }
+        else if (feedness == 3)
+        {
+            currentHealth = maxHealth;
+            Debug.Log("Feed to max hp ~RU");
+        }
     }
 }

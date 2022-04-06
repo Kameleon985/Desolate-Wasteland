@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EliteUnit : MonoBehaviour
 {
-    readonly int maxHealth = 40;
+    static readonly int maxHealth = 40;
 
-    int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
+    static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    int currentHealth = 40;
+    static int currentHealth = 40;
     int attackDamage = 10;
     int movementSpeed;
     int initiative;
@@ -18,21 +18,28 @@ public class EliteUnit : MonoBehaviour
     //int rangeDamage;
     //int ammo;  //TO DISCUSS
 
-    int quantity; //To read from SaveSerial PlayerArmy
+    static int quantity = SaveSerial.EliteUnit; //To read from SaveSerial PlayerArmy
 
     bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     bool buffBGiven = false; //Attack buff ?
     bool buffCGiven = false; //Initiative buff ?
 
-    void dealDamage(int dmg)
+    static void dealDamage(int dmg)
     {
-        if(quantity > 0)
+        if (quantity > 0)
         {
             currentHealth -= dmg;
-            if(currentHealth <= 0) //If unit health in stack <= 0
+            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            if (currentHealth <= 0) //If unit health in stack <= 0
             {
-                quantity--; //One unit in stack died                
-                if(quantity <= 0)
+                quantity--; //One unit in stack died
+
+                SaveSerial.EliteUnit = quantity;
+                Debug.Log("Unit died, only " + quantity + " units left");
+
+                UICamp.Instance.updatePlayerArmy();
+
+                if (quantity <= 0)
                 {
                     //Kill unit on Map
                 }
@@ -42,7 +49,43 @@ public class EliteUnit : MonoBehaviour
                 }
             }
         }
-        
+
+    }
+
+    internal static void Hungry()
+    {
+        if (feedness > 0)
+        {
+            feedness -= 1;
+            Debug.Log("EU feedness: " + feedness);
+        }
+        else if (feedness <= 0)
+        {
+            dealDamage(5);
+            Debug.Log("EU health decreased due to hunger, current: " + currentHealth);
+        }
+
+    }
+
+    internal static void Feed()
+    {
+        if (feedness < 3)
+        {
+            feedness += 1;
+            Debug.Log("EU are feed from hunger currently: " + feedness);
+            if (currentHealth < maxHealth)
+            {
+                Debug.Log("EU Healed from: " + currentHealth);
+                currentHealth += 5;
+                Debug.Log("EU Healed to: " + currentHealth);
+            }
+
+        }
+        else if (feedness == 3)
+        {
+            currentHealth = maxHealth;
+            Debug.Log("Feed to max hp ~EU");
+        }
     }
 
 }
