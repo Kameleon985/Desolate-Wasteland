@@ -12,6 +12,8 @@ public class BattleMenuMenager : MonoBehaviour
     public GameObject tileUnitObject;
 
     public GameObject endPrepareHeroes;
+    public GameObject endSteroids;
+    public GameObject endSteroidsButton;
 
     private void Awake()
     {
@@ -52,6 +54,8 @@ public class BattleMenuMenager : MonoBehaviour
     public void EndPrepareHeroes()
     {
         endPrepareHeroes.SetActive(false);
+        endSteroids.SetActive(false);
+        endSteroidsButton.SetActive(false);
         BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 }
