@@ -453,7 +453,7 @@ public class UICamp : MonoBehaviour
         SetCampElite(SaveSerial.CampEliteUnit);
     }
 
-    void updatePlayerArmy()
+    public void updatePlayerArmy()
     {
         MeleeAmount.text = SaveSerial.MeleeUnit+ "";
         RangeAmount.text = SaveSerial.RangeUnit+ "";
