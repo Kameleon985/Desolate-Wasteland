@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class BaseEnemy : BaseUnit
 {
-    // Start is called before the first frame update
-    void Start()
+    public void takeDamage(int dmg)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

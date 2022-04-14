@@ -37,6 +37,7 @@ public class BattleMenager : MonoBehaviour
             case GameState.HeroesTurn:
                 break;
             case GameState.EnemiesTurn:
+                UnitManager.Instance.EnemyTurn();
                 break;
         }
     }
