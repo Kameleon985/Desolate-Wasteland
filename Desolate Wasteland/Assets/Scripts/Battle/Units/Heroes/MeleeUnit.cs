@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MeleeUnit : BaseHero
 {
@@ -9,7 +10,6 @@ public class MeleeUnit : BaseHero
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
     static int currentHealth = 25;    
-    int attackDamage = 10;
     int movementSpeed;
     int initiative;
 
@@ -19,6 +19,12 @@ public class MeleeUnit : BaseHero
     public static bool buffBGiven = false; //Attack buff ?
     public static bool buffCGiven = false; //Initiative buff ?
 
+    public GameObject unitCounter;
+
+    public void Start()
+    {
+        setUnitCount();
+    }
 
     static void dealDamage(int dmg)
     {
@@ -81,6 +87,11 @@ public class MeleeUnit : BaseHero
             currentHealth = maxHealth;
             Debug.Log("Feed to max hp ~MeleeUnit");
         }
+    }
+
+    public void setUnitCount()
+    {
+        unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 
 }
