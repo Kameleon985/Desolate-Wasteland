@@ -20,9 +20,9 @@ public class EliteUnit : MonoBehaviour
 
     static int quantity = SaveSerial.EliteUnit; //To read from SaveSerial PlayerArmy
 
-    bool buffAGiven = false; //Health buff ? // This is the cheaper buff
-    bool buffBGiven = false; //Attack buff ?
-    bool buffCGiven = false; //Initiative buff ?
+    public static bool buffAGiven = false; //Health buff ? // This is the cheaper buff
+    public static bool buffBGiven = false; //Attack buff ?
+    public static bool buffCGiven = false; //Initiative buff ?
 
     static void dealDamage(int dmg)
     {
