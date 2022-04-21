@@ -14,9 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderer: {fileID: 8894823485474014622}
   highlight: {fileID: 1836470017010849941}
+  pathHighlight: {fileID: 0}
   tileName: Mountain
   isWakable: 0
   OccupiedUnit: {fileID: 0}
+  x: 0
+  y: 0
+  gCost: 0
+  hCost: 0
+  fCost: 0
+  previouseTile: {fileID: 0}
 --- !u!1001 &9026863947148770028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,10 +153,25 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4678251759380681418, guid: 15f17308b910c3e4cbd2d24613c6281a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5480111912439862865, guid: 15f17308b910c3e4cbd2d24613c6281a,
         type: 3}
       propertyPath: m_Name
       value: MountainTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480111912439862865, guid: 15f17308b910c3e4cbd2d24613c6281a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221996093343752825, guid: 15f17308b910c3e4cbd2d24613c6281a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7221996093343752825, guid: 15f17308b910c3e4cbd2d24613c6281a,
         type: 3}

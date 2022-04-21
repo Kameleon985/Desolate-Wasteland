@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 442548923115151751}
   - component: {fileID: 139546207583226121}
   - component: {fileID: 8303678358789099009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeleeHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}

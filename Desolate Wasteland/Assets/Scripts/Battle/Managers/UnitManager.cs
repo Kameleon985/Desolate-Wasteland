@@ -53,7 +53,7 @@ public class UnitManager : MonoBehaviour
 
     public void PrepareHeroes()
     {
-        
+
     }
 
     private T GetRandomUnit<T>(Faction faction) where T : BaseUnit
@@ -65,5 +65,10 @@ public class UnitManager : MonoBehaviour
     {
         SelectedHero = hero;
         BattleMenuMenager.instance.ShowSelectedHero(hero);
+    }
+
+    public List<ScriptableUnit> GetUnits()
+    {
+        return units;
     }
 }

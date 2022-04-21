@@ -10,7 +10,7 @@ public class MeleeEnemy : BaseEnemy
     static int currentHealth = 25;
     int initiative;
     static int quantity = 2;
-    public GameObject unitCounter;
+    //public GameObject unitCounter;
 
     public void Start()
     {
@@ -45,6 +45,6 @@ public class MeleeEnemy : BaseEnemy
 
     public void setUnitCount()
     {
-        unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        //unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 }

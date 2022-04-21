@@ -97,3 +97,4 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitName: MeleeEnemy
+  unitCounter: {fileID: 0}
