@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MeleeEnemy : BaseEnemy
+public class RangeEnemy : BaseEnemy
 {
     static readonly int maxHealth = 25;
     static int currentHealth = 25;

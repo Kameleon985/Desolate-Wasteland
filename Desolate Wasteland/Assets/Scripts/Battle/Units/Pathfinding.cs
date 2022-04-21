@@ -49,7 +49,7 @@ public class Pathfinding
             }
         }
 
-        Debug.Log("Nie znaleziono ścierzki");
+        Debug.Log("Nie znaleziono ścieżki");
         return null;
     }
 
@@ -64,7 +64,7 @@ public class Pathfinding
             //Left Down
             if (currentTile.y - 1 >= 0) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x - 1, currentTile.y - 1)));
             ////Left Up
-            if (currentTile.y + 1 <= GridManager.Instance.height) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x - 1, currentTile.y + 1)));
+            if (currentTile.y + 1 < GridManager.Instance.height) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x - 1, currentTile.y + 1)));
         }
         if (currentTile.x + 1 < GridManager.Instance.width)
         {
@@ -73,12 +73,12 @@ public class Pathfinding
             //Right Down
             if (currentTile.y - 1 >= 0) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x + 1, currentTile.y - 1)));
             //Right Up
-            if (currentTile.y + 1 <= GridManager.Instance.height) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x + 1, currentTile.y + 1)));
+            if (currentTile.y + 1 < GridManager.Instance.height) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x + 1, currentTile.y + 1)));
         }
         //Down
         if (currentTile.y - 1 >= 0) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x, currentTile.y - 1)));
         //UP
-        if (currentTile.y + 1 <= GridManager.Instance.height) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x, currentTile.y + 1)));
+        if (currentTile.y + 1 < GridManager.Instance.height) neighbourList.Add(GridManager.Instance.GetTileAtPosition(new Vector2(currentTile.x, currentTile.y + 1)));
 
         return neighbourList;
     }

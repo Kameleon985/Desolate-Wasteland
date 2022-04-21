@@ -23,7 +23,6 @@ public class RoundTracker : MonoBehaviour
         }
 
         armyHandler.ArmyCostPerTurn();
-        Debug.Log("hydro: " + isHydroponicsBuilt);
         if (isHydroponicsBuilt)
         {
             resourcesHandler.AddVitals(3);

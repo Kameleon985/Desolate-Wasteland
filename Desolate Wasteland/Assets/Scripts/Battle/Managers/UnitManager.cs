@@ -19,7 +19,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnHeroes()
     {
-        var heroCount = 2;
+        var heroCount = 1;
 
         for (int i = 0; i < heroCount; i++)
         {
@@ -36,7 +36,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        var enemyCount = 1;
+        var enemyCount = 2;
 
         for (int i = 0; i < enemyCount; i++)
         {
@@ -53,7 +53,9 @@ public class UnitManager : MonoBehaviour
 
     public void PrepareHeroes()
     {
-
+        if (!BattleMenuMenager.instance.endPrepareHeroes.activeSelf) {
+            BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        }
     }
 
     private T GetRandomUnit<T>(Faction faction) where T : BaseUnit
@@ -67,8 +69,9 @@ public class UnitManager : MonoBehaviour
         BattleMenuMenager.instance.ShowSelectedHero(hero);
     }
 
-    public List<ScriptableUnit> GetUnits()
+    public void EnemyTurn()
     {
-        return units;
+        Debug.Log("Enemy Turn");
+        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 }
