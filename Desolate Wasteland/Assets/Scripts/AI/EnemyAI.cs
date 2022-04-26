@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float lowHealthThreshold;
     [SerializeField] private float healthRestoreRate;
 
-    [SerializeField] private float chasingRange;
+    [SerializeField] private int chasingRange;
 
     internal float GetcurrentHealth()
     {
@@ -21,16 +21,16 @@ public class EnemyAI : MonoBehaviour
 
 
     //[SerializeField] private GameObject player;
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private BaseEnemy enemy;
     [SerializeField] private Cover[] avaliableCovers;
 
 
-
+    private BaseUnit closestHero;
     private Material material;
     private Transform bestCoverSpot;
     private Transform transform;
 
-    private Node topNode;
+    public Node topNode;
 
     private float _currentHealth;
 
@@ -52,27 +52,28 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         _currentHealth = startingHealth;
+        GameEventSystem.Instance.OnUnitTurn += TakeAction;
         ConstructBehahaviourTree();
     }
 
     private void ConstructBehahaviourTree()
     {
-        IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(avaliableCovers, enemy);
+        //IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(avaliableCovers, enemy);
         GoToCoverNode goToCoverNode = new GoToCoverNode(transform, this);
         HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
-        IsCovered isCoveredNode = new IsCovered(enemy);
-        ChaseNode chaseNode = new ChaseNode(enemy);
-        RangeNode chasingRangeNode = new RangeNode(chasingRange, enemy);
+        //IsCovered isCoveredNode = new IsCovered(enemy);
+        ChaseNode chaseNode = new ChaseNode(enemy, this);
+        RangeNode chasingRangeNode = new RangeNode(chasingRange, enemy, this);
         //RangeNode shootingRangeNode = new RangeNode(shootingRange, player, transform);
         //ShootNode shootNode = new ShootNode(transform, this, player);
 
         Sequence chaseSequence = new Sequence(new List<Node> { chasingRangeNode, chaseNode });
         //Sequence shootSequence = new Sequence(new List<Node> { shootingRangeNode, shootNode });
 
-        Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
-        Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, chaseSequence });
-        Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
-        Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
+        //Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
+        //Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, chaseSequence });
+        //Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
+        //Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
 
         topNode = new Selector(new List<Node> { chaseSequence });
 
@@ -82,11 +83,16 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
 
-        topNode.Evaluate();
+        //topNode.Evaluate();
 
-        _currentHealth += Time.deltaTime * healthRestoreRate;
+        //_currentHealth += Time.deltaTime * healthRestoreRate;
     }
 
+    private void TakeAction()
+    {
+        if (topNode.Evaluate() == NodeState.FAILURE)
+            BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+    }
 
     public void TakeDamage(float damage)
     {
@@ -108,5 +114,17 @@ public class EnemyAI : MonoBehaviour
         return bestCoverSpot;
     }
 
+    public void SetClosest(BaseUnit unit)
+    {
+        closestHero = unit;
+    }
+    public BaseUnit GetClosest()
+    {
+        return closestHero;
+    }
 
+    public float GetChasingRange()
+    {
+        return chasingRange;
+    }
 }

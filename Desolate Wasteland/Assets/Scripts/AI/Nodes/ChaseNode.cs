@@ -6,33 +6,25 @@ using UnityEngine.AI;
 public class ChaseNode : Node
 {
 
-    private GameObject gameObject;
-    Pathfinding pf;
-    float timer = 0;
-    public ChaseNode(GameObject gameObject)
+    private BaseEnemy gameObject;
+    EnemyAI ai;
+    public ChaseNode(BaseEnemy gameObject, EnemyAI ai)
     {
 
         this.gameObject = gameObject;
-        pf = new Pathfinding();
+        this.ai = ai;
     }
 
     public override NodeState Evaluate()
     {
-        GridManager.Instance.GetTileAtPosition(gameObject.transform.position);
-        //int distance = Pathfinding.CalculateDistance(GridManager.Instance.GetTileAtPosition(gameObject.transform.position), GridManager.Instance.GetTileAtPosition(target.transform.position));
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Tile target = GridManager.Instance.GetTileAtPosition(player.transform.position);
 
-        if (0 > 3)
-        {
+        gameObject.Chase(target);
 
-            //target.transform.position = Vector3.Lerp(transform.position, target.transform.position, timer);
-            //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, target.transform.position, Time.deltaTime * 5);
-            timer += Time.deltaTime;
-            return NodeState.RUNNING;
-        }
-        else
-        {
-            return NodeState.SUCCESS;
-        }
+        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        return NodeState.SUCCESS;
+
     }
 
 

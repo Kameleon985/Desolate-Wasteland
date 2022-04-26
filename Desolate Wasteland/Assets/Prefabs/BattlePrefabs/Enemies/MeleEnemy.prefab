@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 2008418773834858898}
   - component: {fileID: 6112767854147102087}
   - component: {fileID: 2148950024788620048}
+  - component: {fileID: 5499424878093299644}
   m_Layer: 0
   m_Name: MeleEnemy
   m_TagString: Untagged
@@ -323,7 +324,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
   m_Color: {r: 0.8867924, g: 0.21333212, b: 0.21333212, a: 1}
   m_FlipX: 0
@@ -351,3 +352,22 @@ MonoBehaviour:
   faction: 1
   unitName: MeleeEnemy
   unitCounter: {fileID: 4094593727113177388}
+--- !u!114 &5499424878093299644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7344495490292989891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a810e77ebebf44381961d32e11476f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 10
+  lowHealthThreshold: 2
+  healthRestoreRate: 0
+  chasingRange: 60
+  shootingRange: 0
+  enemy: {fileID: 2148950024788620048}
+  avaliableCovers: []

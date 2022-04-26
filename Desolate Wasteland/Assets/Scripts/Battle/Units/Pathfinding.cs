@@ -49,7 +49,7 @@ public class Pathfinding
             }
         }
 
-        Debug.Log("Nie znaleziono ścieżki");
+        //Debug.Log("Nie znaleziono ścieżki");
         return null;
     }
 
