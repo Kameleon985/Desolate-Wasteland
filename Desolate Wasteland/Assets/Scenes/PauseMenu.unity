@@ -534,6 +534,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 713886023}
+        m_MethodName: wakeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &295698057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1618,6 +1629,7 @@ MonoBehaviour:
   saveFilesFullPath: []
   saveFilesJustNames: []
   confirmSaveBtn: {fileID: 1306187123}
+  buttons: []
 --- !u!1 &732571240
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,6 +1839,17 @@ MonoBehaviour:
       - m_Target: {fileID: 919094145}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 713886023}
+        m_MethodName: clearButtons
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

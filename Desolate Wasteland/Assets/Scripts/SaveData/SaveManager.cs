@@ -17,13 +17,28 @@ public class SaveManager : MonoBehaviour
     public List<string> saveFilesJustNames;
     public Button confirmSaveBtn;
 
-    private void Start()
+    public List<GameObject> buttons;
+
+    public void wakeUp()
     {
+        buttons = new List<GameObject>();
+        if (buttons.Count > 0)
+        {
+            foreach (GameObject button in buttons)
+            {
+                Destroy(button.gameObject);
+            }
+            buttons.Clear();
+        }
+        clearButtons();
+        saveFilesJustNames.Clear();
+        saveFilesFullPath = new string[0];
         GetLoadFiles();
 
-        for (int i = 0; i <=saveFilesJustNames.Count-1 ; i++)
+        for (int i = 0; i <= saveFilesJustNames.Count - 1; i++)
         {
             GameObject button = Instantiate(buttonTemplate) as GameObject;
+            buttons.Add(button);
             button.SetActive(true);
             button.GetComponent<ButtonListButton>().setButtonName(saveFilesJustNames[i]);
 
@@ -31,16 +46,32 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void clearButtons()
+    {
+        if (buttons.Count > 0)
+        {
+            foreach(GameObject button in buttons)
+            {
+                Destroy(button.gameObject);
+            }
+            buttons.Clear();
+        }
+    }
+
     private void Update()
     {
-        if (string.IsNullOrEmpty(saveNameInputField.text))
+        if(saveNameInputField != null && confirmSaveBtn != null)
         {
-            confirmSaveBtn.interactable = false;
+            if (string.IsNullOrEmpty(saveNameInputField.text))
+            {
+                confirmSaveBtn.interactable = false;
+            }
+            else
+            {
+                confirmSaveBtn.interactable = true;
+            }
         }
-        else
-        {
-            confirmSaveBtn.interactable = true;
-        }
+        
     }
 
     public void GetLoadFiles()
