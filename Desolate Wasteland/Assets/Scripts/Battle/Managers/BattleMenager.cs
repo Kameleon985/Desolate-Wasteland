@@ -15,6 +15,12 @@ public class BattleMenager : MonoBehaviour
     private void Start()
     {
         ChangeState(GameState.GenerateGrid);
+        BattleMenuMenager.instance.ShowCurrentGameState();
+    }
+
+    private void Update()
+    {
+        BattleMenuMenager.instance.ShowCurrentGameState();
     }
 
     public void ChangeState(GameState newState)

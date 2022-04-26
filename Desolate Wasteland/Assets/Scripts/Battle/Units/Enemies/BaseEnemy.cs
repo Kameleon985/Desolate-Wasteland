@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : BaseUnit
+public abstract class BaseEnemy : BaseUnit
 {
-    public void takeDamage(int dmg)
-    {
-
-    }
+    public abstract void takeDamage(int dmg);
 }
