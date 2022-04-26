@@ -11,6 +11,9 @@ public class UnitManager : MonoBehaviour
 
     public BaseHero SelectedHero;
 
+    public List<BaseHero> heroList;
+    public List<BaseEnemy> enemyList;
+
     private void Awake()
     {
         Instance = this;
@@ -28,9 +31,9 @@ public class UnitManager : MonoBehaviour
             var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
 
             randomSpawnTile.SetUnit(spawnedHero);
-
+            heroList.Add(spawnedHero);
         }
-
+        Debug.Log(heroList.Count);
         BattleMenager.instance.ChangeState(GameState.SpawnEnemies);
     }
 
@@ -45,9 +48,9 @@ public class UnitManager : MonoBehaviour
             var randomSpawnTile = GridManager.Instance.GetEnemySpawn();
 
             randomSpawnTile.SetUnit(spawnedEnemy);
-
+            enemyList.Add(spawnedEnemy);
         }
-
+        Debug.Log(enemyList.Count);
         BattleMenager.instance.ChangeState(GameState.PrepareHeroes);
     }
 

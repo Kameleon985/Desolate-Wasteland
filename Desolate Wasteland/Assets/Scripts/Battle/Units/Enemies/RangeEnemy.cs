@@ -31,6 +31,7 @@ public class RangeEnemy : BaseEnemy
 
                 if (quantity <= 0)
                 {
+                    UnitManager.Instance.enemyList.Remove(this);
                     Destroy(this.gameObject);
                 }
                 else
