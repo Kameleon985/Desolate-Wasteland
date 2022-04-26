@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleMenager : MonoBehaviour
 {
@@ -21,6 +22,17 @@ public class BattleMenager : MonoBehaviour
     private void Update()
     {
         BattleMenuMenager.instance.ShowCurrentGameState();
+
+        if(UnitManager.Instance.enemyList.Count == 0)
+        {
+            Debug.Log("You win!");
+            SceneManager.LoadScene("Map");
+        }
+        if (UnitManager.Instance.heroList.Count == 0)
+        {
+            Debug.Log("You lose!");
+            SceneManager.LoadScene("Map");
+        }
     }
 
     public void ChangeState(GameState newState)
