@@ -33,7 +33,7 @@ public class UnitManager : MonoBehaviour
             randomSpawnTile.SetUnit(spawnedHero);
             heroList.Add(spawnedHero);
         }
-        Debug.Log(heroList.Count);
+
         BattleMenager.instance.ChangeState(GameState.SpawnEnemies);
     }
 
@@ -50,7 +50,7 @@ public class UnitManager : MonoBehaviour
             randomSpawnTile.SetUnit(spawnedEnemy);
             enemyList.Add(spawnedEnemy);
         }
-        Debug.Log(enemyList.Count);
+
         BattleMenager.instance.ChangeState(GameState.PrepareHeroes);
     }
 
