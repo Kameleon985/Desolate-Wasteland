@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemy : BaseUnit
+public abstract class BaseEnemy : BaseUnit
 {
+
     private Pathfinding pathfinding;
 
-    public void takeDamage(int dmg)
-    {
-
-    }
+    
 
     public void Chase(Tile target)
     {
@@ -24,4 +22,7 @@ public class BaseEnemy : BaseUnit
 
         }
     }
+
+    public abstract void takeDamage(int dmg);
+
 }

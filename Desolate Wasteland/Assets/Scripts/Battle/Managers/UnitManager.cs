@@ -12,6 +12,8 @@ public class UnitManager : MonoBehaviour
     public BaseHero SelectedHero;
 
     public EnemyAI ai;
+    public List<BaseHero> heroList;
+    public List<BaseEnemy> enemyList;
 
     private void Awake()
     {
@@ -31,7 +33,7 @@ public class UnitManager : MonoBehaviour
             var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
 
             randomSpawnTile.SetUnit(spawnedHero);
-
+            heroList.Add(spawnedHero);
         }
 
         BattleMenager.instance.ChangeState(GameState.SpawnEnemies);
@@ -48,7 +50,7 @@ public class UnitManager : MonoBehaviour
             var randomSpawnTile = GridManager.Instance.GetEnemySpawn();
 
             randomSpawnTile.SetUnit(spawnedEnemy);
-
+            enemyList.Add(spawnedEnemy);
         }
 
         BattleMenager.instance.ChangeState(GameState.PrepareHeroes);
@@ -64,11 +66,13 @@ public class UnitManager : MonoBehaviour
 
     private T GetRandomUnit<T>(Faction faction, int unitCount, int currentUnit) where T : BaseUnit
     {
+
         if (currentUnit != unitCount)
         {
             return (T)units.Where(u => u.faction == faction).ToList()[currentUnit].unitPrefab;
         }
         return null;
+
     }
 
     public void SetSelectedHero(BaseHero hero)

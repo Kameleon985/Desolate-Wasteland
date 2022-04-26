@@ -16,7 +16,7 @@ public class RangeEnemy : BaseEnemy
         setUnitCount();
     }
 
-    public void takeDamage(int dmg)
+    public override void takeDamage(int dmg)
     {
         if (quantity > 0)
         {
@@ -31,6 +31,7 @@ public class RangeEnemy : BaseEnemy
 
                 if (quantity <= 0)
                 {
+                    UnitManager.Instance.enemyList.Remove(this);
                     Destroy(this.gameObject);
                 }
                 else

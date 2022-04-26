@@ -78,12 +78,11 @@ public class Tile : MonoBehaviour
                     if (UnitManager.Instance.SelectedHero != null)
                     {
                         //Attack
-                        if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
-                        {
-                            var enemy = (MeleeEnemy)OccupiedUnit;
+                        if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile)) {
+                            var enemy = (BaseEnemy)OccupiedUnit;
                             enemy.takeDamage(UnitManager.Instance.SelectedHero.attackDamage);
                             UnitManager.Instance.SetSelectedHero(null);
-                            BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+                            UnitManager.Instance.EnemyTurn();
                         }
                     }
                 }
@@ -98,6 +97,7 @@ public class Tile : MonoBehaviour
                     UnitManager.Instance.SetSelectedHero(null);
                     GridManager.Instance.ClearAStarTiles();
                     BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+
                 }
             }
         }
