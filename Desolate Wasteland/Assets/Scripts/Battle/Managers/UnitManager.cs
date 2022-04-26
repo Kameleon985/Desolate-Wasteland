@@ -23,7 +23,7 @@ public class UnitManager : MonoBehaviour
 
         for (int i = 0; i < heroCount; i++)
         {
-            var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
+            var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero, heroCount, i);
             var spawnedHero = Instantiate(randomPrefab);
             var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
 
@@ -40,7 +40,7 @@ public class UnitManager : MonoBehaviour
 
         for (int i = 0; i < enemyCount; i++)
         {
-            var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy);
+            var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy, enemyCount, i);
             var spawnedEnemy = Instantiate(randomPrefab);
             var randomSpawnTile = GridManager.Instance.GetEnemySpawn();
 
@@ -58,9 +58,13 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    private T GetRandomUnit<T>(Faction faction) where T : BaseUnit
+    private T GetRandomUnit<T>(Faction faction, int unitCount, int currentUnit) where T : BaseUnit
     {
-        return (T)units.Where(u => u.faction == faction).OrderBy(n => Random.value).First().unitPrefab;
+        if (currentUnit != unitCount) {
+            return (T)units.Where(u => u.faction == faction).ToList()[currentUnit].unitPrefab;
+        }
+        return null;
+
     }
 
     public void SetSelectedHero(BaseHero hero)

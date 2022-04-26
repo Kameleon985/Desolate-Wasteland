@@ -17,7 +17,7 @@ public class MeleeEnemy : BaseEnemy
         setUnitCount();
     }
 
-    public void takeDamage(int dmg)
+    public override void takeDamage(int dmg)
     {
         if (quantity > 0)
         {

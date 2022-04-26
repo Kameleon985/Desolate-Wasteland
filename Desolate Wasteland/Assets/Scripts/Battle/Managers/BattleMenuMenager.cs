@@ -10,6 +10,7 @@ public class BattleMenuMenager : MonoBehaviour
     public GameObject selectedHeroObject;
     public GameObject tileObject;
     public GameObject tileUnitObject;
+    public GameObject currentGameSatteObject;
 
     public GameObject endPrepareHeroes;
     public GameObject endSteroids;
@@ -49,6 +50,11 @@ public class BattleMenuMenager : MonoBehaviour
 
         selectedHeroObject.GetComponentInChildren<Text>().text = hero.unitName;
         selectedHeroObject.SetActive(true);
+    }
+
+    public void ShowCurrentGameState()
+    {
+        currentGameSatteObject.GetComponentInChildren<Text>().text = BattleMenager.instance.gameState.ToString();
     }
 
     public void EndPrepareHeroes()
