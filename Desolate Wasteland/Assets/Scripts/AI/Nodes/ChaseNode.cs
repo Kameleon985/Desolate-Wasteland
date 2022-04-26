@@ -7,12 +7,10 @@ public class ChaseNode : Node
 {
 
     private BaseEnemy gameObject;
-    EnemyAI ai;
-    public ChaseNode(BaseEnemy gameObject, EnemyAI ai)
+    public ChaseNode(BaseEnemy gameObject)
     {
 
         this.gameObject = gameObject;
-        this.ai = ai;
     }
 
     public override NodeState Evaluate()

@@ -6,39 +6,30 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float startingHealth;
-    [SerializeField] private float lowHealthThreshold;
-    [SerializeField] private float healthRestoreRate;
+    [SerializeField] private int startingHealth;
+    [SerializeField] private int lowHealthThreshold;
+    [SerializeField] private int healthRestoreRate;
 
     [SerializeField] private int chasingRange;
 
-    internal float GetcurrentHealth()
-    {
-        throw new NotImplementedException();
-    }
-
-    [SerializeField] private float shootingRange;
-
 
     //[SerializeField] private GameObject player;
-    [SerializeField] private BaseEnemy enemy;
-    [SerializeField] private Cover[] avaliableCovers;
+    [SerializeField] private MeleeEnemy enemy;
 
 
     private BaseUnit closestHero;
-    private Material material;
     private Transform bestCoverSpot;
     private Transform transform;
 
     public Node topNode;
 
-    private float _currentHealth;
+    private int _currentHealth;
 
     public float GetCurrentHealth()
     {
         return _currentHealth;
     }
-    public float currentHealth
+    public int currentHealth
     {
         set { _currentHealth = Mathf.Clamp(value, 0, startingHealth); }
     }
@@ -58,11 +49,11 @@ public class EnemyAI : MonoBehaviour
 
     private void ConstructBehahaviourTree()
     {
-        //IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(avaliableCovers, enemy);
-        GoToCoverNode goToCoverNode = new GoToCoverNode(transform, this);
-        HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
-        //IsCovered isCoveredNode = new IsCovered(enemy);
-        ChaseNode chaseNode = new ChaseNode(enemy, this);
+        IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(enemy, this);
+        GoToCoverNode goToCoverNode = new GoToCoverNode(enemy, this);
+        HealthNode healthNode = new HealthNode(_currentHealth, lowHealthThreshold);
+        IsCovered isCoveredNode = new IsCovered(enemy);
+        ChaseNode chaseNode = new ChaseNode(enemy);
         RangeNode chasingRangeNode = new RangeNode(chasingRange, enemy, this);
         //RangeNode shootingRangeNode = new RangeNode(shootingRange, player, transform);
         //ShootNode shootNode = new ShootNode(transform, this, player);
@@ -70,31 +61,26 @@ public class EnemyAI : MonoBehaviour
         Sequence chaseSequence = new Sequence(new List<Node> { chasingRangeNode, chaseNode });
         //Sequence shootSequence = new Sequence(new List<Node> { shootingRangeNode, shootNode });
 
-        //Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
-        //Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, chaseSequence });
-        //Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
-        //Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
+        Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
+        Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, chaseSequence });
+        Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
+        Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
 
-        topNode = new Selector(new List<Node> { chaseSequence });
+        topNode = new Selector(new List<Node> { mainCoverSequence, chaseSequence });
 
 
-    }
-
-    private void Update()
-    {
-
-        //topNode.Evaluate();
-
-        //_currentHealth += Time.deltaTime * healthRestoreRate;
     }
 
     private void TakeAction()
     {
+        _currentHealth = GameObject.FindObjectOfType<MeleeEnemy>().getCurrentHealth();
+        ConstructBehahaviourTree();
         if (topNode.Evaluate() == NodeState.FAILURE)
             BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
     }

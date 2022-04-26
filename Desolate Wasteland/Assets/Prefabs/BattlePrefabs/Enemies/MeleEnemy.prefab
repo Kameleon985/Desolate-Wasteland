@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9184566432103622113}
   - component: {fileID: 102386553446001830}
   - component: {fileID: 7872494922235274319}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 643616315664333124}
   - component: {fileID: 5162478603229150587}
   - component: {fileID: 8518807219018575581}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 1474037331880316921}
   - component: {fileID: 8053302767652214319}
   - component: {fileID: 6700128283171779725}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,10 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a810e77ebebf44381961d32e11476f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 10
-  lowHealthThreshold: 2
+  startingHealth: 25
+  lowHealthThreshold: 20
   healthRestoreRate: 0
   chasingRange: 60
-  shootingRange: 0
   enemy: {fileID: 2148950024788620048}
-  avaliableCovers: []

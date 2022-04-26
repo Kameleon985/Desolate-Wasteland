@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class HealthNode : Node
 {
-    private EnemyAI ai;
-    private float threshold;
+    private int health;
+    private int threshold;
 
-    public HealthNode(EnemyAI ai, float threshold)
+    public HealthNode(int health, int threshold)
     {
-        this.ai = ai;
+        this.health = health;
         this.threshold = threshold;
     }
 
     public override NodeState Evaluate()
     {
-        return ai.GetCurrentHealth() <= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        Debug.Log(health <= threshold);
+        return health <= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }

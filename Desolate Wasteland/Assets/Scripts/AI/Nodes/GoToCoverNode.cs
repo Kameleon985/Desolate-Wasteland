@@ -5,12 +5,12 @@ using UnityEngine.AI;
 
 public class GoToCoverNode : Node
 {
-    private NavMeshAgent agent;
+    private MeleeEnemy enemy;
     private EnemyAI ai;
 
-    public GoToCoverNode(Transform transform, EnemyAI ai)
+    public GoToCoverNode(MeleeEnemy enemy, EnemyAI ai)
     {
-        this.agent = agent;
+        this.enemy = enemy;
         this.ai = ai;
     }
 
@@ -19,19 +19,22 @@ public class GoToCoverNode : Node
         Transform coverSpot = ai.GetBestCoverSpot();
         if (coverSpot == null)
             return NodeState.FAILURE;
-        ai.SetColor(Color.blue);
-        float distance = Vector3.Distance(coverSpot.position, agent.transform.position);
-        if (distance > 0.2f)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(coverSpot.position);
-            return NodeState.RUNNING;
-        }
-        else
-        {
-            agent.isStopped = true;
-            return NodeState.SUCCESS;
-        }
+        Tile tile = GridManager.Instance.GetTileAtPosition(coverSpot.position);
+        enemy.Move(tile);
+        tile.SetUnit(enemy);
+        return NodeState.SUCCESS;
+        //float distance = Vector3.Distance(coverSpot.position, agent.transform.position);
+        //if (distance > 0.2f)
+        //{
+        //    agent.isStopped = false;
+        //    agent.SetDestination(coverSpot.position);
+        //    return NodeState.RUNNING;
+        //}
+        //else
+        //{
+        //    agent.isStopped = true;
+        //    return NodeState.SUCCESS;
+        //}
     }
 
 

@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class IsCovered : Node
 {
-    private GameObject target;
+    private BaseUnit enemy;
     private Transform origin;
 
-    public IsCovered(GameObject target)
+    public IsCovered(BaseUnit enemy)
     {
-        this.target = target;
-        this.origin = origin;
+        this.enemy = enemy;
+        this.origin = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public override NodeState Evaluate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(origin.position, target.transform.position - origin.position);
+        RaycastHit2D hit = Physics2D.Raycast(origin.position, enemy.transform.position - origin.position, Vector2.Distance(origin.position, enemy.transform.position), LayerMask.GetMask("Terrain"));
         if (hit)
         {
-            if (hit.collider.transform != target)
+            if (hit.transform.CompareTag("Terrain"))
             {
+                //Debug.Log("covered");
                 return NodeState.SUCCESS;
             }
         }
+        //Debug.Log("hit");
         return NodeState.FAILURE;
     }
 
