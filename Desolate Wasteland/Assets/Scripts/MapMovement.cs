@@ -40,7 +40,7 @@ public class MapMovement : MonoBehaviour
 
         if (notClickableThrough.activeSelf)
         {
-
+            //Do nothing
         }
         else
         {
