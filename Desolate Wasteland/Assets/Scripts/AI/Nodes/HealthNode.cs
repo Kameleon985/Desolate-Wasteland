@@ -15,7 +15,7 @@ public class HealthNode : Node
 
     public override NodeState Evaluate()
     {
-        Debug.Log(health <= threshold);
+        //Debug.Log(health <= threshold);
         return health <= threshold ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }
