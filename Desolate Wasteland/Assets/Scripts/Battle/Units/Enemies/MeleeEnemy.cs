@@ -23,7 +23,10 @@ public class MeleeEnemy : BaseEnemy
         return currentHealth;
     }
 
-    public void takeDamage(int dmg)
+    /*public void takeDamage(int dmg)
+    {
+
+    }*/
 
     public override void takeDamage(int dmg)
     {

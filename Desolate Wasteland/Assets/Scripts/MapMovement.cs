@@ -16,10 +16,12 @@ public class MapMovement : MonoBehaviour
     private bool mouseOver;
     public float movePoints;
 
+    public GameObject notClickableThrough;
 
 
     private void Start()
     {
+        notClickableThrough.SetActive(false);
         mouseOver = false;
         moving = false;
         destPosition = (Vector2)transform.position;
@@ -31,46 +33,59 @@ public class MapMovement : MonoBehaviour
 
     void Update()
     {
-        if (moving)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            movePoints -= Time.deltaTime;
-            GameEventSystem.Instance.PlayerMovement(movePoints);
+            notClickableThrough.SetActive(true);
         }
-        if (Input.GetMouseButtonDown(0) && !mouseOver)
+
+        if (notClickableThrough.activeSelf)
         {
-            destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            float distance = Vector3.Distance(transform.position, (Vector3)destPosition);
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, ((Vector3)destPosition - transform.position), distance, LayerMask.GetMask("Terrain"));
-
-            Debug.DrawRay(transform.position, ((Vector3)destPosition - transform.position), Color.red);
-
-
-            if (hit)
-            {
-                Ray2D ray = new Ray2D(transform.position, (Vector3)hit.point - transform.position);
-                distance = Vector3.Distance(transform.position, hit.point);
-                destPosition = ray.GetPoint(distance - 0.2f);
-            }
-            GameEventSystem.Instance.PlayerClick(distance / speed);
-            moving = true;
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            destPosition = (Vector2)transform.position;
-            moving = false;
-        }
-        if (movePoints > 0 && moving && (Vector2)transform.position != destPosition)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, destPosition, Time.deltaTime * speed);
-            sprite.sprite = Moving;
         }
         else
         {
-            moving = false;
-            sprite.sprite = Stationary;
+            if (moving)
+            {
+                movePoints -= Time.deltaTime;
+                GameEventSystem.Instance.PlayerMovement(movePoints);
+            }
+            if (Input.GetMouseButtonDown(0) && !mouseOver)
+            {
+                destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                float distance = Vector3.Distance(transform.position, (Vector3)destPosition);
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, ((Vector3)destPosition - transform.position), distance, LayerMask.GetMask("Terrain"));
+
+                Debug.DrawRay(transform.position, ((Vector3)destPosition - transform.position), Color.red);
+
+
+                if (hit)
+                {
+                    Ray2D ray = new Ray2D(transform.position, (Vector3)hit.point - transform.position);
+                    distance = Vector3.Distance(transform.position, hit.point);
+                    destPosition = ray.GetPoint(distance - 0.2f);
+                }
+                GameEventSystem.Instance.PlayerClick(distance / speed);
+                moving = true;
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                destPosition = (Vector2)transform.position;
+                moving = false;
+            }
+            if (movePoints > 0 && moving && (Vector2)transform.position != destPosition)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, destPosition, Time.deltaTime * speed);
+                sprite.sprite = Moving;
+            }
+            else
+            {
+                moving = false;
+                sprite.sprite = Stationary;
+            }
         }
+        
     }
 
 
