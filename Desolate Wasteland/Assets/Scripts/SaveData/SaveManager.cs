@@ -98,7 +98,6 @@ public class SaveManager : MonoBehaviour
     {
         SceneManager.LoadScene("Map");
         SaveSerial.LoadGame(fileName+".dat");
-        Debug.Log("Done?");
     }    
 
     public void save()
