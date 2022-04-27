@@ -23,6 +23,8 @@ public class SteroidWindowManager : MonoBehaviour
 
     private void Start()
     {
+        UpdateBuffAmountsUI();
+
         administerBuffs.interactable = false;
         MeleeToggle.isOn = false;
         RangeToggle.isOn = false;
