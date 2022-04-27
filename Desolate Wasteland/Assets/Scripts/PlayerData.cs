@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerData
 {
     public Vector2 position = new Vector2();
-    public float movePoints;
+    public float movePoints = 10;
 
     public void SetMovePoints(float points)
     {

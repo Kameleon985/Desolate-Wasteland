@@ -506,6 +506,6 @@ public class UICamp : MonoBehaviour
 
     public void ReturnToMap()
     {
-        SceneManager.LoadScene("Map");
+        GameEventSystem.Instance.EnterLocation("Map");
     }
 }
