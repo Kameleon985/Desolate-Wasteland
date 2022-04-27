@@ -23,10 +23,10 @@ public class BattleMenager : MonoBehaviour
     {
         BattleMenuMenager.instance.ShowCurrentGameState();
 
-        if(UnitManager.Instance.enemyList.Count == 0)
+        if (UnitManager.Instance.enemyList.Count == 0)
         {
             Debug.Log("You win!");
-            SceneManager.LoadScene("Map");
+            GameEventSystem.Instance.EnterLocation("Map");
         }
         if (UnitManager.Instance.heroList.Count == 0)
         {
