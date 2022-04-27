@@ -61,10 +61,10 @@ public class SaveSerial : MonoBehaviour
     //public GameObject MainUI;
 
 
-    public void SaveGame()
+    public static void SaveGame(string saveName)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/SavedData.dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/saves/"+ saveName+".dat");
         SaveData data = new SaveData();
 
 
@@ -118,17 +118,17 @@ public class SaveSerial : MonoBehaviour
 
     bf.Serialize(file, data);
         file.Close();
-        Debug.Log("Data Saved to " + Application.persistentDataPath + "/SavedData.dat");
+        Debug.Log("Data Saved to " + Application.persistentDataPath + "/saves/"+saveName+".dat");
     }
 
-    public void LoadGame()
+    public static void LoadGame(string fileName)
     {
         if (File.Exists(Application.persistentDataPath
-                   + "/SavedData.dat"))
+                   + "/saves/"+fileName))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file =
-                File.Open(Application.persistentDataPath + "/SavedData.dat", FileMode.Open);
+                File.Open(Application.persistentDataPath + "/saves/" + fileName, FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
 
@@ -183,7 +183,7 @@ public class SaveSerial : MonoBehaviour
     //UI UPDATE
 
 
-    UIUpdate.Instance.UpdateRound(CurrentRound);
+            UIUpdate.Instance.UpdateRound(CurrentRound);
             UIUpdate.Instance.SetVitals(Vitals);
             UIUpdate.Instance.SetScrap(Scrap);
             UIUpdate.Instance.SetPlastic(Plastic);
@@ -191,9 +191,12 @@ public class SaveSerial : MonoBehaviour
 
             //Camp UI UPDATE
             UICamp.Instance.updateFromSave(LabBuild, MarketBuild, BarracksBuild, ShootingRangeBuild, ArmoryBuild, HydroponicsBuild);
+
+            Debug.Log(fileName + "loaded succesfully");
         }
         else
         {
+            Debug.LogError("Tried "+Application.persistentDataPath+ "/saves/" + fileName+".dat");
             Debug.LogError("No save data!");
         }
     }
@@ -205,7 +208,7 @@ public class SaveSerial : MonoBehaviour
             File.Delete(Application.persistentDataPath + "/SavedData.dat");
 
             //Resources
-            Vitals = 5;
+            Vitals = 10;
             Scrap = 0;
             Plastic = 0;
             Electronics = 0;
@@ -259,6 +262,63 @@ public class SaveSerial : MonoBehaviour
         {
             Debug.Log("No save data to delete!");
         }
+    }
+
+    public static void NewGameSetData()
+    {
+        
+
+            //Resources
+            Vitals = 10;
+            Scrap = 0;
+            Plastic = 0;
+            Electronics = 0;
+
+            //Round
+            CurrentRound = 1;
+
+            //Camp
+            LabBuild = false;
+            MarketBuild = false;
+            BarracksBuild = false;
+            ShootingRangeBuild = false;
+            ArmoryBuild = false;
+            HydroponicsBuild = false;
+
+            //PlayerPosition
+            //TO-DO
+
+            //OnMapLocationsCaptured
+            //TO-DO
+
+            //PlayerArmy
+            MeleeUnit = 4; //To determine
+            RangeUnit = 0;
+            EliteUnit = 0;
+
+            //ArmyInCamp
+            CampMeleeUnit = 0;
+            CampRangeUnit = 0;
+            CampEliteUnit = 0;
+
+            //Drugs
+            ChemA = 0;
+            ChemB = 0;
+            ChemC = 0;
+            ChemD = 0;
+
+            BuffA = 0;
+            BuffB = 0;
+            BuffC = 0;
+
+            RecipeBuffA[0] = -1;
+            RecipeBuffB[0] = -1;
+            RecipeBuffC[0] = -1;
+
+            UIUpdate.Instance.UpdateUIValues();
+            UICamp.Instance.UpdateUIValues();
+
+        
     }
 
 

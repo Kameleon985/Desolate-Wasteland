@@ -80,4 +80,11 @@ public class GameEventSystem : MonoBehaviour
         OnPlayerClick?.Invoke(cost);
     }
 
+    public event Action OnUnitTurn;
+
+    public void EnemyTurn()
+    {
+        OnUnitTurn?.Invoke();
+    }
+
 }

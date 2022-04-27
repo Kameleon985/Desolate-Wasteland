@@ -17,6 +17,14 @@ public class MeleeEnemy : BaseEnemy
         setUnitCount();
     }
 
+
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public void takeDamage(int dmg)
+
     public override void takeDamage(int dmg)
     {
         if (quantity > 0)

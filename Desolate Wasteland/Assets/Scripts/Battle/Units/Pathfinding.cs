@@ -17,7 +17,7 @@ public class Pathfinding
         startTile.hCost = CalculateDistance(startTile, targetTile);
         startTile.CalculateFCost();
 
-        while(toSearch.Count > 0)
+        while (toSearch.Count > 0)
         {
             Tile currentTile = GetLowestFCostTile(toSearch);
             if (currentTile == targetTile)
@@ -49,7 +49,7 @@ public class Pathfinding
             }
         }
 
-        Debug.Log("Nie znaleziono ścieżki");
+        //Debug.Log("Nie znaleziono ścieżki");
         return null;
     }
 
@@ -98,7 +98,7 @@ public class Pathfinding
     }
 
 
-    private static int CalculateDistance(Tile a, Tile b)
+    public static int CalculateDistance(Tile a, Tile b)
     {
         int xDistance = Mathf.Abs(a.x - b.x);
         int yDistance = Mathf.Abs(a.y - b.y);
@@ -111,7 +111,7 @@ public class Pathfinding
         Tile lowestFCostTile = tileList[0];
         for (int i = 1; i < tileList.Count; i++)
         {
-            if(tileList[i].fCost < lowestFCostTile.fCost)
+            if (tileList[i].fCost < lowestFCostTile.fCost)
             {
                 lowestFCostTile = tileList[i];
             }
