@@ -11,6 +11,7 @@ public class UnitManager : MonoBehaviour
 
     public BaseHero SelectedHero;
 
+    public EnemyAI ai;
     public List<BaseHero> heroList;
     public List<BaseEnemy> enemyList;
 
@@ -18,6 +19,7 @@ public class UnitManager : MonoBehaviour
     {
         Instance = this;
         units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
+
     }
 
     public void SpawnHeroes()
@@ -39,7 +41,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        var enemyCount = 2;
+        var enemyCount = 1;
 
         for (int i = 0; i < enemyCount; i++)
         {
@@ -56,14 +58,17 @@ public class UnitManager : MonoBehaviour
 
     public void PrepareHeroes()
     {
-        if (!BattleMenuMenager.instance.endPrepareHeroes.activeSelf) {
+        if (!BattleMenuMenager.instance.endPrepareHeroes.activeSelf)
+        {
             BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         }
     }
 
     private T GetRandomUnit<T>(Faction faction, int unitCount, int currentUnit) where T : BaseUnit
     {
-        if (currentUnit != unitCount) {
+
+        if (currentUnit != unitCount)
+        {
             return (T)units.Where(u => u.faction == faction).ToList()[currentUnit].unitPrefab;
         }
         return null;
@@ -78,7 +83,16 @@ public class UnitManager : MonoBehaviour
 
     public void EnemyTurn()
     {
-        Debug.Log("Enemy Turn");
-        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        //GameObject gameObject = units.Where(u => u.faction == Faction.Enemy && u.unitPrefab.unitName.Equals("MeleeEnemy")).First().unitPrefab.gameObject;
+        GameEventSystem.Instance.EnemyTurn();
+        //gameObject.GetComponent<EnemyAI>().Invoke("Evaluate", 10);
+        //Debug.Log(ai.gameObject.name);
+        //Debug.Log("Enemy Turn");
+        //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+    }
+
+    public List<ScriptableUnit> GetUnits()
+    {
+        return units;
     }
 }

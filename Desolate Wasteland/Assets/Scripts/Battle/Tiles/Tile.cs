@@ -96,7 +96,8 @@ public class Tile : MonoBehaviour
                     SetUnit(UnitManager.Instance.SelectedHero);
                     UnitManager.Instance.SetSelectedHero(null);
                     GridManager.Instance.ClearAStarTiles();
-                    UnitManager.Instance.EnemyTurn();
+                    BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+
                 }
             }
         }

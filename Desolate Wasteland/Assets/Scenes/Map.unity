@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 676594966}
   - component: {fileID: 676594968}
   m_Layer: 9
-  m_Name: Junkyard
+  m_Name: Battle
   m_TagString: Location
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
