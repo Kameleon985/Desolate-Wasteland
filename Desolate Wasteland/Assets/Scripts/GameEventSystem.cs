@@ -45,7 +45,7 @@ public class GameEventSystem : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
-        if (level == 3)
+        if (level == 0)
         {
             OnEnterMap?.Invoke(data);
         }

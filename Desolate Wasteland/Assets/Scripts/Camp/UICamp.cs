@@ -172,7 +172,7 @@ public class UICamp : MonoBehaviour
             goLaboButton.interactable = true;
         }
 
-        
+
 
     }
 
@@ -219,7 +219,7 @@ public class UICamp : MonoBehaviour
             goMarketButton.interactable = true;
         }
 
-        
+
 
     }
     public void buildBarracks()
@@ -263,7 +263,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildBarracksButton.interactable = false;
-            
+
         }
 
     }
@@ -272,7 +272,7 @@ public class UICamp : MonoBehaviour
         bool sufficientScrap = false;
         bool sufficientPlastic = false;
         bool sufficientElectronics = false;
-        if(SaveSerial.Scrap >= 5)
+        if (SaveSerial.Scrap >= 5)
         {
             sufficientScrap = true;
         }
@@ -297,7 +297,7 @@ public class UICamp : MonoBehaviour
                 buildShootingRangeButton.interactable = false;
                 armyHandler.ShootingRangeBuiltIncrease();
             }
-            else if(!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
+            else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
             {
                 ErrorView.gameObject.SetActive(true);
             }
@@ -309,7 +309,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildShootingRangeButton.interactable = false;
-            
+
         }
 
     }
@@ -354,7 +354,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildArmoryButton.interactable = false;
-            
+
         }
 
     }
@@ -401,7 +401,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildHydroponicsButton.interactable = false;
-            roundTracker.isHydroponicsBuilt = true;            
+            roundTracker.isHydroponicsBuilt = true;
         }
 
     }
@@ -420,14 +420,14 @@ public class UICamp : MonoBehaviour
     }
 
     void updateLabBuild()
-    {        
-            buildLaboButton.interactable = !(SaveSerial.LabBuild);
-            goLaboButton.interactable = SaveSerial.LabBuild;
+    {
+        buildLaboButton.interactable = !(SaveSerial.LabBuild);
+        goLaboButton.interactable = SaveSerial.LabBuild;
     }
     void updateMarketBuild()
     {
-            buildMarketButton.interactable = !(SaveSerial.MarketBuild);
-            goMarketButton.interactable = SaveSerial.MarketBuild;
+        buildMarketButton.interactable = !(SaveSerial.MarketBuild);
+        goMarketButton.interactable = SaveSerial.MarketBuild;
     }
     void updateBarracksBuild()
     {
@@ -455,9 +455,9 @@ public class UICamp : MonoBehaviour
 
     public void updatePlayerArmy()
     {
-        MeleeAmount.text = SaveSerial.MeleeUnit+ "";
-        RangeAmount.text = SaveSerial.RangeUnit+ "";
-        EliteAmount.text = SaveSerial.EliteUnit+ "";
+        MeleeAmount.text = SaveSerial.MeleeUnit + "";
+        RangeAmount.text = SaveSerial.RangeUnit + "";
+        EliteAmount.text = SaveSerial.EliteUnit + "";
     }
 
     void updateLabo()
@@ -506,6 +506,6 @@ public class UICamp : MonoBehaviour
 
     public void ReturnToMap()
     {
-        SceneManager.LoadScene("Map&UI");
+        GameEventSystem.Instance.EnterLocation("Map");
     }
 }
