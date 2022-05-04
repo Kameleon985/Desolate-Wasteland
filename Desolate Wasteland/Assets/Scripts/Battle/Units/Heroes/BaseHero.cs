@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BaseHero : BaseUnit
 {
-    public int attackDamage = 10;
+    public int attackDamage;
 }

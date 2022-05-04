@@ -15,6 +15,7 @@ MonoBehaviour:
   renderer: {fileID: 6630870901878386307}
   highlight: {fileID: 4470144655035609992}
   pathHighlight: {fileID: 1935693518911177531}
+  rangeHighlight: {fileID: 3126382490779230645}
   tileName: Grass
   isWakable: 1
   OccupiedUnit: {fileID: 0}
@@ -108,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 2199204171996962185, guid: 15f17308b910c3e4cbd2d24613c6281a,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2199204171996962185, guid: 15f17308b910c3e4cbd2d24613c6281a,
         type: 3}
@@ -148,6 +149,12 @@ GameObject:
 --- !u!1 &1935693518911177531 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4678251759380681418, guid: 15f17308b910c3e4cbd2d24613c6281a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6498847986204889585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3126382490779230645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166063513675296836, guid: 15f17308b910c3e4cbd2d24613c6281a,
     type: 3}
   m_PrefabInstance: {fileID: 6498847986204889585}
   m_PrefabAsset: {fileID: 0}
