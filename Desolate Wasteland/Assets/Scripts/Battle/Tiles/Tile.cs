@@ -78,7 +78,25 @@ public class Tile : MonoBehaviour
                         var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
                         for (int i = 0 ; i < GridManager.Instance.height ; i++)
                         {
-                            GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                            if (rangeHero.occupiedTile.x >= rangeHero.attackRange)
+                            {
+                                if (rangeHero.occupiedTile.x + rangeHero.attackRange >= GridManager.Instance.width)
+                                {
+                                    Debug.Log("1");
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.Log("2");
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("3");
+                                GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                            }
                         }
                     }
                 }
