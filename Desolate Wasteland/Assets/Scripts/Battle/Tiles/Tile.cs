@@ -80,7 +80,26 @@ public class Tile : MonoBehaviour
                         //Attack
                         if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile)) {
                             var enemy = (BaseEnemy)OccupiedUnit;
-                            enemy.takeDamage(UnitManager.Instance.SelectedHero.attackDamage);
+                            if(UnitManager.Instance.SelectedHero is MeleeUnit)
+                            {
+                                var heroUnit = (MeleeUnit)UnitManager.Instance.SelectedHero;
+                                enemy.takeDamage(heroUnit.getAttackDamage());
+
+                                Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                            }
+                            else if(UnitManager.Instance.SelectedHero is RangedUnit)
+                            {
+                                var heroUnit = (RangedUnit)UnitManager.Instance.SelectedHero;
+                                enemy.takeDamage(heroUnit.getAttackDamage());
+
+                                Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                            }
+
+                            
+
+                            Debug.Log("Type: " + UnitManager.Instance.SelectedHero.unitName);
+                            
+
                             UnitManager.Instance.SetSelectedHero(null);
                             UnitManager.Instance.EnemyTurn();
                         }

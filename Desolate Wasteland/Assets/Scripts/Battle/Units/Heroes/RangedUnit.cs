@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedUnit : MonoBehaviour
+public class RangedUnit : BaseHero
 {
-    static readonly int maxHealth = 20;
+    public static readonly int maxHealth = 20;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    static int currentHealth = 20;
-    int attackDamage = 8;
+    public static int currentHealth = 20;
+    public static int attackDamage = 8;
     int movementSpeed;
     int initiative;
 
@@ -20,6 +20,11 @@ public class RangedUnit : MonoBehaviour
     public static bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     public static bool buffBGiven = false; //Attack buff ?
     public static bool buffCGiven = false; //Initiative buff ?
+
+    public int getAttackDamage()
+    {
+        return attackDamage;
+    }
 
     static void dealDamage(int dmg)
     {
