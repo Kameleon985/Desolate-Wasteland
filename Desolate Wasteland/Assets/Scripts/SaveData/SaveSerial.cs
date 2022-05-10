@@ -33,7 +33,7 @@ public class SaveSerial : MonoBehaviour
 
     //PlayerArmy
     public static int MeleeUnit = 4; //To determine
-    public static int RangeUnit;
+    public static int RangeUnit = 2; //To determine
     public static int EliteUnit;
 
     //ArmyInCamp

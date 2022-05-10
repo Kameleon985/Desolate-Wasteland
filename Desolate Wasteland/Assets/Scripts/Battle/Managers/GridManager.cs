@@ -83,4 +83,16 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    public void ClearAllHighlightTiles()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                //GetTileAtPosition(new Vector2(x, y)).pathHighlight.SetActive(false);
+                GetTileAtPosition(new Vector2(x, y)).rangeHighlight.SetActive(false);
+            }
+        }
+    }
 }

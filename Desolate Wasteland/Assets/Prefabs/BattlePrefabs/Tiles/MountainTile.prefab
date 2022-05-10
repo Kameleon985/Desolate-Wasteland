@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderer: {fileID: 8894823485474014622}
   highlight: {fileID: 1836470017010849941}
-  pathHighlight: {fileID: 0}
+  pathHighlight: {fileID: 4443260485221902374}
+  rangeHighlight: {fileID: 871010498461682344}
   tileName: Mountain
   isWakable: 0
   OccupiedUnit: {fileID: 0}
@@ -200,6 +201,18 @@ SpriteRenderer:
 --- !u!1 &1836470017010849941 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7221996093343752825, guid: 15f17308b910c3e4cbd2d24613c6281a,
+    type: 3}
+  m_PrefabInstance: {fileID: 9026863947148770028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4443260485221902374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4678251759380681418, guid: 15f17308b910c3e4cbd2d24613c6281a,
+    type: 3}
+  m_PrefabInstance: {fileID: 9026863947148770028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &871010498461682344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166063513675296836, guid: 15f17308b910c3e4cbd2d24613c6281a,
     type: 3}
   m_PrefabInstance: {fileID: 9026863947148770028}
   m_PrefabAsset: {fileID: 0}

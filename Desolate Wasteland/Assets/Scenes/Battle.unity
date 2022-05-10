@@ -3547,6 +3547,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedHero: {fileID: 0}
   ai: {fileID: 0}
+  heroList: []
+  enemyList: []
 --- !u!1 &1651752759
 GameObject:
   m_ObjectHideFlags: 0
