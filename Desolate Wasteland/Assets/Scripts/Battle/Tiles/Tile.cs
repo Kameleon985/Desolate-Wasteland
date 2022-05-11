@@ -130,6 +130,7 @@ public class Tile : MonoBehaviour
                                 Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
 
                                 UnitManager.Instance.SetSelectedHero(null);
+                                BattleMenuMenager.instance.updateQueue();
                                 UnitManager.Instance.EnemyTurn();
                             }
                         } else if (UnitManager.Instance.SelectedHero is RangedUnit)
@@ -141,6 +142,7 @@ public class Tile : MonoBehaviour
                                 {
                                     enemy.takeDamage(heroUnit.getAttackDamage());
                                     UnitManager.Instance.SetSelectedHero(null);
+                                    BattleMenuMenager.instance.updateQueue();
                                     UnitManager.Instance.EnemyTurn();
                                 }
                             } else if(enemy.occupiedTile.x < heroUnit.occupiedTile.x)
@@ -149,6 +151,7 @@ public class Tile : MonoBehaviour
                                 {
                                     enemy.takeDamage(heroUnit.getAttackDamage());
                                     UnitManager.Instance.SetSelectedHero(null);
+                                    BattleMenuMenager.instance.updateQueue();
                                     UnitManager.Instance.EnemyTurn();
                                 }
                             }
@@ -156,7 +159,6 @@ public class Tile : MonoBehaviour
                             Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
                         }
                         GridManager.Instance.ClearAllHighlightTiles();
-                        BattleMenuMenager.instance.updateQueue();
                     }
                 }
             }
