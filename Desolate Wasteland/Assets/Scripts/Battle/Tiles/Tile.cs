@@ -76,7 +76,7 @@ public class Tile : MonoBehaviour
                     if (UnitManager.Instance.SelectedHero is RangedUnit)
                     {
                         var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
-                        for (int i = 0 ; i < GridManager.Instance.height ; i++)
+                        for (int i = 0; i < GridManager.Instance.height; i++)
                         {
                             if (rangeHero.occupiedTile.x >= rangeHero.attackRange)
                             {
@@ -114,7 +114,8 @@ public class Tile : MonoBehaviour
                                 UnitManager.Instance.SetSelectedHero(null);
                                 UnitManager.Instance.EnemyTurn();
                             }
-                        } else if (UnitManager.Instance.SelectedHero is RangedUnit)
+                        }
+                        else if (UnitManager.Instance.SelectedHero is RangedUnit)
                         {
                             var enemy = (BaseEnemy)OccupiedUnit;
                             var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
@@ -165,10 +166,10 @@ public class Tile : MonoBehaviour
             if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y)).OccupiedUnit != null) return true;
             if (tile.y - 1 >= 0)
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y - 1)).OccupiedUnit != null) return true;
-            if (tile.y + 1 >= 0)
+            if (tile.y + 1 <= GridManager.Instance.height)
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y + 1)).OccupiedUnit != null) return true;
         }
-        if (tile.x + 1 < GridManager.Instance.width)
+        if (tile.x + 1 <= GridManager.Instance.width)
         {
             if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y)).OccupiedUnit != null) return true;
             if (tile.y - 1 >= 0)
@@ -177,7 +178,7 @@ public class Tile : MonoBehaviour
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y + 1)).OccupiedUnit != null) return true;
         }
         if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)).OccupiedUnit != null) return true;
-        if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) return true;
+        if (tile.y + 1 <= GridManager.Instance.height) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) return true;
 
         return false;
     }
