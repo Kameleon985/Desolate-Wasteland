@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MeleeUnit : BaseHero
 {
+    public SpriteRenderer sr;
+
     public static readonly int maxHealth = 25;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
@@ -12,7 +14,7 @@ public class MeleeUnit : BaseHero
     public static int currentHealth = 25;    
 
     int movementSpeed;
-    int initiative;
+    public static int initiative = 10;
 
     public static int attackDamage = 10;
 
@@ -32,6 +34,11 @@ public class MeleeUnit : BaseHero
     public int getAttackDamage()
     {
         return attackDamage;
+    }
+
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return sr;
     }
 
     public void Start()

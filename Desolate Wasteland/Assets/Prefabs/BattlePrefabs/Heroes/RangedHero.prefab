@@ -275,7 +275,9 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 0
   unitName: RangedHero
-  attackDamage: 8
+  sr: {fileID: 9147258148800377415}
+  attackRange: 5
+  initiative: 5
   unitCounter: {fileID: 8943051950739178991}
 --- !u!1 &8943051950739178991
 GameObject:

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
@@ -72,7 +73,19 @@ public class Tile : MonoBehaviour
                 if (OccupiedUnit.faction == Faction.Hero)
                 {
                     //Select
-                    UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                    if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().sprite == BattleMenuMenager.instance.meleeImg)
+                    {
+                        if (OccupiedUnit is MeleeUnit)
+                        {
+                            UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                        }
+                    } else if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().sprite == BattleMenuMenager.instance.rangeImg)
+                    {
+                        if (OccupiedUnit is RangedUnit)
+                        {
+                            UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                        }
+                    }
                     if (UnitManager.Instance.SelectedHero is RangedUnit)
                     {
                         var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
@@ -82,22 +95,22 @@ public class Tile : MonoBehaviour
                             {
                                 if (rangeHero.occupiedTile.x + rangeHero.attackRange >= GridManager.Instance.width)
                                 {
-                                    Debug.Log("1");
                                     GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
                                 }
                                 else
                                 {
-                                    Debug.Log("2");
                                     GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
                                     GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
                                 }
                             }
                             else
                             {
-                                Debug.Log("3");
                                 GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
                             }
                         }
+                    }else if (UnitManager.Instance.SelectedHero is MeleeUnit)
+                    {
+                        GridManager.Instance.ClearAllHighlightTiles();
                     }
                 }
                 else
@@ -122,16 +135,28 @@ public class Tile : MonoBehaviour
                         } else if (UnitManager.Instance.SelectedHero is RangedUnit)
                         {
                             var heroUnit = (RangedUnit)UnitManager.Instance.SelectedHero;
-                            if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)
+                            if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x)
                             {
-                                enemy.takeDamage(heroUnit.getAttackDamage());
-                                UnitManager.Instance.SetSelectedHero(null);
-                                UnitManager.Instance.EnemyTurn();
+                                if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)
+                                {
+                                    enemy.takeDamage(heroUnit.getAttackDamage());
+                                    UnitManager.Instance.SetSelectedHero(null);
+                                    UnitManager.Instance.EnemyTurn();
+                                }
+                            } else if(enemy.occupiedTile.x < heroUnit.occupiedTile.x)
+                            {
+                                if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x - heroUnit.attackRange)
+                                {
+                                    enemy.takeDamage(heroUnit.getAttackDamage());
+                                    UnitManager.Instance.SetSelectedHero(null);
+                                    UnitManager.Instance.EnemyTurn();
+                                }
                             }
 
                             Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
                         }
                         GridManager.Instance.ClearAllHighlightTiles();
+                        BattleMenuMenager.instance.updateQueue();
                     }
                 }
             }
@@ -146,6 +171,7 @@ public class Tile : MonoBehaviour
                     GridManager.Instance.ClearAStarTiles();
                     BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
                     GridManager.Instance.ClearAllHighlightTiles();
+                    BattleMenuMenager.instance.updateQueue();
                 }
             }
         }

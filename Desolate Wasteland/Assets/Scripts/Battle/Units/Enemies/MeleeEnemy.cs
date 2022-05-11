@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class MeleeEnemy : BaseEnemy
 {
+    public SpriteRenderer sr;
+
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
-    int initiative;
+    public static int initiative = 10;
     static int quantity = 2;
     public GameObject unitCounter;
 
@@ -22,7 +24,6 @@ public class MeleeEnemy : BaseEnemy
     {
         return currentHealth;
     }
-
 
     public override void takeDamage(int dmg)
     {

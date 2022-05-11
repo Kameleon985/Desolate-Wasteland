@@ -98,7 +98,8 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 0
   unitName: MeleeHero
-  attackDamage: 10
+  sr: {fileID: 139546207583226121}
+  initiative: 10
   unitCounter: {fileID: 9113207288357756754}
 --- !u!1 &1850426750680682096
 GameObject:

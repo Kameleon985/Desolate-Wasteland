@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class RangedUnit : BaseHero
 {
+    public SpriteRenderer sr;
+
     public static readonly int maxHealth = 20;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
     public static int attackDamage = 8;
-    static int currentHealth = 20;
+    public static int currentHealth = 20;
     public int attackRange = 5;
     int movementSpeed;
-    int initiative;
+    public static int initiative = 5;
 
     static int quantity = SaveSerial.RangeUnit; //To read from SaveSerial PlayerArmy
 
