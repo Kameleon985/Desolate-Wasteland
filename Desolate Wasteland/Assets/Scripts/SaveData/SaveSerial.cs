@@ -190,9 +190,9 @@ public class SaveSerial : MonoBehaviour
             UIUpdate.Instance.SetElectronics(Electronics);
 
             //Camp UI UPDATE
-            UICamp.Instance.updateFromSave(LabBuild, MarketBuild, BarracksBuild, ShootingRangeBuild, ArmoryBuild, HydroponicsBuild);
+            //UICamp.Instance.updateFromSave(LabBuild, MarketBuild, BarracksBuild, ShootingRangeBuild, ArmoryBuild, HydroponicsBuild);
 
-            Debug.Log(fileName + "loaded succesfully");
+            Debug.Log(fileName + " loaded succesfully");
         }
         else
         {
