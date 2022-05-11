@@ -26,7 +26,8 @@ public class SaveSerial : MonoBehaviour
     public static bool HydroponicsBuild;
 
     //PlayerPosition
-    //TO-DO
+    public static float[] onMapPosition;
+    public static float onMapMovementPoints;
 
     //OnMapLocationsCaptured
     //TO-DO
@@ -86,7 +87,8 @@ public class SaveSerial : MonoBehaviour
         data.savedHydroponicsBuild = HydroponicsBuild;
 
         //PlayerPosition
-        //TO-DO
+        data.savedOnMapPosition = onMapPosition;
+        data.savedOnMapMovementPoints = onMapMovementPoints;
 
         //OnMapLocationsCaptured
         //TO-DO
@@ -151,7 +153,8 @@ public class SaveSerial : MonoBehaviour
             HydroponicsBuild = data.savedHydroponicsBuild;
 
             //PlayerPosition
-            //TO-DO
+            onMapPosition = data.savedOnMapPosition;
+            onMapMovementPoints = data.savedOnMapMovementPoints;
 
             //OnMapLocationsCaptured
             //TO-DO
@@ -192,7 +195,6 @@ public class SaveSerial : MonoBehaviour
             //Camp UI UPDATE
             //UICamp.Instance.updateFromSave(LabBuild, MarketBuild, BarracksBuild, ShootingRangeBuild, ArmoryBuild, HydroponicsBuild);
 
-            Debug.Log(fileName + " loaded succesfully");
         }
         else
         {
@@ -225,7 +227,8 @@ public class SaveSerial : MonoBehaviour
             HydroponicsBuild = false;
 
             //PlayerPosition
-            //TO-DO
+            onMapPosition = new float[] { 0.0f, 0.0f };
+            onMapMovementPoints = 10.0f;
 
             //OnMapLocationsCaptured
             //TO-DO
@@ -286,7 +289,8 @@ public class SaveSerial : MonoBehaviour
             HydroponicsBuild = false;
 
             //PlayerPosition
-            //TO-DO
+            onMapPosition = new float[] {0.0f, 0.0f};
+            onMapMovementPoints = 10.0f;
 
             //OnMapLocationsCaptured
             //TO-DO
@@ -345,7 +349,8 @@ public class SaveSerial : MonoBehaviour
         public bool savedHydroponicsBuild;
 
         //PlayerPosition
-        //TO-DO
+        public float[] savedOnMapPosition;
+        public float savedOnMapMovementPoints;
 
         //OnMapLocationsCaptured
         //TO-DO

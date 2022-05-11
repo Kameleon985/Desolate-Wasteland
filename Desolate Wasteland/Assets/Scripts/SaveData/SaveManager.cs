@@ -122,6 +122,9 @@ public class SaveManager : MonoBehaviour
             Directory.CreateDirectory(Application.persistentDataPath + "/saves/");
         }
         string fileName = saveNameInputField.text;
+
+        GameEventSystem.Instance.SaveButton();
+
         SaveSerial.SaveGame(fileName);
     }
 }
