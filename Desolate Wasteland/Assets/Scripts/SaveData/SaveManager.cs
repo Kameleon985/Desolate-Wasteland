@@ -103,7 +103,7 @@ public class SaveManager : MonoBehaviour
         foreach (string file in saveFilesFullPath)
         {
             saveFilesJustNames.Add(Path.GetFileName(file).Substring(0, Path.GetFileName(file).Length - 4));
-            saveFilesNamesAndDates.Add(Path.GetFileName(file).Substring(0, Path.GetFileName(file).Length - 4) + " | "+ File.GetCreationTime(file));
+            saveFilesNamesAndDates.Add(Path.GetFileName(file).Substring(0, Path.GetFileName(file).Length - 4) + " | "+ File.GetLastWriteTime(file));
         }
     }
 

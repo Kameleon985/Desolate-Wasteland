@@ -36,7 +36,7 @@ public class MapMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            notClickableThrough.SetActive(true);
+            notClickableThrough.SetActive(!notClickableThrough.activeInHierarchy);
         }
 
         if (notClickableThrough.activeSelf)
@@ -45,6 +45,7 @@ public class MapMovement : MonoBehaviour
         }
         else
         {
+
             if (moving)
             {
                 movePoints -= Time.deltaTime;
