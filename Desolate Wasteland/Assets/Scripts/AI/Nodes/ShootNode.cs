@@ -5,30 +5,19 @@ using UnityEngine.AI;
 
 public class ShootNode : Node
 {
-    private NavMeshAgent agent;
-    private EnemyAI ai;
-    private Transform target;
 
-    private Vector3 currentVelocity;
-    private float smoothDamp;
+    private AI ai;
 
-    public ShootNode(Transform transform, EnemyAI ai, Transform target)
+    public ShootNode(AI ai)
     {
-        this.agent = agent;
         this.ai = ai;
-        this.target = target;
-        smoothDamp = 1f;
     }
 
     public override NodeState Evaluate()
     {
-        agent.isStopped = true;
-        ai.SetColor(Color.green);
-        Vector3 direction = target.position - ai.transform.position;
-        Vector3 currentDirection = Vector3.SmoothDamp(ai.transform.forward, direction, ref currentVelocity, smoothDamp);
-        Quaternion rotation = Quaternion.LookRotation(currentDirection, Vector3.up);
-        ai.transform.rotation = rotation;
-        return NodeState.RUNNING;
+        Transform closest = ai.GetClosestHero();
+        GridManager.Instance.GetTileAtPosition(closest.position).OccupiedUnit.GetComponent<BaseHero>().takeDamage(RangeEnemy.GetDamage());
+        return NodeState.SUCCESS;
     }
 
 }

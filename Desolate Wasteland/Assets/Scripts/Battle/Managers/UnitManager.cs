@@ -11,7 +11,7 @@ public class UnitManager : MonoBehaviour
 
     public BaseHero SelectedHero;
 
-    public EnemyAI ai;
+    public MeleeAi ai;
     public List<BaseHero> heroList;
     public List<BaseEnemy> enemyList;
 
@@ -43,7 +43,7 @@ public class UnitManager : MonoBehaviour
     {
         var enemyCount = 2;
 
-        for (int i = 0; i < enemyCount; i++)
+        for (int i = 1; i < enemyCount; i++)
         {
             var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy, enemyCount, i);
             var spawnedEnemy = Instantiate(randomPrefab);

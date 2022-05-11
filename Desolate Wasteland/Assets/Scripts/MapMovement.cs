@@ -85,7 +85,7 @@ public class MapMovement : MonoBehaviour
                 sprite.sprite = Stationary;
             }
         }
-        
+
     }
 
 

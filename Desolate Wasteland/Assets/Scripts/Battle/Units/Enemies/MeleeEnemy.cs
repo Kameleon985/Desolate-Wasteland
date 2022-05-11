@@ -8,6 +8,7 @@ public class MeleeEnemy : BaseEnemy
 {
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
+    static int damage = 10;
     int initiative;
     static int quantity = 2;
     public GameObject unitCounter;
@@ -23,6 +24,10 @@ public class MeleeEnemy : BaseEnemy
         return currentHealth;
     }
 
+    public static int GetDamage()
+    {
+        return damage;
+    }
 
     public override void takeDamage(int dmg)
     {

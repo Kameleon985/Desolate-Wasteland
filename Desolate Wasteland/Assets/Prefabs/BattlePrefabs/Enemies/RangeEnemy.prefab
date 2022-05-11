@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7344231040733294375}
   - component: {fileID: 9137449378593330969}
   - component: {fileID: 1649183430979494267}
+  - component: {fileID: 1075233834024505250}
   m_Layer: 0
   m_Name: RangeEnemy
   m_TagString: Untagged
@@ -99,6 +100,25 @@ MonoBehaviour:
   faction: 1
   unitName: RangeEnemy
   unitCounter: {fileID: 5391407529348887391}
+  attackRange: 50
+--- !u!114 &1075233834024505250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2576284105413337694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff6ece86894c2f24a9245cde42898638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 25
+  lowHealthThreshold: 20
+  healthRestoreRate: 0
+  chasingRange: 0
+  distanceRange: 120
+  enemy: {fileID: 1649183430979494267}
 --- !u!1 &5391407529348887391
 GameObject:
   m_ObjectHideFlags: 0

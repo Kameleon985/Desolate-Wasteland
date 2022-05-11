@@ -95,4 +95,33 @@ public class RangedUnit : BaseHero
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
+
+    public override void takeDamage(int dmg)
+    {
+        if (quantity > 0)
+        {
+            currentHealth -= dmg;
+            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            if (currentHealth <= 0) //If unit health in stack <= 0
+            {
+                quantity--; //One unit in stack died
+                setUnitCount();
+
+                SaveSerial.RangeUnit = quantity;
+                Debug.Log("Unit died, only " + quantity + " units left");
+
+                if (quantity <= 0)
+                {
+                    UnitManager.Instance.heroList.Remove(this);
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    currentHealth = maxHealth;
+                }
+            }
+
+        }
+    }
+
 }
