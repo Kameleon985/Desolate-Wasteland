@@ -14,11 +14,11 @@ public class UIMap : MonoBehaviour
         GameEventSystem.Instance.OnPlayerClick += CostUpdate;
     }
 
-    public void StatusUpdate(PlayerData data)
+    public void StatusUpdate()
     {
-        if (data.movePoints != 0)
+        if (SaveSerial.onMapMovementPoints != 0)
         {
-            movePoints.text = string.Format("Move Points: {0:#0.0}", data.movePoints);
+            movePoints.text = string.Format("Move Points: {0:#0.0}", SaveSerial.onMapMovementPoints);
         }
         else
         {

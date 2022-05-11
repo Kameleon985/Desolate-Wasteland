@@ -29,6 +29,7 @@ public class MapMovement : MonoBehaviour
         atLocation = null;
         GameEventSystem.Instance.OnEnterLocation += SavePosition;
         GameEventSystem.Instance.OnEnterMap += LoadData;
+        GameEventSystem.Instance.OnSaveButton += SavePosition;
     }
 
     void Update()
@@ -85,7 +86,11 @@ public class MapMovement : MonoBehaviour
                 sprite.sprite = Stationary;
             }
         }
-        
+
+        //float[] mapPositionArr = { transform.position.x, transform.position.y };
+        //SaveSerial.onMapPosition = mapPositionArr;
+        //SaveSerial.onMapMovementPoints = movePoints;
+
     }
 
 
@@ -135,16 +140,18 @@ public class MapMovement : MonoBehaviour
         }
     }
 
-    public void SavePosition(PlayerData data)
+    public void SavePosition()
     {
-        data.position = transform.position;
-        data.movePoints = movePoints;
+        float[] mapPositionArr = { transform.position.x, transform.position.y };
+        SaveSerial.onMapPosition = mapPositionArr;
+        SaveSerial.onMapMovementPoints = movePoints;
     }
 
-    public void LoadData(PlayerData data)
+    public void LoadData()
     {
-        movePoints = data.movePoints;
-        transform.position = data.position;
+        float[] mapPositionArr = SaveSerial.onMapPosition;
+        movePoints = SaveSerial.onMapMovementPoints;
+        transform.position = new Vector2(mapPositionArr[0], mapPositionArr[1]);
     }
 
     public void OnDestroy()
