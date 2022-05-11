@@ -15,6 +15,7 @@ public class SaveManager : MonoBehaviour
 
     public string[] saveFilesFullPath;
     public List<string> saveFilesJustNames;
+    public List<string> saveFilesNamesAndDates;
     public Button confirmSaveBtn;
 
     public List<GameObject> buttons;
@@ -33,6 +34,7 @@ public class SaveManager : MonoBehaviour
         clearButtons();
         saveFilesJustNames.Clear();
         saveFilesFullPath = new string[0];
+        saveFilesNamesAndDates.Clear();
         GetLoadFiles();
 
         for (int i = 0; i <= saveFilesJustNames.Count - 1; i++)
@@ -40,7 +42,8 @@ public class SaveManager : MonoBehaviour
             GameObject button = Instantiate(buttonTemplate) as GameObject;
             buttons.Add(button);
             button.SetActive(true);
-            button.GetComponent<ButtonListButton>().setButtonName(saveFilesJustNames[i]);
+            //button.GetComponent<ButtonListButton>().setButtonName(saveFilesJustNames[i]);
+            button.GetComponent<ButtonListButton>().setButtonName(saveFilesNamesAndDates[i]);
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
         }
@@ -82,8 +85,9 @@ public class SaveManager : MonoBehaviour
         }
 
         saveFilesFullPath = Directory.GetFiles(Application.persistentDataPath + "/saves/");
-        
-        GetFileNames();
+
+        //GetFileNames();
+        GetFileNamesAndDates();
     }
 
     private void GetFileNames()
@@ -94,10 +98,21 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    private void GetFileNamesAndDates()
+    {
+        foreach (string file in saveFilesFullPath)
+        {
+            saveFilesJustNames.Add(Path.GetFileName(file).Substring(0, Path.GetFileName(file).Length - 4));
+            saveFilesNamesAndDates.Add(Path.GetFileName(file).Substring(0, Path.GetFileName(file).Length - 4) + " | "+ File.GetCreationTime(file));
+        }
+    }
+
     public void load(string fileName)
     {
+        string cutString = fileName.Substring(0, fileName.Length - 22);
+
         SceneManager.LoadScene("Map");
-        SaveSerial.LoadGame(fileName+".dat");
+        SaveSerial.LoadGame(cutString+".dat");
     }    
 
     public void save()

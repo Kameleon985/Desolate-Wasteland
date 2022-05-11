@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class MainMenuControls : MonoBehaviour
 {
     public string _mainMapScene;
-    private string saveToLoad;
 
     public void NewGame()
     {
