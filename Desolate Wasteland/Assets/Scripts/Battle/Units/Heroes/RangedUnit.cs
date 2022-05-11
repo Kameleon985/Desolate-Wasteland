@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RangedUnit : BaseHero
 {
@@ -8,23 +9,29 @@ public class RangedUnit : BaseHero
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    public static int currentHealth = 20;
     public static int attackDamage = 8;
+    static int currentHealth = 20;
+    public int attackRange = 5;
     int movementSpeed;
     int initiative;
-
-    int range;
 
     static int quantity = SaveSerial.RangeUnit; //To read from SaveSerial PlayerArmy
 
     public static bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     public static bool buffBGiven = false; //Attack buff ?
     public static bool buffCGiven = false; //Initiative buff ?
+	
+    public GameObject unitCounter;
 
-    public int getAttackDamage()
+    public void Start()
+    {
+        setUnitCount();
+    }
+	
+	public int getAttackDamage()
     {
         return attackDamage;
-    }
+	}
 
     static void dealDamage(int dmg)
     {
@@ -88,5 +95,10 @@ public class RangedUnit : BaseHero
             currentHealth = maxHealth;
             Debug.Log("Feed to max hp ~RU");
         }
+    }
+
+    public void setUnitCount()
+    {
+        unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 }

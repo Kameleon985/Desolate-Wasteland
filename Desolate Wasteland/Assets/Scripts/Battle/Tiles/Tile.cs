@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
     [SerializeField] protected SpriteRenderer renderer;
     public GameObject highlight;
     public GameObject pathHighlight;
+    public GameObject rangeHighlight;
     public string tileName;
 
     public bool isWakable;
@@ -72,37 +73,65 @@ public class Tile : MonoBehaviour
                 {
                     //Select
                     UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                    if (UnitManager.Instance.SelectedHero is RangedUnit)
+                    {
+                        var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
+                        for (int i = 0 ; i < GridManager.Instance.height ; i++)
+                        {
+                            if (rangeHero.occupiedTile.x >= rangeHero.attackRange)
+                            {
+                                if (rangeHero.occupiedTile.x + rangeHero.attackRange >= GridManager.Instance.width)
+                                {
+                                    Debug.Log("1");
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.Log("2");
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("3");
+                                GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     if (UnitManager.Instance.SelectedHero != null)
                     {
                         //Attack
-                        if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile)) {
-                            var enemy = (BaseEnemy)OccupiedUnit;
-                            if(UnitManager.Instance.SelectedHero is MeleeUnit)
+                        var enemy = (BaseEnemy)OccupiedUnit;
+
+                        if (UnitManager.Instance.SelectedHero is MeleeUnit)
+                        {
+                            if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
                             {
                                 var heroUnit = (MeleeUnit)UnitManager.Instance.SelectedHero;
                                 enemy.takeDamage(heroUnit.getAttackDamage());
 
                                 Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+
+                                UnitManager.Instance.SetSelectedHero(null);
+                                UnitManager.Instance.EnemyTurn();
                             }
-                            else if(UnitManager.Instance.SelectedHero is RangedUnit)
+                        } else if (UnitManager.Instance.SelectedHero is RangedUnit)
+                        {
+                            var heroUnit = (RangedUnit)UnitManager.Instance.SelectedHero;
+                            if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)
                             {
-                                var heroUnit = (RangedUnit)UnitManager.Instance.SelectedHero;
                                 enemy.takeDamage(heroUnit.getAttackDamage());
-
-                                Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                                UnitManager.Instance.SetSelectedHero(null);
+                                UnitManager.Instance.EnemyTurn();
                             }
 
-                            
-
-                            Debug.Log("Type: " + UnitManager.Instance.SelectedHero.unitName);
-                            
-
-                            UnitManager.Instance.SetSelectedHero(null);
-                            UnitManager.Instance.EnemyTurn();
+                            Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
                         }
+                        GridManager.Instance.ClearAllHighlightTiles();
                     }
                 }
             }
@@ -116,7 +145,7 @@ public class Tile : MonoBehaviour
                     UnitManager.Instance.SetSelectedHero(null);
                     GridManager.Instance.ClearAStarTiles();
                     BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
-
+                    GridManager.Instance.ClearAllHighlightTiles();
                 }
             }
         }
