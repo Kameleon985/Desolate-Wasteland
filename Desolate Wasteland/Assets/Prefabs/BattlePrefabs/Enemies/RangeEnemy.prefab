@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
   m_Color: {r: 1, g: 0.55344284, b: 0, a: 1}
   m_FlipX: 0
@@ -98,6 +98,8 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitName: RangeEnemy
+  sr: {fileID: 9137449378593330969}
+  initiative: 5
   unitCounter: {fileID: 5391407529348887391}
 --- !u!1 &5391407529348887391
 GameObject:
