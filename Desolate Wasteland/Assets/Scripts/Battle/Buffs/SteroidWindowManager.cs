@@ -21,6 +21,8 @@ public class SteroidWindowManager : MonoBehaviour
     public Text BuffBAmount;
     public Text BuffCAmount;
 
+    public GameObject notClickableThrough;
+
     private void Start()
     {
         UpdateBuffAmountsUI();
@@ -75,6 +77,8 @@ public class SteroidWindowManager : MonoBehaviour
     public void SwitchWindowActive()
     {
         steroidManagerWindow.SetActive(!steroidManagerWindow.activeSelf);
+        notClickableThrough.SetActive(!notClickableThrough.activeSelf);
+
     }
 
     public void AdministerBuffsToUnit()
