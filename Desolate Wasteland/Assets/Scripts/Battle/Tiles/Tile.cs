@@ -85,9 +85,16 @@ public class Tile : MonoBehaviour
                         {
                             UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
                         }
+                    } else if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().sprite == BattleMenuMenager.instance.eliteImg)
+                    {
+                        if (OccupiedUnit is EliteUnit)
+                        {
+                            UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                        }
                     }
                     if (UnitManager.Instance.SelectedHero is RangedUnit)
                     {
+                        GridManager.Instance.ClearAllHighlightTiles();
                         var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
                         for (int i = 0 ; i < GridManager.Instance.height ; i++)
                         {
@@ -111,6 +118,32 @@ public class Tile : MonoBehaviour
                     }else if (UnitManager.Instance.SelectedHero is MeleeUnit)
                     {
                         GridManager.Instance.ClearAllHighlightTiles();
+                    }else if (UnitManager.Instance.SelectedHero is EliteUnit)
+                    {
+                        GridManager.Instance.ClearAllHighlightTiles();
+                        var eliteHero = (EliteUnit)UnitManager.Instance.SelectedHero;
+                        if (eliteHero.getAmmo() > 0)
+                        {
+                            for (int i = 0; i < GridManager.Instance.height; i++)
+                            {
+                                if (eliteHero.occupiedTile.x >= eliteHero.attackRange)
+                                {
+                                    if (eliteHero.occupiedTile.x + eliteHero.attackRange >= GridManager.Instance.width)
+                                    {
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x - eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x + eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x - eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    }
+                                }
+                                else
+                                {
+                                    GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x + eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                }
+                            }
+                        }
                     }
                 }
                 else
@@ -127,7 +160,7 @@ public class Tile : MonoBehaviour
                                 var heroUnit = (MeleeUnit)UnitManager.Instance.SelectedHero;
                                 enemy.takeDamage(heroUnit.getAttackDamage());
 
-                                Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                                //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
 
                                 UnitManager.Instance.SetSelectedHero(null);
                                 BattleMenuMenager.instance.updateQueue();
@@ -156,9 +189,49 @@ public class Tile : MonoBehaviour
                                 }
                             }
 
-                            Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                            //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                        } else if (UnitManager.Instance.SelectedHero is EliteUnit)
+                        {
+                            GridManager.Instance.ClearAllHighlightTiles();
+                            var heroUnit = (EliteUnit)UnitManager.Instance.SelectedHero;
+                            if (heroUnit.getAmmo() <= 0)
+                            {
+                                if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
+                                {
+                                    enemy.takeDamage(heroUnit.getAttackDamage());
+
+                                    //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+
+                                    UnitManager.Instance.SetSelectedHero(null);
+                                    BattleMenuMenager.instance.updateQueue();
+                                    UnitManager.Instance.EnemyTurn();
+                                }
+                            }
+                            else
+                            {
+                                if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x)
+                                {
+                                    if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)
+                                    {
+                                        enemy.takeDamage(heroUnit.getRangeDamage());
+                                        UnitManager.Instance.SetSelectedHero(null);
+                                        BattleMenuMenager.instance.updateQueue();
+                                        UnitManager.Instance.EnemyTurn();
+                                    }
+                                }
+                                else if (enemy.occupiedTile.x < heroUnit.occupiedTile.x)
+                                {
+                                    if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x - heroUnit.attackRange)
+                                    {
+                                        enemy.takeDamage(heroUnit.getRangeDamage());
+                                        UnitManager.Instance.SetSelectedHero(null);
+                                        BattleMenuMenager.instance.updateQueue();
+                                        UnitManager.Instance.EnemyTurn();
+                                    }
+                                }
+                                heroUnit.setAmmo(heroUnit.getAmmo() - 1);
+                            }
                         }
-                        GridManager.Instance.ClearAllHighlightTiles();
                     }
                 }
             }

@@ -20,6 +20,7 @@ public class BattleMenuMenager : MonoBehaviour
 
     public Sprite meleeImg;
     public Sprite rangeImg;
+    public Sprite eliteImg;
 
     int count = 1;
 
@@ -91,7 +92,7 @@ public class BattleMenuMenager : MonoBehaviour
         queue[2].color = Color.blue;
         queue[3].sprite = rangeImg;
         queue[3].color = Color.red;
-        queue[4].sprite = meleeImg;
+        queue[4].sprite = eliteImg;
         queue[4].color = Color.blue;
 
         // 0 = MeleeUnit, 1 = RangedUnit, 2 = MeleeEnemy, 3 = RangeEnemy
@@ -109,11 +110,11 @@ public class BattleMenuMenager : MonoBehaviour
             queue[i].color = queue[i + 1].color;
         }
 
-        int coin = Random.Range(1, 3);
+        int rn = Random.Range(1, 4);
        
 
         if (count % 2 == 0) {
-            switch (coin)
+            switch (rn)
             {
                 case 1:
                     queue[4].sprite = meleeImg;
@@ -123,11 +124,15 @@ public class BattleMenuMenager : MonoBehaviour
                     queue[4].sprite = rangeImg;
                     queue[4].color = Color.blue;
                     break;
+                case 3:
+                    queue[4].sprite = eliteImg;
+                    queue[4].color = Color.blue;
+                    break;
             }
         }
         else
         {
-            switch (coin)
+            switch (rn)
             {
                 case 1:
                     queue[4].sprite = meleeImg;
@@ -135,6 +140,10 @@ public class BattleMenuMenager : MonoBehaviour
                     break;
                 case 2:
                     queue[4].sprite = rangeImg;
+                    queue[4].color = Color.red;
+                    break;
+                case 3:
+                    queue[4].sprite = meleeImg;
                     queue[4].color = Color.red;
                     break;
             }

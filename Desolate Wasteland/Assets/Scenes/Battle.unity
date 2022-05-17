@@ -1684,6 +1684,7 @@ MonoBehaviour:
   initiativQueue: {fileID: 861499161}
   meleeImg: {fileID: 21300000, guid: 850a2154b5a11cb408115e19568324b3, type: 3}
   rangeImg: {fileID: 21300000, guid: 2743927fa54a411499ea2659f1835661, type: 3}
+  eliteImg: {fileID: 21300000, guid: 5889992b4f13a864c898a115e4369b5c, type: 3}
 --- !u!1 &713365258
 GameObject:
   m_ObjectHideFlags: 0
