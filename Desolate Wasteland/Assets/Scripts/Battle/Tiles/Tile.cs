@@ -166,19 +166,19 @@ public class Tile : MonoBehaviour
             if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y)).OccupiedUnit != null) return true;
             if (tile.y - 1 >= 0)
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y - 1)).OccupiedUnit != null) return true;
-            if (tile.y + 1 <= GridManager.Instance.height)
+            if (tile.y + 1 < GridManager.Instance.height)
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y + 1)).OccupiedUnit != null) return true;
         }
-        if (tile.x + 1 <= GridManager.Instance.width)
+        if (tile.x + 1 < GridManager.Instance.width)
         {
             if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y)).OccupiedUnit != null) return true;
             if (tile.y - 1 >= 0)
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y - 1)).OccupiedUnit != null) return true;
-            if (tile.y + 1 <= GridManager.Instance.height)
+            if (tile.y + 1 < GridManager.Instance.height)
                 if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y + 1)).OccupiedUnit != null) return true;
         }
         if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)).OccupiedUnit != null) return true;
-        if (tile.y + 1 <= GridManager.Instance.height) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) return true;
+        if (tile.y + 1 < GridManager.Instance.height) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) return true;
 
         return false;
     }
