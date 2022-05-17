@@ -36,11 +36,10 @@ public class Tile : MonoBehaviour
     {
         if (notClickableThrough.activeSelf)
         {
-            Debug.Log("D: " + notClickableThrough.activeSelf);
+            //Do nothing
         }
         else
         {
-            Debug.Log("DX: " + notClickableThrough.activeSelf);
             highlight.SetActive(true);
             BattleMenuMenager.instance.ShowTileInfo(this);
         }
