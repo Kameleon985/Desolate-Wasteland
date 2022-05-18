@@ -12,8 +12,7 @@ public class MeleeUnit : BaseHero
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    static int currentHealth = 25;
-    //public static int currentHealth = 25;    
+    public static int currentHealth = 25;  
 
     int movementSpeed;
     public static int initiative = 10;
