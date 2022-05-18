@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RangeEnemy : BaseEnemy, IComparable
+public class RangeEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
@@ -29,6 +28,11 @@ public class RangeEnemy : BaseEnemy, IComparable
     public static int GetDamage()
     {
         return damage;
+    }
+
+    public override int getInitiative()
+    {
+        return initiative;
     }
 
     public override void takeDamage(int dmg)
@@ -61,19 +65,5 @@ public class RangeEnemy : BaseEnemy, IComparable
     public void setUnitCount()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
-    }
-
-    public int CompareTo(object obj)
-    {
-        if (obj == null) return 1;
-
-        BaseUnit otherUnit = obj as BaseUnit;
-
-        if (otherUnit != null)
-        {
-            return this.getInitiative().CompareTo(otherUnit.getInitiative());
-        }
-        else
-            throw new ArgumentException("Object is not a BaseUnit");
     }
 }

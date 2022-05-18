@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -96,10 +97,29 @@ public class BattleMenuMenager : MonoBehaviour
         queue[4].color = Color.blue;
 
         BaseUnit[] arr = { new MeleeUnit(), new RangedUnit(), new EliteUnit(), new MeleeEnemy(), new RangeEnemy(), new EliteEnemy() };
-        System.Array.Sort(arr);
 
-        Debug.Log(arr);
+        int n = arr.Length;
+        for(int i = 0; i < n - 1 ; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if(arr[j].getInitiative() > arr[ j + 1].getInitiative())
+                {
+                    BaseUnit tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
+                }
+            }
+        }
 
+        System.Array.Reverse(arr);
+
+        List<BaseUnit> initInitiative = arr.ToList();
+
+        for (int i = 0 ; i < queue.Length ; i++)
+        {
+            
+        }
     }
 
     public void updateQueue()

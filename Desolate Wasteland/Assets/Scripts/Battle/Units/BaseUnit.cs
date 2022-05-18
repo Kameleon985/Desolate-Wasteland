@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUnit : MonoBehaviour
+public abstract class BaseUnit : MonoBehaviour
 {
     public Tile occupiedTile;
     public Faction faction;
@@ -10,12 +10,7 @@ public class BaseUnit : MonoBehaviour
 
     private Pathfinding pathfinding;
 
-    public static int initiative;
-
-    public int getInitiative()
-    {
-        return initiative;
-    }
+    public abstract int getInitiative();
 
     public void Move(Tile targetTile)
     {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MeleeEnemy : BaseEnemy, IComparable
+public class MeleeEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
@@ -18,6 +17,11 @@ public class MeleeEnemy : BaseEnemy, IComparable
     public void Start()
     {
         setUnitCount();
+    }
+
+    public override int getInitiative()
+    {
+        return initiative;
     }
 
 
@@ -61,19 +65,5 @@ public class MeleeEnemy : BaseEnemy, IComparable
     public void setUnitCount()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
-    }
-
-    public int CompareTo(object obj)
-    {
-        if (obj == null) return 1;
-
-        BaseUnit otherUnit = obj as BaseUnit;
-
-        if (otherUnit != null)
-        {
-            return this.getInitiative().CompareTo(otherUnit.getInitiative());
-        }
-        else
-            throw new ArgumentException("Object is not a BaseUnit");
     }
 }

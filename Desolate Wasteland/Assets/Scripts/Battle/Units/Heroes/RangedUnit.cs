@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RangedUnit : BaseHero, IComparable
+public class RangedUnit : BaseHero
 {
     public SpriteRenderer sr;
 
@@ -35,6 +34,11 @@ public class RangedUnit : BaseHero, IComparable
     {
         return attackDamage;
 	}
+
+    public override int getInitiative()
+    {
+        return initiative;
+    }
 
     static void dealDamage(int dmg)
     {
@@ -131,19 +135,5 @@ public class RangedUnit : BaseHero, IComparable
             }
 
         }
-    }
-
-    public int CompareTo(object obj)
-    {
-        if (obj == null) return 1;
-
-        BaseUnit otherUnit = obj as BaseUnit;
-
-        if (otherUnit != null)
-        {
-            return this.getInitiative().CompareTo(otherUnit.getInitiative());
-        }
-        else
-            throw new ArgumentException("Object is not a BaseUnit");
     }
 }
