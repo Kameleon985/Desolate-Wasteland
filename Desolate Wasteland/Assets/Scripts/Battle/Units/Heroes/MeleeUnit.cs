@@ -161,32 +161,4 @@ public class MeleeUnit : BaseHero, IComparable
         } else
             throw new ArgumentException("Object is not a BaseUnit");
 	}
-		
-    public override void takeDamage(int dmg)
-    {
-        if (quantity > 0)
-        {
-            currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
-            if (currentHealth <= 0) //If unit health in stack <= 0
-            {
-                quantity--; //One unit in stack died
-                setUnitCount();
-
-                SaveSerial.MeleeUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
-
-                if (quantity <= 0)
-                {
-                    UnitManager.Instance.heroList.Remove(this);
-                    Destroy(this.gameObject);
-                }
-                else
-                {
-                    currentHealth = maxHealth;
-                }
-            }
-
-        }
-    }
 }
