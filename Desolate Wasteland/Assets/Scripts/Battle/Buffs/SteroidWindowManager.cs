@@ -108,8 +108,11 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 MeleeUnit.buffCGiven = true;
                 SaveSerial.BuffC -= 1;
+
+                MeleeUnit.initiative += 5; // To determine if balanced
+                MeleeUnit.attackDamage = MeleeUnit.attackDamage - 2; // to determine if balanced
                 Debug.Log("Melee Unit : BuffC" +
-                    " Increased initiative");//What to decrease?
+                    " Increased initiative, decreased damage");//What to decrease?
             }
             else
             {
@@ -144,8 +147,11 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 RangedUnit.buffCGiven = true;
                 SaveSerial.BuffC -= 1;
+
+                RangedUnit.initiative += 5; // To determine if balanced
+                RangedUnit.attackDamage -= 2; // To determine if balanced
                 Debug.Log("Ranged Unit : BuffC" +
-                    " Increased initiative");//What to decrease?
+                    " Increased initiative, decreased damage");//What to decrease?
             }
             else
             {
@@ -173,8 +179,11 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 EliteUnit.buffCGiven = true;
                 SaveSerial.BuffC -= 1;
+
+                EliteUnit.initiative += 5; // To determine if balanced
+                EliteUnit.meleeDamage -= 2; // To determine if balanced
                 Debug.Log("Elite Unit : BuffC" +
-                    " Increased initiative");//What to decrease?
+                    " Increased initiative, decreased damage"); //What to decrease?
             }
             else
             {
