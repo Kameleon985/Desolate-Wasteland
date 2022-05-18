@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoundTracker : MonoBehaviour
 {
@@ -15,18 +16,23 @@ public class RoundTracker : MonoBehaviour
 
         SaveSerial.CurrentRound++;
         UIUpdate.Instance.UpdateRound(SaveSerial.CurrentRound);
+        GameEventSystem.Instance.NewTurn();
 
-        if(SaveSerial.CurrentRound % 7 == 0)
+        if (SceneManager.GetActiveScene().name.Equals("Camp"))
         {
-            armyHandler.campIncrease();
-            
+            if (SaveSerial.CurrentRound % 7 == 0)
+            {
+                armyHandler.campIncrease();
+
+            }
+
+            armyHandler.ArmyCostPerTurn();
+            if (isHydroponicsBuilt)
+            {
+                resourcesHandler.AddVitals(3);
+            }
         }
 
-        armyHandler.ArmyCostPerTurn();
-        if (isHydroponicsBuilt)
-        {
-            resourcesHandler.AddVitals(3);
-        }
-        
+
     }
 }

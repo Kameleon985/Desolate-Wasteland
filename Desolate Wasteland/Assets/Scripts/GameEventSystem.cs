@@ -96,4 +96,12 @@ public class GameEventSystem : MonoBehaviour
 
     }
 
+    public event Action OnNewTurn;
+
+    public void NewTurn()
+    {
+        OnNewTurn?.Invoke();
+    }
+
+
 }

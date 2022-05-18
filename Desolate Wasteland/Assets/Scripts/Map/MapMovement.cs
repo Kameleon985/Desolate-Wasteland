@@ -16,12 +16,14 @@ public class MapMovement : MonoBehaviour
     private GameObject atPile;
     private bool mouseOver;
     public float movePoints;
+    public GameObject roundButton;
 
     public GameObject notClickableThrough;
 
 
     private void Start()
     {
+
         notClickableThrough.SetActive(false);
         mouseOver = false;
         moving = false;
@@ -40,7 +42,8 @@ public class MapMovement : MonoBehaviour
         {
             notClickableThrough.SetActive(!notClickableThrough.activeInHierarchy);
         }
-
+        //RaycastHit hitt = new RaycastHit();
+        //RaycastHit2D hitt = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 1, LayerMask.NameToLayer("UI"));
         if (notClickableThrough.activeSelf)
         {
             //Do nothing
@@ -55,6 +58,7 @@ public class MapMovement : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) && !mouseOver)
             {
+                //Debug.Log(hitt.collider.name);
                 destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 float distance = Vector3.Distance(transform.position, (Vector3)destPosition);

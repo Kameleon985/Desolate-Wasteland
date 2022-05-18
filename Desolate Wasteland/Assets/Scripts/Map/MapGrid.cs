@@ -22,43 +22,43 @@ public class MapGrid : MonoBehaviour
     {
         mapFarCorner = map.transform.position + 0.5f * map.bounds.size;
         mapOriginCorner = map.transform.position - 0.5f * map.bounds.size;
-        if (SaveSerial.terrain == null)
-        {
-            Debug.Log("new");
-            GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
-            GenerateGrid();
-            //SaveSerial.locations = Instantiate(locations);
-            SaveSerial.terrain = new Dictionary<Vector2, MapTile>();
-            var xd = tiles.GetEnumerator();
-            while (xd.MoveNext())
-            {
-                if (xd.Current.Value.CompareTag("Terrain"))
-                {
-                    SaveSerial.terrain.Add(xd.Current.Key, xd.Current.Value);
-                    Debug.Log(xd.Current.Key);
-                }
-            }
-            //Debug.Log(SaveSerial.locations.Count);
-        }
-        else
-        {
-            Debug.Log("load");
-            tiles = SaveSerial.terrain;
-            locations = SaveSerial.locations;
-            Debug.Log(locations.Count);
-            //var l = locations.GetEnumerator();
-            //while (l.MoveNext())
-            //{
-            //    Debug.Log(1);
-            //    Instantiate(l.Current.Value, l.Current.Key, Quaternion.identity);
-            //}
-            var t = tiles.GetEnumerator();
-            while (t.MoveNext())
-            {
-                Debug.Log(1);
-                Instantiate(t.Current.Value, t.Current.Key, Quaternion.identity);
-            }
-        }
+        //if (SaveSerial.terrain == null)
+        //{
+        //    Debug.Log("new");
+        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
+        GenerateGrid();
+        //    SaveSerial.locations = Instantiate(locations);
+        //    SaveSerial.terrain = new Dictionary<Vector2, MapTile>();
+        //    var xd = tiles.GetEnumerator();
+        //    while (xd.MoveNext())
+        //    {
+        //        if (xd.Current.Value.CompareTag("Terrain"))
+        //        {
+        //            SaveSerial.terrain.Add(xd.Current.Key, xd.Current.Value);
+        //            Debug.Log(xd.Current.Key);
+        //        }
+        //    }
+        //    Debug.Log(SaveSerial.locations.Count);
+        //}
+        //else
+        //{
+        //    Debug.Log("load");
+        //    tiles = SaveSerial.terrain;
+        //    locations = SaveSerial.locations;
+        //    Debug.Log(locations.Count);
+        //    var l = locations.GetEnumerator();
+        //    while (l.MoveNext())
+        //    {
+        //        Debug.Log(1);
+        //        Instantiate(l.Current.Value, l.Current.Key, Quaternion.identity);
+        //    }
+        //    var t = tiles.GetEnumerator();
+        //    while (t.MoveNext())
+        //    {
+        //        Debug.Log(1);
+        //        Instantiate(t.Current.Value, t.Current.Key, Quaternion.identity);
+        //    }
+        //}
 
     }
 
