@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -95,8 +96,16 @@ public class BattleMenuMenager : MonoBehaviour
         queue[4].sprite = eliteImg;
         queue[4].color = Color.blue;
 
-        // 0 = MeleeUnit, 1 = RangedUnit, 2 = MeleeEnemy, 3 = RangeEnemy
-        //int[] unitInitiative = { MeleeUnit.initiative + 1, RangedUnit.initiative + 1, MeleeEnemy.initiative, RangeEnemy.initiative};
+        //BaseUnit[] arr = {new MeleeUnit(), new RangedUnit(), new EliteUnit(), new MeleeEnemy(), new RangeEnemy(), new EliteEnemy()};
+
+        //System.Array.Sort(arr);
+
+        //Debug.Log(arr);
+
+        //List<BaseUnit> unitList = arr.ToList();
+
+
+        
 
     }
 
@@ -143,7 +152,7 @@ public class BattleMenuMenager : MonoBehaviour
                     queue[4].color = Color.red;
                     break;
                 case 3:
-                    queue[4].sprite = meleeImg;
+                    queue[4].sprite = eliteImg;
                     queue[4].color = Color.red;
                     break;
             }
