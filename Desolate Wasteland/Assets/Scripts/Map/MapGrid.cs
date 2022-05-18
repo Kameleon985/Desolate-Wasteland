@@ -22,19 +22,26 @@ public class MapGrid : MonoBehaviour
     {
         mapFarCorner = map.transform.position + 0.5f * map.bounds.size;
         mapOriginCorner = map.transform.position - 0.5f * map.bounds.size;
+
+        //GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
+        //GenerateGrid();
+
         if (SaveSerial.terrain == null)
         {
             Debug.Log("new");
             GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
             GenerateGrid();
             //SaveSerial.locations = Instantiate(locations);
-            SaveSerial.terrain = new Dictionary<Vector2, MapTile>();
+            
+            SaveSerial.terrain = new Dictionary<float[], string>();
             var xd = tiles.GetEnumerator();
             while (xd.MoveNext())
             {
                 if (xd.Current.Value.CompareTag("Terrain"))
                 {
-                    SaveSerial.terrain.Add(xd.Current.Key, xd.Current.Value);
+                    float x = xd.Current.Key.x;
+                    float y = xd.Current.Key.y;
+                    SaveSerial.terrain.Add(new float[] {x, y}, xd.Current.Value.name);
                     Debug.Log(xd.Current.Key);
                 }
             }
@@ -43,8 +50,10 @@ public class MapGrid : MonoBehaviour
         else
         {
             Debug.Log("load");
-            tiles = SaveSerial.terrain;
-            locations = SaveSerial.locations;
+            
+            //tiles = SaveSerial.terrain;
+            //locations = SaveSerial.locations;
+
             Debug.Log(locations.Count);
             //var l = locations.GetEnumerator();
             //while (l.MoveNext())
