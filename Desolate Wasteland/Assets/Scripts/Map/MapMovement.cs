@@ -13,6 +13,7 @@ public class MapMovement : MonoBehaviour
     private bool moving;
     private SpriteRenderer sprite;
     private string atLocation;
+    private GameObject atPile;
     private bool mouseOver;
     public float movePoints;
 
@@ -27,6 +28,7 @@ public class MapMovement : MonoBehaviour
         destPosition = (Vector2)transform.position;
         sprite = GetComponent<SpriteRenderer>();
         atLocation = null;
+        atPile = null;
         GameEventSystem.Instance.OnEnterLocation += SavePosition;
         GameEventSystem.Instance.OnEnterMap += LoadData;
     }
@@ -95,6 +97,10 @@ public class MapMovement : MonoBehaviour
         {
             atLocation = null;
         }
+        if (collision.CompareTag("Pile"))
+        {
+            atPile = null;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -103,6 +109,11 @@ public class MapMovement : MonoBehaviour
         {
             atLocation = collision.name;
         }
+        if (collision.CompareTag("Pile"))
+        {
+            atPile = collision.gameObject;
+        }
+
 
     }
 
@@ -112,7 +123,10 @@ public class MapMovement : MonoBehaviour
         {
             atLocation = collision.name;
         }
-
+        if (collision.CompareTag("Pile"))
+        {
+            atPile = collision.gameObject;
+        }
     }
 
     private void OnMouseOver()
@@ -127,11 +141,17 @@ public class MapMovement : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (moving == false && atLocation != null)
+        if (moving == false && atLocation != null && movePoints >= 1)
         {
             movePoints -= 1;
             GameEventSystem.Instance.PlayerMovement(movePoints);
             GameEventSystem.Instance.EnterLocation(atLocation);
+        }
+        else if (moving == false && atPile != null && movePoints >= 1)
+        {
+            movePoints -= 1;
+            GameEventSystem.Instance.PlayerMovement(movePoints);
+            GameEventSystem.Instance.PilePickup(atPile);
         }
     }
 

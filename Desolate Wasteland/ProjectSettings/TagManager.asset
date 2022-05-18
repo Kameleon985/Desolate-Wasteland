@@ -10,6 +10,7 @@ TagManager:
   - Location
   - Terrain
   - Tile
+  - Pile
   layers:
   - Default
   - TransparentFX

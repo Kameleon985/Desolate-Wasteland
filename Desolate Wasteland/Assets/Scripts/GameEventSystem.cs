@@ -86,4 +86,11 @@ public class GameEventSystem : MonoBehaviour
         OnUnitTurn?.Invoke();
     }
 
+    public event Action<GameObject> OnPilePickup;
+
+    public void PilePickup(GameObject pile)
+    {
+        OnPilePickup?.Invoke(pile);
+    }
+
 }

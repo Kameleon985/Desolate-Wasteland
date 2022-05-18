@@ -22,7 +22,7 @@ public class MapGrid : MonoBehaviour
     {
         mapFarCorner = map.transform.position + 0.5f * map.bounds.size;
         mapOriginCorner = map.transform.position - 0.5f * map.bounds.size;
-        GenerateLocations(2, 2, 2, 2, 2, 2, 2, 2);
+        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
         GenerateGrid();
     }
 
@@ -38,7 +38,7 @@ public class MapGrid : MonoBehaviour
                 MapTile spawnedTile;
                 Collider2D[] colliders = new Collider2D[2];
                 int col = Physics2D.OverlapBoxNonAlloc(spawn, new Vector2(0.1f, 0.1f), 0, colliders);
-                if (j + 1 >= mapFarCorner.y || i + 1 >= mapFarCorner.x || j == (int)(mapOriginCorner.y + 0.5f) || i == (int)(mapOriginCorner.x + 0.5f) || Random.Range(0, 10) <= 1 && col <= 1)
+                if (j + 1 >= mapFarCorner.y || i + 1 >= mapFarCorner.x || j == (int)(mapOriginCorner.y + 0.5f) || i == (int)(mapOriginCorner.x + 0.5f) || Random.Range(0, 30) <= 1 && col <= 1)
                 {
                     spawnedTile = Instantiate(terrainTile, spawn, Quaternion.identity);
                 }
@@ -58,15 +58,45 @@ public class MapGrid : MonoBehaviour
 
     public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics)
     {
-        GameObject factory = Instantiate(location, new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
+        GameObject g = Instantiate(location);
+
+        g.transform.localScale = new Vector3(30, 30, 1);
+        GameObject factory = Instantiate(g, new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
         factory.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.4f);
-        factory.transform.localScale = new Vector3(30, 30, 1);
         factory.name = "Factory";
         locations.Add(factory.transform.position, factory);
-        for (int i = 1; i < 4; i++)
+
+        g.transform.localScale = new Vector3(20, 20, 1);
+        GameObject camp = Instantiate(g, new Vector2(mapOriginCorner.x + 8, mapOriginCorner.y + 8), Quaternion.identity);
+        camp.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.4f);
+        camp.name = "Camp";
+        locations.Add(camp.transform.position, camp);
+
+        Destroy(g);
+
+        locations.Add(new Vector2(camp.transform.position.x + 1, camp.transform.position.y), camp);
+        locations.Add(new Vector2(camp.transform.position.x, camp.transform.position.y + 1), camp);
+        locations.Add(new Vector2(camp.transform.position.x + 1, camp.transform.position.y + 1), camp);
+        locations.Add(new Vector2(camp.transform.position.x - 1, camp.transform.position.y), camp);
+        locations.Add(new Vector2(camp.transform.position.x, camp.transform.position.y - 1), camp);
+        locations.Add(new Vector2(camp.transform.position.x - 1, camp.transform.position.y - 1), camp);
+        locations.Add(new Vector2(camp.transform.position.x + 1, camp.transform.position.y - 1), camp);
+        locations.Add(new Vector2(camp.transform.position.x - 1, camp.transform.position.y + 1), camp);
+
+        for (int i = 1; i < 3; i++)
         {
-            locations.Add(new Vector2(factory.transform.position.x + i, factory.transform.position.y + i), factory);
-            locations.Add(new Vector2(factory.transform.position.x - i, factory.transform.position.y - i), factory);
+            locations.Add(new Vector2(factory.transform.position.x + i, factory.transform.position.y), factory);
+            locations.Add(new Vector2(factory.transform.position.x, factory.transform.position.y + i), factory);
+            locations.Add(new Vector2(factory.transform.position.x - i, factory.transform.position.y), factory);
+            locations.Add(new Vector2(factory.transform.position.x, factory.transform.position.y - i), factory);
+            for (int j = 1; j < 3; j++)
+            {
+                locations.Add(new Vector2(factory.transform.position.x + i, factory.transform.position.y + j), factory);
+                locations.Add(new Vector2(factory.transform.position.x - i, factory.transform.position.y - j), factory);
+                locations.Add(new Vector2(factory.transform.position.x + i, factory.transform.position.y - j), factory);
+                locations.Add(new Vector2(factory.transform.position.x - i, factory.transform.position.y + j), factory);
+            }
+
         }
 
         for (int i = 0; i < scrapyards; i++)
@@ -106,15 +136,15 @@ public class MapGrid : MonoBehaviour
 
     public GameObject GenerateLocation(string name)
     {
-        int x = (int)Random.Range(mapOriginCorner.x, mapFarCorner.x);
-        int y = (int)Random.Range(mapOriginCorner.y, mapFarCorner.y);
+        int x = (int)Random.Range(mapOriginCorner.x + 2, mapFarCorner.x - 2);
+        int y = (int)Random.Range(mapOriginCorner.y + 2, mapFarCorner.y - 2);
         while (true)
         {
             if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
             {
                 Vector2 loc = new Vector2(x, y);
                 GameObject g = Instantiate(location, new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
-                g.name = "Battle";
+                g.name = name;
                 locations.Add(loc, g);
                 locations.Add(new Vector2(loc.x + 1, loc.y), g);
                 locations.Add(new Vector2(loc.x + 1, loc.y + 1), g);
@@ -140,7 +170,7 @@ public class MapGrid : MonoBehaviour
             if (!locations.ContainsKey(loc))
             {
                 GameObject g = Instantiate(pile, loc, Quaternion.identity);
-                g.name = "Battle";
+                g.name = name;
                 locations.Add(g.transform.position, g);
                 return g;
             }
