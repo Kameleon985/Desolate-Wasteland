@@ -6,9 +6,9 @@ public class RangeNode : Node
 {
     private float range;
     private BaseUnit gObject;
-    private EnemyAI ai;
+    private AI ai;
 
-    public RangeNode(float range, BaseUnit gObject, EnemyAI ai)
+    public RangeNode(float range, BaseUnit gObject, AI ai)
     {
         this.range = range;
         this.gObject = gObject;
@@ -17,24 +17,21 @@ public class RangeNode : Node
 
     public override NodeState Evaluate()
     {
-
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Tile heroTile = GridManager.Instance.GetTileAtPosition(player.transform.position);
-        Tile enemyTile = GridManager.Instance.GetTileAtPosition(gObject.transform.position);
-        //Debug.Log("hero: " + heroTile + ", enemy: " + enemyTile);
-        int distance = Pathfinding.CalculateDistance(heroTile, enemyTile);
-        //foreach (ScriptableUnit u in UnitManager.Instance.GetUnits())
-        //{
-        //    int dist = Pathfinding.CalculateDistance(GridManager.Instance.GetTileAtPosition(u.unitPrefab.gameObject.transform.position), GridManager.Instance.GetTileAtPosition(gObject.transform.position));
-        //    if (dist < distance)
-        //    {
-        //        distance = dist;
-        //        ai.SetClosest(u.unitPrefab);
-        //    }
-        //}
-        //Debug.Log(distance);
-
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int distance = 1000;
+        Transform closest = players[0].transform;
+        foreach (GameObject g in players)
+        {
+            Tile heroTile = GridManager.Instance.GetTileAtPosition(g.transform.position);
+            Tile enemyTile = GridManager.Instance.GetTileAtPosition(gObject.transform.position);
+            int tmp = Pathfinding.CalculateDistance(heroTile, enemyTile);
+            if (tmp < distance)
+            {
+                distance = tmp;
+                closest = g.transform;
+            }
+        }
+        ai.SetClosestHero(closest);
         return distance <= range ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }

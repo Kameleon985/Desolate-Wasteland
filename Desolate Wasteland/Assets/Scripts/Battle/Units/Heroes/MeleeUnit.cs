@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MeleeUnit : BaseHero, IComparable
@@ -12,7 +13,7 @@ public class MeleeUnit : BaseHero, IComparable
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    public static int currentHealth = 25;    
+    public static int currentHealth = 25;  
 
     int movementSpeed;
     public static int initiative = 10;
@@ -48,7 +49,7 @@ public class MeleeUnit : BaseHero, IComparable
         Debug.Log("attackDamage: "+attackDamage);
     }
 
-    static void dealDamage(int dmg)
+    internal static void dealDamage(int dmg)
     {
         if (quantity > 0)
         {
@@ -57,11 +58,14 @@ public class MeleeUnit : BaseHero, IComparable
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                
-                SaveSerial.MeleeUnit = quantity;
-                Debug.Log("Unit died, only "+quantity+" units left");
+                //setUnitCount();
 
-                UICamp.Instance.updatePlayerArmy();
+                SaveSerial.MeleeUnit = quantity;
+                Debug.Log("Unit died, only " + quantity + " units left");
+
+
+                //UICamp.Instance.updatePlayerArmy();
+
 
                 if (quantity <= 0)
                 {
@@ -78,23 +82,23 @@ public class MeleeUnit : BaseHero, IComparable
 
     internal static void Hungry()
     {
-        if(feedness > 0)
+        if (feedness > 0)
         {
             feedness -= 1;
             Debug.Log("MU feedness: " + feedness);
         }
-        else if(feedness <= 0)
+        else if (feedness <= 0)
         {
             dealDamage(5);
             Debug.Log("MU health decreased due to hunger, current: " + currentHealth);
-        }        
+        }
 
     }
 
     internal static void Feed()
     {
         if (feedness < 3)
-        {            
+        {
             feedness += 1;
             Debug.Log("MeleeUnits are feed from hunger currently: " + feedness);
             if (currentHealth < maxHealth)
@@ -103,8 +107,9 @@ public class MeleeUnit : BaseHero, IComparable
                 currentHealth += 5;
                 Debug.Log("MU Healed to: " + currentHealth);
             }
-            
-        }else if(feedness == 3)
+
+        }
+        else if (feedness == 3)
         {
             currentHealth = maxHealth;
             Debug.Log("Feed to max hp ~MeleeUnit");
@@ -114,6 +119,34 @@ public class MeleeUnit : BaseHero, IComparable
     public void setUnitCount()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+    }
+
+	public override void takeDamage(int dmg)
+    {
+        if (quantity > 0)
+        {
+            currentHealth -= dmg;
+            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            if (currentHealth <= 0) //If unit health in stack <= 0
+            {
+                quantity--; //One unit in stack died
+                setUnitCount();
+
+                SaveSerial.MeleeUnit = quantity;
+                Debug.Log("Unit died, only " + quantity + " units left");
+
+                if (quantity <= 0)
+                {
+                    UnitManager.Instance.heroList.Remove(this);
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    currentHealth = maxHealth;
+                }
+            }
+
+        }
     }
 
     public int CompareTo(object obj)
@@ -127,5 +160,33 @@ public class MeleeUnit : BaseHero, IComparable
             return this.getInitiative().CompareTo(otherUnit.getInitiative());
         } else
             throw new ArgumentException("Object is not a BaseUnit");
+	}
+		
+    public override void takeDamage(int dmg)
+    {
+        if (quantity > 0)
+        {
+            currentHealth -= dmg;
+            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            if (currentHealth <= 0) //If unit health in stack <= 0
+            {
+                quantity--; //One unit in stack died
+                setUnitCount();
+
+                SaveSerial.MeleeUnit = quantity;
+                Debug.Log("Unit died, only " + quantity + " units left");
+
+                if (quantity <= 0)
+                {
+                    UnitManager.Instance.heroList.Remove(this);
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    currentHealth = maxHealth;
+                }
+            }
+
+        }
     }
 }

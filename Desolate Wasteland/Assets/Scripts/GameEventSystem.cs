@@ -26,7 +26,6 @@ public class GameEventSystem : MonoBehaviour
     {
         if (name == "Map")
         {
-
             SceneManager.LoadScene(name);
             StartCoroutine(LoadPosition());
         }

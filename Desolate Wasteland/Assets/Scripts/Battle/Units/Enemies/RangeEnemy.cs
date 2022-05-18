@@ -13,10 +13,22 @@ public class RangeEnemy : BaseEnemy, IComparable
     public static int initiative = 5;
     static int quantity = 2;
     public GameObject unitCounter;
+    public int attackRange = 50;
+    static int damage = 7;
 
     public void Start()
     {
         setUnitCount();
+    }
+
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public static int GetDamage()
+    {
+        return damage;
     }
 
     public override void takeDamage(int dmg)

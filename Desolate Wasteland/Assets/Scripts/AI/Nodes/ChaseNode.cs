@@ -7,20 +7,23 @@ public class ChaseNode : Node
 {
 
     private BaseEnemy gameObject;
-    public ChaseNode(BaseEnemy gameObject)
+    private AI ai;
+    public ChaseNode(BaseEnemy gameObject, AI ai)
     {
-
+        this.ai = ai;
         this.gameObject = gameObject;
     }
 
     public override NodeState Evaluate()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Tile target = GridManager.Instance.GetTileAtPosition(player.transform.position);
+
+        Tile target = GridManager.Instance.GetTileAtPosition(ai.GetClosestHero().position);
 
         gameObject.Chase(target);
 
         BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+
+
         return NodeState.SUCCESS;
 
     }
