@@ -32,6 +32,7 @@ public class SaveSerial : MonoBehaviour
     //OnMapLayout
     public static Dictionary<float[], bool> captured;
     public static Dictionary<float[], string> locations;
+    public static Dictionary<float[], string> piles;
     public static Dictionary<float[], string> terrain;
 
 
@@ -98,6 +99,7 @@ public class SaveSerial : MonoBehaviour
         data.savedCaptured = captured;
         data.savedLocations = locations;
         data.savedTerrain = terrain;
+        data.savedPiles = piles;
 
         //PlayerArmy
         data.savedMeleeUnit = MeleeUnit;
@@ -166,6 +168,7 @@ public class SaveSerial : MonoBehaviour
             captured = data.savedCaptured;
             locations = data.savedLocations;
             terrain = data.savedTerrain;
+            piles = data.savedPiles;
 
             //PlayerArmy
             MeleeUnit = data.savedMeleeUnit;
@@ -242,6 +245,7 @@ public class SaveSerial : MonoBehaviour
             captured = new Dictionary<float[], bool>();
             locations = new Dictionary<float[], string>();
             terrain = new Dictionary<float[], string>();
+            piles = new Dictionary<float[], string>();
 
             //PlayerArmy
             MeleeUnit = 4; //To determine
@@ -306,6 +310,7 @@ public class SaveSerial : MonoBehaviour
         captured = null;
         locations = null;
         terrain = null;
+        piles = null;
 
         //PlayerArmy
         MeleeUnit = 4; //To determine
@@ -368,6 +373,7 @@ public class SaveSerial : MonoBehaviour
         public Dictionary<float[], bool> savedCaptured;
         public Dictionary<float[], string> savedLocations;
         public Dictionary<float[], string> savedTerrain;
+        public Dictionary<float[], string> savedPiles;
 
         //PlayerArmy
         public int savedMeleeUnit;
