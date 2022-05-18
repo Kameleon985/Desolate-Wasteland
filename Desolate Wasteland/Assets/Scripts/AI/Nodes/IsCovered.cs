@@ -5,24 +5,36 @@ using UnityEngine;
 public class IsCovered : Node
 {
     private BaseUnit enemy;
-    private Transform origin;
+    private List<Transform> origin = new List<Transform>();
 
     public IsCovered(BaseUnit enemy)
     {
         this.enemy = enemy;
-        this.origin = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject p in players)
+        {
+            origin.Add(p.transform);
+        }
     }
 
     public override NodeState Evaluate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(origin.position, enemy.transform.position - origin.position, Vector2.Distance(origin.position, enemy.transform.position), LayerMask.GetMask("Terrain"));
-        if (hit)
+        int i = 0;
+        foreach (Transform t in origin)
         {
-            if (hit.transform.CompareTag("Terrain"))
+            RaycastHit2D hit = Physics2D.Raycast(t.position, enemy.transform.position - t.position, Vector2.Distance(t.position, enemy.transform.position), LayerMask.GetMask("Terrain"));
+            if (hit)
             {
-                //Debug.Log("covered");
-                return NodeState.SUCCESS;
+                if (hit.transform.CompareTag("Terrain"))
+                {
+                    i += 1;
+                }
             }
+        }
+        if (i == origin.Count)
+        {
+            //Debug.Log("covered");
+            return NodeState.SUCCESS;
         }
         //Debug.Log("hit");
         return NodeState.FAILURE;

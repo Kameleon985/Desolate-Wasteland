@@ -11,6 +11,7 @@ public class MeleeEnemy : BaseEnemy
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
     public static int initiative = 10;
+    static int damage = 10;
     static int quantity = 2;
     public GameObject unitCounter;
 
@@ -23,6 +24,11 @@ public class MeleeEnemy : BaseEnemy
     public int getCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public static int GetDamage()
+    {
+        return damage;
     }
 
     public override void takeDamage(int dmg)

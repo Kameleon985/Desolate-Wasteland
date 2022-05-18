@@ -33,6 +33,7 @@ public class SaveSerial : MonoBehaviour
     //TO-DO
 
     //PlayerArmy
+
     public static int MeleeUnit = 4; //To determine
     public static int RangeUnit = 2;
     public static int EliteUnit = 2;
@@ -65,7 +66,7 @@ public class SaveSerial : MonoBehaviour
     public static void SaveGame(string saveName)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/saves/"+ saveName+".dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/saves/" + saveName + ".dat");
         SaveData data = new SaveData();
 
 
@@ -118,15 +119,15 @@ public class SaveSerial : MonoBehaviour
         data.savedRecipeBuffB = RecipeBuffB;
         data.savedRecipeBuffC = RecipeBuffC;
 
-    bf.Serialize(file, data);
+        bf.Serialize(file, data);
         file.Close();
-        Debug.Log("Data Saved to " + Application.persistentDataPath + "/saves/"+saveName+".dat");
+        Debug.Log("Data Saved to " + Application.persistentDataPath + "/saves/" + saveName + ".dat");
     }
 
     public static void LoadGame(string fileName)
     {
         if (File.Exists(Application.persistentDataPath
-                   + "/saves/"+fileName))
+                   + "/saves/" + fileName))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file =
@@ -183,7 +184,7 @@ public class SaveSerial : MonoBehaviour
             RecipeBuffB = data.savedRecipeBuffB;
             RecipeBuffC = data.savedRecipeBuffC;
 
-    //UI UPDATE
+            //UI UPDATE
 
 
             UIUpdate.Instance.UpdateRound(CurrentRound);
@@ -198,7 +199,7 @@ public class SaveSerial : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Tried "+Application.persistentDataPath+ "/saves/" + fileName+".dat");
+            Debug.LogError("Tried " + Application.persistentDataPath + "/saves/" + fileName + ".dat");
             Debug.LogError("No save data!");
         }
     }
@@ -269,60 +270,60 @@ public class SaveSerial : MonoBehaviour
 
     public static void NewGameSetData()
     {
-        
 
-            //Resources
-            Vitals = 10;
-            Scrap = 0;
-            Plastic = 0;
-            Electronics = 0;
 
-            //Round
-            CurrentRound = 1;
+        //Resources
+        Vitals = 10;
+        Scrap = 0;
+        Plastic = 0;
+        Electronics = 0;
 
-            //Camp
-            LabBuild = false;
-            MarketBuild = false;
-            BarracksBuild = false;
-            ShootingRangeBuild = false;
-            ArmoryBuild = false;
-            HydroponicsBuild = false;
+        //Round
+        CurrentRound = 1;
+
+        //Camp
+        LabBuild = false;
+        MarketBuild = false;
+        BarracksBuild = false;
+        ShootingRangeBuild = false;
+        ArmoryBuild = false;
+        HydroponicsBuild = false;
 
             //PlayerPosition
             onMapPosition = new float[] {0.0f, 0.0f};
             onMapMovementPoints = 10.0f;
 
-            //OnMapLocationsCaptured
-            //TO-DO
+        //OnMapLocationsCaptured
+        //TO-DO
 
             //PlayerArmy
             MeleeUnit = 4; //To determine
             RangeUnit = 2;
             EliteUnit = 0;
 
-            //ArmyInCamp
-            CampMeleeUnit = 0;
-            CampRangeUnit = 0;
-            CampEliteUnit = 0;
+        //ArmyInCamp
+        CampMeleeUnit = 0;
+        CampRangeUnit = 0;
+        CampEliteUnit = 0;
 
-            //Drugs
-            ChemA = 0;
-            ChemB = 0;
-            ChemC = 0;
-            ChemD = 0;
+        //Drugs
+        ChemA = 0;
+        ChemB = 0;
+        ChemC = 0;
+        ChemD = 0;
 
-            BuffA = 0;
-            BuffB = 0;
-            BuffC = 0;
+        BuffA = 0;
+        BuffB = 0;
+        BuffC = 0;
 
-            RecipeBuffA[0] = -1;
-            RecipeBuffB[0] = -1;
-            RecipeBuffC[0] = -1;
+        RecipeBuffA[0] = -1;
+        RecipeBuffB[0] = -1;
+        RecipeBuffC[0] = -1;
 
-            UIUpdate.Instance.UpdateUIValues();
-            UICamp.Instance.UpdateUIValues();
+        UIUpdate.Instance.UpdateUIValues();
+        UICamp.Instance.UpdateUIValues();
 
-        
+
     }
 
 

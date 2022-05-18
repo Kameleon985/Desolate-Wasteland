@@ -11,7 +11,7 @@ public class UnitManager : MonoBehaviour
 
     public BaseHero SelectedHero;
 
-    public EnemyAI ai;
+    public MeleeAi ai;
     public List<BaseHero> heroList;
     public List<BaseEnemy> enemyList;
 

@@ -88,10 +88,6 @@ public class MapMovement : MonoBehaviour
             }
         }
 
-        //float[] mapPositionArr = { transform.position.x, transform.position.y };
-        //SaveSerial.onMapPosition = mapPositionArr;
-        //SaveSerial.onMapMovementPoints = movePoints;
-
     }
 
 
