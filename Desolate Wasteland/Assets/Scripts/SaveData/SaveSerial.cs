@@ -30,9 +30,10 @@ public class SaveSerial : MonoBehaviour
     public static float onMapMovementPoints;
 
     //OnMapLayout
-    public static Dictionary<Vector2, bool> captured;
-    public static Dictionary<Vector2, GameObject> locations;
-    public static Dictionary<Vector2, MapTile> terrain;
+    public static Dictionary<float[], bool> captured;
+    public static Dictionary<float[], string> locations;
+    public static Dictionary<float[], string> terrain;
+
 
     //PlayerArmy
 
@@ -94,9 +95,9 @@ public class SaveSerial : MonoBehaviour
         data.savedOnMapMovementPoints = onMapMovementPoints;
 
         //OnMapLayout
-        data.captured = captured;
-        data.locations = locations;
-        data.terrain = terrain;
+        data.savedCaptured = captured;
+        data.savedLocations = locations;
+        data.savedTerrain = terrain;
 
         //PlayerArmy
         data.savedMeleeUnit = MeleeUnit;
@@ -162,9 +163,9 @@ public class SaveSerial : MonoBehaviour
             onMapMovementPoints = data.savedOnMapMovementPoints;
 
             //OnMapLayout
-            captured = data.captured;
-            locations = data.locations;
-            terrain = data.terrain;
+            captured = data.savedCaptured;
+            locations = data.savedLocations;
+            terrain = data.savedTerrain;
 
             //PlayerArmy
             MeleeUnit = data.savedMeleeUnit;
@@ -238,9 +239,9 @@ public class SaveSerial : MonoBehaviour
             onMapMovementPoints = 10.0f;
 
             //OnMapLayout
-            captured = new Dictionary<Vector2, bool>();
-            locations = new Dictionary<Vector2, GameObject>();
-            terrain = new Dictionary<Vector2, MapTile>();
+            captured = new Dictionary<float[], bool>();
+            locations = new Dictionary<float[], string>();
+            terrain = new Dictionary<float[], string>();
 
             //PlayerArmy
             MeleeUnit = 4; //To determine
@@ -364,9 +365,9 @@ public class SaveSerial : MonoBehaviour
         public float savedOnMapMovementPoints;
 
         //OnMapLayout
-        public Dictionary<Vector2, bool> captured;
-        public Dictionary<Vector2, GameObject> locations;
-        public Dictionary<Vector2, MapTile> terrain;
+        public Dictionary<float[], bool> savedCaptured;
+        public Dictionary<float[], string> savedLocations;
+        public Dictionary<float[], string> savedTerrain;
 
         //PlayerArmy
         public int savedMeleeUnit;
