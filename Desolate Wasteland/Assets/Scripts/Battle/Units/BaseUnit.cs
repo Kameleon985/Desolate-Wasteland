@@ -10,6 +10,13 @@ public class BaseUnit : MonoBehaviour
 
     private Pathfinding pathfinding;
 
+    public static int initiative;
+
+    public int getInitiative()
+    {
+        return initiative;
+    }
+
     public void Move(Tile targetTile)
     {
         pathfinding = new Pathfinding();

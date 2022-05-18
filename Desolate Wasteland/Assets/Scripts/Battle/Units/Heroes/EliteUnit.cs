@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EliteUnit : BaseHero
+public class EliteUnit : BaseHero, IComparable
 {
     public SpriteRenderer sr;
 
@@ -123,4 +124,17 @@ public class EliteUnit : BaseHero
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 
+    public int CompareTo(object obj)
+    {
+        if (obj == null) return 1;
+
+        BaseUnit otherUnit = obj as BaseUnit;
+
+        if (otherUnit != null)
+        {
+            return this.getInitiative().CompareTo(otherUnit.getInitiative());
+        }
+        else
+            throw new ArgumentException("Object is not a BaseUnit");
+    }
 }

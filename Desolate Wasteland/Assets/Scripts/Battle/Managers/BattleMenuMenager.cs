@@ -95,8 +95,10 @@ public class BattleMenuMenager : MonoBehaviour
         queue[4].sprite = eliteImg;
         queue[4].color = Color.blue;
 
-        // 0 = MeleeUnit, 1 = RangedUnit, 2 = MeleeEnemy, 3 = RangeEnemy
-        //int[] unitInitiative = { MeleeUnit.initiative + 1, RangedUnit.initiative + 1, MeleeEnemy.initiative, RangeEnemy.initiative};
+        BaseUnit[] arr = { new MeleeUnit(), new RangedUnit(), new EliteUnit(), new MeleeEnemy(), new RangeEnemy(), new EliteEnemy() };
+        System.Array.Sort(arr);
+
+        Debug.Log(arr);
 
     }
 
