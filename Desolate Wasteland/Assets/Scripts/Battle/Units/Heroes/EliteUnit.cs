@@ -15,7 +15,7 @@ public class EliteUnit : BaseHero
     static int currentHealth = 40;
     int attackDamage = 10;
     int movementSpeed;
-    int initiative;
+    int initiative = 8;
 
 
     public int attackRange = 4; //TO DISCUSS
@@ -58,6 +58,11 @@ public class EliteUnit : BaseHero
     public void setAmmo(int ammo)
     {
         this.ammo = ammo;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
     }
 
     static void dealDamage(int dmg)

@@ -29,10 +29,15 @@ public class MeleeEnemy : BaseEnemy
     {
         return currentHealth;
     }
-
+    
     public static int GetDamage()
     {
         return damage;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
     }
 
     public override void takeDamage(int dmg)

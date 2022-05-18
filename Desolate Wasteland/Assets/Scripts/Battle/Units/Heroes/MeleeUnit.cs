@@ -47,6 +47,11 @@ public class MeleeUnit : BaseHero
         return initiative;
     }
 
+    public override void setInitiative(int init)
+    {
+        initiative = init;
+    }
+
     public void Start()
     {
         setUnitCount();

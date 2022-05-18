@@ -11,6 +11,7 @@ public abstract class BaseUnit : MonoBehaviour
     private Pathfinding pathfinding;
 
     public abstract int getInitiative();
+    public abstract void setInitiative(int init);
 
     public void Move(Tile targetTile)
     {
