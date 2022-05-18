@@ -62,12 +62,7 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (notClickableThrough.activeSelf)
-        {
-            //Do nothing
-        }
-        else
-        {
+    
             if (BattleMenager.instance.gameState == GameState.PrepareHeroes)
             {
                 if (OccupiedUnit != null)
@@ -206,7 +201,7 @@ public class Tile : MonoBehaviour
                     }
                 }
             }
-        }
+        
 
         
     }
