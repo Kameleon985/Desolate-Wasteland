@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class RangeEnemy : BaseEnemy
 {
+    public SpriteRenderer sr;
+
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
-    int initiative;
+    public static int initiative = 5;
     static int quantity = 2;
     public GameObject unitCounter;
 

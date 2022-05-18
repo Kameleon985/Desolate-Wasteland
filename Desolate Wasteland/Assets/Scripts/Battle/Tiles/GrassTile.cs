@@ -7,7 +7,8 @@ public class GrassTile : Tile
     public Color baseColor;
     public Color offsetColor;
 
-    public override void init(int x, int y)
+
+    public override void init(int x, int y, GameObject notClickableThrough)
     {
         var isOffset = (x + y) % 2 == 1;
 
@@ -27,5 +28,6 @@ public class GrassTile : Tile
         gCost = int.MaxValue;
         CalculateFCost();
         previouseTile = null;
+        this.notClickableThrough = notClickableThrough;
     }
 }

@@ -25,6 +25,8 @@ MonoBehaviour:
   hCost: 0
   fCost: 0
   previouseTile: {fileID: 0}
+  notClickableThrough: {fileID: 1893557999348833079, guid: dd5dab1cfe4fdd94c86b0685a643dcc7,
+    type: 3}
 --- !u!1001 &9026863947148770028
 PrefabInstance:
   m_ObjectHideFlags: 0

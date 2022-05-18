@@ -351,6 +351,8 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitName: MeleeEnemy
+  sr: {fileID: 6112767854147102087}
+  initiative: 10
   unitCounter: {fileID: 4094593727113177388}
 --- !u!114 &5499424878093299644
 MonoBehaviour:

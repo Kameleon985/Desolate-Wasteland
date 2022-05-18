@@ -24,7 +24,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnHeroes()
     {
-        var heroCount = 2;
+        var heroCount = 3;
 
         for (int i = 0; i < heroCount; i++)
         {
@@ -41,7 +41,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        var enemyCount = 2;
+        var enemyCount = 3;
 
         for (int i = 0; i < enemyCount; i++)
         {
@@ -84,6 +84,7 @@ public class UnitManager : MonoBehaviour
     public void EnemyTurn()
     {
         //GameObject gameObject = units.Where(u => u.faction == Faction.Enemy && u.unitPrefab.unitName.Equals("MeleeEnemy")).First().unitPrefab.gameObject;
+        BattleMenuMenager.instance.updateQueue();
         GameEventSystem.Instance.EnemyTurn();
         //gameObject.GetComponent<EnemyAI>().Invoke("Evaluate", 10);
         //Debug.Log(ai.gameObject.name);

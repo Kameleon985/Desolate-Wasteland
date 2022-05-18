@@ -16,6 +16,14 @@ public class BattleMenuMenager : MonoBehaviour
     public GameObject endSteroids;
     public GameObject endSteroidsButton;
 
+    public GameObject initiativQueue;
+
+    public Sprite meleeImg;
+    public Sprite rangeImg;
+    public Sprite eliteImg;
+
+    int count = 1;
+
     private void Awake()
     {
         instance = this;
@@ -62,6 +70,85 @@ public class BattleMenuMenager : MonoBehaviour
         endPrepareHeroes.SetActive(false);
         endSteroids.SetActive(false);
         endSteroidsButton.SetActive(false);
+        initiativQueue.SetActive(true);
+
+        setInitQueue();
+
         BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+    }
+
+    public void setInitQueue()
+    {
+        //List<BaseEnemy> enemyList = UnitManager.Instance.enemyList;
+        //List<BaseHero> heroList = UnitManager.Instance.heroList;
+
+        var queue = initiativQueue.GetComponentsInChildren<Image>();
+
+        queue[0].sprite = meleeImg;
+        queue[0].color = Color.blue;
+        queue[1].sprite = meleeImg;
+        queue[1].color = Color.red;
+        queue[2].sprite = rangeImg;
+        queue[2].color = Color.blue;
+        queue[3].sprite = rangeImg;
+        queue[3].color = Color.red;
+        queue[4].sprite = eliteImg;
+        queue[4].color = Color.blue;
+
+        // 0 = MeleeUnit, 1 = RangedUnit, 2 = MeleeEnemy, 3 = RangeEnemy
+        //int[] unitInitiative = { MeleeUnit.initiative + 1, RangedUnit.initiative + 1, MeleeEnemy.initiative, RangeEnemy.initiative};
+
+    }
+
+    public void updateQueue()
+    {
+        var queue = initiativQueue.GetComponentsInChildren<Image>();
+
+        for (int i = 0 ; i < 4 ; i++)
+        {
+            queue[i].sprite = queue[i + 1].sprite;
+            queue[i].color = queue[i + 1].color;
+        }
+
+        int rn = Random.Range(1, 4);
+       
+
+        if (count % 2 == 0) {
+            switch (rn)
+            {
+                case 1:
+                    queue[4].sprite = meleeImg;
+                    queue[4].color = Color.blue;
+                    break;
+                case 2:
+                    queue[4].sprite = rangeImg;
+                    queue[4].color = Color.blue;
+                    break;
+                case 3:
+                    queue[4].sprite = eliteImg;
+                    queue[4].color = Color.blue;
+                    break;
+            }
+        }
+        else
+        {
+            switch (rn)
+            {
+                case 1:
+                    queue[4].sprite = meleeImg;
+                    queue[4].color = Color.red;
+                    break;
+                case 2:
+                    queue[4].sprite = rangeImg;
+                    queue[4].color = Color.red;
+                    break;
+                case 3:
+                    queue[4].sprite = meleeImg;
+                    queue[4].color = Color.red;
+                    break;
+            }
+        }
+
+        count++;
     }
 }

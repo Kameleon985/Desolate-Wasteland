@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EliteUnit : MonoBehaviour
+public class EliteUnit : BaseHero
 {
+    public SpriteRenderer sr;
+
     static readonly int maxHealth = 40;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
@@ -14,15 +17,42 @@ public class EliteUnit : MonoBehaviour
     int initiative;
 
 
-    //int range; //TO DISCUSS
-    //int rangeDamage;
-    //int ammo;  //TO DISCUSS
+    public int attackRange = 4; //TO DISCUSS
+    public int rangeDamage = 15;
+    public int ammo = 3;  //TO DISCUSS
 
     static int quantity = SaveSerial.EliteUnit; //To read from SaveSerial PlayerArmy
 
     public static bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     public static bool buffBGiven = false; //Attack buff ?
     public static bool buffCGiven = false; //Initiative buff ?
+
+    public GameObject unitCounter;
+
+    public void Start()
+    {
+        setUnitCount();
+    }
+
+    public int getAttackDamage()
+    {
+        return attackDamage;
+    }
+
+    public int getRangeDamage()
+    {
+        return rangeDamage;
+    }
+
+    public int getAmmo()
+    {
+        return ammo;
+    }
+
+    public void setAmmo(int ammo)
+    {
+        this.ammo = ammo;
+    }
 
     static void dealDamage(int dmg)
     {
@@ -86,6 +116,11 @@ public class EliteUnit : MonoBehaviour
             currentHealth = maxHealth;
             Debug.Log("Feed to max hp ~EU");
         }
+    }
+
+    public void setUnitCount()
+    {
+        unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 
 }

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameEventSystem : MonoBehaviour
 {
-    PlayerData data;
     public static GameEventSystem Instance;
 
 
@@ -22,12 +21,7 @@ public class GameEventSystem : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public GameEventSystem()
-    {
-        data = new PlayerData();
-    }
-
-    public event Action<PlayerData> OnEnterLocation;
+    public event Action OnEnterLocation;
     public void EnterLocation(String name)
     {
         if (name == "Map")
@@ -38,7 +32,7 @@ public class GameEventSystem : MonoBehaviour
         }
         else
         {
-            OnEnterLocation?.Invoke(data);
+            OnEnterLocation?.Invoke();
             SceneManager.LoadScene(name);
         }
 
@@ -47,10 +41,10 @@ public class GameEventSystem : MonoBehaviour
     {
         if (level == 0)
         {
-            OnEnterMap?.Invoke(data);
+            OnEnterMap?.Invoke();
         }
     }
-    public event Action<PlayerData> OnEnterMap;
+    public event Action OnEnterMap;
 
     IEnumerator LoadPosition()
     {
@@ -58,19 +52,20 @@ public class GameEventSystem : MonoBehaviour
         {
             yield return null;
         }
-        OnEnterMap?.Invoke(data);
-        OnPlayerMovement?.Invoke(data);
+        yield return new WaitForSeconds(0.01f);
+        OnEnterMap?.Invoke();
+        OnPlayerMovement?.Invoke();
     }
 
-    public event Action<PlayerData> OnPlayerMovement;
+    public event Action OnPlayerMovement;
 
     public void PlayerMovement(float points)
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Map"))
         {
-            data.SetMovePoints(points);
+            SaveSerial.onMapMovementPoints = points;
         }
-        OnPlayerMovement?.Invoke(data);
+        OnPlayerMovement?.Invoke();
     }
 
     public event Action<float> OnPlayerClick;
@@ -85,6 +80,13 @@ public class GameEventSystem : MonoBehaviour
     public void EnemyTurn()
     {
         OnUnitTurn?.Invoke();
+    }
+
+    public event Action OnSaveButton;
+
+    public void SaveButton()
+    {
+        OnSaveButton?.Invoke();
     }
 
 }
