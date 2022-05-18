@@ -8,14 +8,7 @@ public class BaseUnit : MonoBehaviour
     public Faction faction;
     public string unitName;
 
-    public static int initiative;
-
     private Pathfinding pathfinding;
-
-    public int getInitiative()
-    {
-        return initiative;
-    }
 
     public void Move(Tile targetTile)
     {
