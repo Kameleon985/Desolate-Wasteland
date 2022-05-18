@@ -24,21 +24,40 @@ public class Tile : MonoBehaviour
 
     public Tile previouseTile;
 
-    public virtual void init(int x, int y)
-    {
+    public GameObject notClickableThrough;
 
+
+    public virtual void init(int x, int y, GameObject notClickableThrough)
+    {
+        this.notClickableThrough = notClickableThrough;
     }
 
     private void OnMouseEnter()
     {
-        highlight.SetActive(true);
-        BattleMenuMenager.instance.ShowTileInfo(this);
+        if (notClickableThrough.activeSelf)
+        {
+            //Do nothing
+        }
+        else
+        {
+            highlight.SetActive(true);
+            BattleMenuMenager.instance.ShowTileInfo(this);
+        }
+        
     }
 
     private void OnMouseExit()
     {
-        highlight.SetActive(false);
-        BattleMenuMenager.instance.ShowTileInfo(null);
+        if (notClickableThrough.activeSelf)
+        {
+            //Do nothing
+        }
+        else
+        {
+            highlight.SetActive(false);
+            BattleMenuMenager.instance.ShowTileInfo(null);
+        }
+        
     }
 
     private void OnMouseDown()

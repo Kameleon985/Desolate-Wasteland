@@ -25,6 +25,8 @@ MonoBehaviour:
   hCost: 0
   fCost: 0
   previouseTile: {fileID: 0}
+  notClickableThrough: {fileID: 1893557999348833079, guid: dd5dab1cfe4fdd94c86b0685a643dcc7,
+    type: 3}
   baseColor: {r: 0.4392157, g: 0.7411765, b: 0.36862746, a: 0}
   offsetColor: {r: 0.4, g: 0.6901961, b: 0.33333334, a: 0}
 --- !u!1001 &6498847986204889585
