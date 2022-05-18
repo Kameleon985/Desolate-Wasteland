@@ -15,7 +15,7 @@ public class MapGrid : MonoBehaviour
     Vector3 mapFarCorner;
     Vector3 mapOriginCorner;
 
-    private Dictionary<Vector2, MapTile> tiles;
+    private Dictionary<Vector2, MapTile> tiles = new Dictionary<Vector2, MapTile>();
     private Dictionary<Vector2, GameObject> locations;
 
     private void Start()
@@ -32,7 +32,7 @@ public class MapGrid : MonoBehaviour
             GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
             GenerateGrid();
             //SaveSerial.locations = Instantiate(locations);
-            
+
             SaveSerial.terrain = new Dictionary<float[], string>();
             var xd = tiles.GetEnumerator();
             while (xd.MoveNext())
@@ -41,8 +41,8 @@ public class MapGrid : MonoBehaviour
                 {
                     float x = xd.Current.Key.x;
                     float y = xd.Current.Key.y;
-                    SaveSerial.terrain.Add(new float[] {x, y}, xd.Current.Value.name);
-                    Debug.Log(xd.Current.Key);
+                    SaveSerial.terrain.Add(new float[] { x, y }, xd.Current.Value.name);
+                    //Debug.Log(xd.Current.Key);
                 }
             }
             //Debug.Log(SaveSerial.locations.Count);
@@ -50,23 +50,32 @@ public class MapGrid : MonoBehaviour
         else
         {
             Debug.Log("load");
-            
+            var dict = SaveSerial.terrain;
+            var enumerator = dict.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var ter = Instantiate(terrainTile, new Vector2(enumerator.Current.Key[0], enumerator.Current.Key[1]), Quaternion.identity);
+                ter.name = enumerator.Current.Value;
+                //Debug.Log(ter.name);
+                tiles.Add(ter.transform.position, ter);
+            }
+            GenerateGrid();
             //tiles = SaveSerial.terrain;
             //locations = SaveSerial.locations;
 
-            Debug.Log(locations.Count);
+            //Debug.Log(locations.Count);
             //var l = locations.GetEnumerator();
             //while (l.MoveNext())
             //{
             //    Debug.Log(1);
             //    Instantiate(l.Current.Value, l.Current.Key, Quaternion.identity);
             //}
-            var t = tiles.GetEnumerator();
-            while (t.MoveNext())
-            {
-                Debug.Log(1);
-                Instantiate(t.Current.Value, t.Current.Key, Quaternion.identity);
-            }
+            //var t = tiles.GetEnumerator();
+            //while (t.MoveNext())
+            //{
+            //    Debug.Log(1);
+            //    Instantiate(t.Current.Value, t.Current.Key, Quaternion.identity);
+            //}
         }
 
 
@@ -74,28 +83,36 @@ public class MapGrid : MonoBehaviour
 
     void GenerateGrid()
     {
-
-        tiles = new Dictionary<Vector2, MapTile>();
+        bool loaded = false;
+        if (tiles.Count != 0)
+        {
+            loaded = true;
+        }
         for (int i = (int)(mapOriginCorner.x + 0.5f); i < mapFarCorner.x; i++)
         {
             for (int j = (int)(mapOriginCorner.y + 0.5f); j < mapFarCorner.y; j++)
             {
                 Vector3 spawn = new Vector3(i, j);
-                MapTile spawnedTile;
-                Collider2D[] colliders = new Collider2D[2];
-                int col = Physics2D.OverlapBoxNonAlloc(spawn, new Vector2(0.1f, 0.1f), 0, colliders);
-                if (j + 1 >= mapFarCorner.y || i + 1 >= mapFarCorner.x || j == (int)(mapOriginCorner.y + 0.5f) || i == (int)(mapOriginCorner.x + 0.5f) || Random.Range(0, 30) <= 1 && col <= 1)
+                if (!tiles.ContainsKey(new Vector2(i, j)))
                 {
-                    spawnedTile = Instantiate(terrainTile, spawn, Quaternion.identity);
-                }
-                else
-                {
-                    spawnedTile = Instantiate(walkableTile, spawn, Quaternion.identity);
-                }
-                spawnedTile.name = $"Tile {i} {j}";
-                spawnedTile.transform.parent = gameObject.transform;
+                    MapTile spawnedTile;
+                    Collider2D[] colliders = new Collider2D[2];
+                    int col = Physics2D.OverlapBoxNonAlloc(spawn, new Vector2(0.1f, 0.1f), 0, colliders);
+                    if (!loaded && (j + 1 >= mapFarCorner.y || i + 1 >= mapFarCorner.x || j == (int)(mapOriginCorner.y + 0.5f) || i == (int)(mapOriginCorner.x + 0.5f) || Random.Range(0, 30) <= 1 && col <= 1))
+                    {
+                        //Debug.Log("XDD");
+                        spawnedTile = Instantiate(terrainTile, spawn, Quaternion.identity);
+                    }
+                    else
+                    {
+                        spawnedTile = Instantiate(walkableTile, spawn, Quaternion.identity);
+                    }
+                    spawnedTile.name = $"Tile {i} {j}";
+                    spawnedTile.transform.parent = gameObject.transform;
 
-                tiles[spawn] = spawnedTile;
+                    tiles[spawn] = spawnedTile;
+                }
+
             }
         }
 
