@@ -46,6 +46,47 @@ public class MapGrid : MonoBehaviour
                 }
             }
             //Debug.Log(SaveSerial.locations.Count);
+
+
+            //Piles & Locations
+            SaveSerial.piles = new Dictionary<float[], string>();
+            SaveSerial.locations = new Dictionary<float[], string>();
+
+            var enumerator = locations.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.Value.name.Equals("Metal") || enumerator.Current.Value.name.Equals("Electronics") || enumerator.Current.Value.name.Equals("Plastic") || enumerator.Current.Value.name.Equals("Food"))
+                {
+                    float x = enumerator.Current.Key.x;
+                    float y = enumerator.Current.Key.y;
+                    SaveSerial.piles.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                }
+                if (enumerator.Current.Value.name.Contains("Scrapyard"))
+                {
+                    float x = enumerator.Current.Key.x;
+                    float y = enumerator.Current.Key.y;
+                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                }
+                if (enumerator.Current.Value.name.Contains("Shoping Center"))
+                {
+                    float x = enumerator.Current.Key.x;
+                    float y = enumerator.Current.Key.y;
+                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                }
+                if (enumerator.Current.Value.name.Contains("Industrial Park"))
+                {
+                    float x = enumerator.Current.Key.x;
+                    float y = enumerator.Current.Key.y;
+                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                }
+                if (enumerator.Current.Value.name.Contains("Hydrophonics"))
+                {
+                    float x = enumerator.Current.Key.x;
+                    float y = enumerator.Current.Key.y;
+                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                }
+            }
+
         }
         else
         {
@@ -165,19 +206,19 @@ public class MapGrid : MonoBehaviour
 
         for (int i = 0; i < scrapyards; i++)
         {
-            GenerateLocation("Scrapyard");
+            GenerateLocation("Scrapyard "+i);
         }
         for (int i = 0; i < hydrophonics; i++)
         {
-            GenerateLocation("Hydrophonics");
+            GenerateLocation("Hydrophonics "+ i);
         }
         for (int i = 0; i < industrialParks; i++)
         {
-            GenerateLocation("Industrial Park");
+            GenerateLocation("Industrial Park "+i);
         }
         for (int i = 0; i < shopingCenters; i++)
         {
-            GenerateLocation("Shoping Center");
+            GenerateLocation("Shoping Center "+i);
         }
         for (int i = 0; i < metal; i++)
         {
