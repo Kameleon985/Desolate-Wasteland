@@ -1987,7 +1987,7 @@ MonoBehaviour:
   BuffAAmount: {fileID: 1261510209}
   BuffBAmount: {fileID: 1659927154}
   BuffCAmount: {fileID: 1414744817}
-  notClickableThrough: {fileID: 2124110495}
+  notClickableThrough: {fileID: 0}
 --- !u!1 &859924010
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,7 +5147,7 @@ MonoBehaviour:
     type: 3}
   mountainTile: {fileID: 2182013225879836028, guid: 70f086bc6653cab40b29426a704dd835,
     type: 3}
-  notClickableThrough: {fileID: 2124110495}
+  notClickableThrough: {fileID: 0}
   cam: {fileID: 919817527}
 --- !u!1 &2124110495
 GameObject:
