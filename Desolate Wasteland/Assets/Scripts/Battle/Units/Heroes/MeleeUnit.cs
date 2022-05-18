@@ -6,13 +6,19 @@ using UnityEngine.UI;
 
 public class MeleeUnit : BaseHero
 {
-    static readonly int maxHealth = 25;
+    public SpriteRenderer sr;
+
+    public static readonly int maxHealth = 25;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
     static int currentHealth = 25;
+    //public static int currentHealth = 25;    
+
     int movementSpeed;
-    int initiative;
+    public static int initiative = 10;
+
+    public static int attackDamage = 10;
 
     static int quantity = SaveSerial.MeleeUnit; //To read from SaveSerial PlayerArmy
 
@@ -22,9 +28,25 @@ public class MeleeUnit : BaseHero
 
     public GameObject unitCounter;
 
+    public void setAttackDamage(int increase)
+    {
+        attackDamage = attackDamage + increase;
+    }
+
+    public int getAttackDamage()
+    {
+        return attackDamage;
+    }
+
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return sr;
+    }
+
     public void Start()
     {
         setUnitCount();
+        Debug.Log("attackDamage: "+attackDamage);
     }
 
     internal static void dealDamage(int dmg)
