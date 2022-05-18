@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
@@ -23,124 +24,262 @@ public class Tile : MonoBehaviour
 
     public Tile previouseTile;
 
-    public virtual void init(int x, int y)
-    {
+    public GameObject notClickableThrough;
 
+
+    public virtual void init(int x, int y, GameObject notClickableThrough)
+    {
+        this.notClickableThrough = notClickableThrough;
     }
 
     private void OnMouseEnter()
     {
-        highlight.SetActive(true);
-        BattleMenuMenager.instance.ShowTileInfo(this);
+        if (notClickableThrough.activeSelf)
+        {
+            //Do nothing
+        }
+        else
+        {
+            highlight.SetActive(true);
+            BattleMenuMenager.instance.ShowTileInfo(this);
+        }
+        
     }
 
     private void OnMouseExit()
     {
-        highlight.SetActive(false);
-        BattleMenuMenager.instance.ShowTileInfo(null);
+        if (notClickableThrough.activeSelf)
+        {
+            //Do nothing
+        }
+        else
+        {
+            highlight.SetActive(false);
+            BattleMenuMenager.instance.ShowTileInfo(null);
+        }
+        
     }
 
     private void OnMouseDown()
     {
-        if (BattleMenager.instance.gameState == GameState.PrepareHeroes)
+        if (notClickableThrough.activeSelf)
         {
-            if (OccupiedUnit != null)
+            //Do nothing
+        }
+        else
+        {
+            if (BattleMenager.instance.gameState == GameState.PrepareHeroes)
             {
-                if (OccupiedUnit.faction == Faction.Hero)
+                if (OccupiedUnit != null)
                 {
-                    UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                    if (OccupiedUnit.faction == Faction.Hero)
+                    {
+                        UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                    }
+                }
+                else
+                {
+                    if (UnitManager.Instance.SelectedHero != null && isWakable)
+                    {
+                        if (x < 2)
+                        {
+                            SetUnit(UnitManager.Instance.SelectedHero);
+                            UnitManager.Instance.SetSelectedHero(null);
+                        }
+                    }
                 }
             }
             else
             {
-                if (UnitManager.Instance.SelectedHero != null && isWakable)
-                {
-                    if (x < 2)
-                    {
-                        SetUnit(UnitManager.Instance.SelectedHero);
-                        UnitManager.Instance.SetSelectedHero(null);
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (BattleMenager.instance.gameState != GameState.HeroesTurn) return;
+                if (BattleMenager.instance.gameState != GameState.HeroesTurn) return;
 
-            if (OccupiedUnit != null)
-            {
-                if (OccupiedUnit.faction == Faction.Hero)
+                if (OccupiedUnit != null)
                 {
-                    //Select
-                    UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
-                    if (UnitManager.Instance.SelectedHero is RangedUnit)
+                    if (OccupiedUnit.faction == Faction.Hero)
                     {
-                        var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
-                        for (int i = 0; i < GridManager.Instance.height; i++)
+                        //Select
+                        if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().sprite == BattleMenuMenager.instance.meleeImg)
                         {
-                            if (rangeHero.occupiedTile.x >= rangeHero.attackRange)
+                            if (OccupiedUnit is MeleeUnit)
                             {
-                                if (rangeHero.occupiedTile.x + rangeHero.attackRange >= GridManager.Instance.width)
+                                UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                            }
+                        }
+                        else if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().sprite == BattleMenuMenager.instance.rangeImg)
+                        {
+                            if (OccupiedUnit is RangedUnit)
+                            {
+                                UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                            }
+                        }
+                        else if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().sprite == BattleMenuMenager.instance.eliteImg)
+                        {
+                            if (OccupiedUnit is EliteUnit)
+                            {
+                                UnitManager.Instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                            }
+                        }
+                        if (UnitManager.Instance.SelectedHero is RangedUnit)
+                        {
+                            GridManager.Instance.ClearAllHighlightTiles();
+                            var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
+                            for (int i = 0; i < GridManager.Instance.height; i++)
+                            {
+                                if (rangeHero.occupiedTile.x >= rangeHero.attackRange)
                                 {
-                                    Debug.Log("1");
-                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    if (rangeHero.occupiedTile.x + rangeHero.attackRange >= GridManager.Instance.width)
+                                    {
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    }
                                 }
                                 else
                                 {
-                                    Debug.Log("2");
                                     GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
-                                    GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x - rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
                                 }
                             }
-                            else
+                        }
+                        else if (UnitManager.Instance.SelectedHero is MeleeUnit)
+                        {
+                            GridManager.Instance.ClearAllHighlightTiles();
+                        }
+                        else if (UnitManager.Instance.SelectedHero is EliteUnit)
+                        {
+                            GridManager.Instance.ClearAllHighlightTiles();
+                            var eliteHero = (EliteUnit)UnitManager.Instance.SelectedHero;
+                            if (eliteHero.getAmmo() > 0)
                             {
-                                Debug.Log("3");
-                                GridManager.Instance.GetTileAtPosition(new Vector2(rangeHero.occupiedTile.x + rangeHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                for (int i = 0; i < GridManager.Instance.height; i++)
+                                {
+                                    if (eliteHero.occupiedTile.x >= eliteHero.attackRange)
+                                    {
+                                        if (eliteHero.occupiedTile.x + eliteHero.attackRange >= GridManager.Instance.width)
+                                        {
+                                            GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x - eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x + eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                            GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x - eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        GridManager.Instance.GetTileAtPosition(new Vector2(eliteHero.occupiedTile.x + eliteHero.attackRange, i)).rangeHighlight.SetActive(true);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (UnitManager.Instance.SelectedHero != null)
+                        {
+                            //Attack
+                            var enemy = (BaseEnemy)OccupiedUnit;
+
+                            if (UnitManager.Instance.SelectedHero is MeleeUnit)
+                            {
+                                if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
+                                {
+                                    var heroUnit = (MeleeUnit)UnitManager.Instance.SelectedHero;
+                                    enemy.takeDamage(heroUnit.getAttackDamage());
+
+                                    //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+
+                                    UnitManager.Instance.SetSelectedHero(null);
+                                    BattleMenuMenager.instance.updateQueue();
+                                    UnitManager.Instance.EnemyTurn();
+                                }
+                            }
+                            else if (UnitManager.Instance.SelectedHero is RangedUnit)
+                            {
+                                var heroUnit = (RangedUnit)UnitManager.Instance.SelectedHero;
+                                if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x)
+                                {
+                                    if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)
+                                    {
+                                        enemy.takeDamage(heroUnit.getAttackDamage());
+                                        UnitManager.Instance.SetSelectedHero(null);
+                                        BattleMenuMenager.instance.updateQueue();
+                                        UnitManager.Instance.EnemyTurn();
+                                    }
+                                }
+                                else if (enemy.occupiedTile.x < heroUnit.occupiedTile.x)
+                                {
+                                    if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x - heroUnit.attackRange)
+                                    {
+                                        enemy.takeDamage(heroUnit.getAttackDamage());
+                                        UnitManager.Instance.SetSelectedHero(null);
+                                        BattleMenuMenager.instance.updateQueue();
+                                        UnitManager.Instance.EnemyTurn();
+                                    }
+                                }
+
+                                //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+                            }
+                            else if (UnitManager.Instance.SelectedHero is EliteUnit)
+                            {
+                                GridManager.Instance.ClearAllHighlightTiles();
+                                var heroUnit = (EliteUnit)UnitManager.Instance.SelectedHero;
+                                if (heroUnit.getAmmo() <= 0)
+                                {
+                                    if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
+                                    {
+                                        enemy.takeDamage(heroUnit.getAttackDamage());
+
+                                        //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
+
+                                        UnitManager.Instance.SetSelectedHero(null);
+                                        BattleMenuMenager.instance.updateQueue();
+                                        UnitManager.Instance.EnemyTurn();
+                                    }
+                                }
+                                else
+                                {
+                                    if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x)
+                                    {
+                                        if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)
+                                        {
+                                            enemy.takeDamage(heroUnit.getRangeDamage());
+                                            UnitManager.Instance.SetSelectedHero(null);
+                                            BattleMenuMenager.instance.updateQueue();
+                                            UnitManager.Instance.EnemyTurn();
+                                        }
+                                    }
+                                    else if (enemy.occupiedTile.x < heroUnit.occupiedTile.x)
+                                    {
+                                        if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x - heroUnit.attackRange)
+                                        {
+                                            enemy.takeDamage(heroUnit.getRangeDamage());
+                                            UnitManager.Instance.SetSelectedHero(null);
+                                            BattleMenuMenager.instance.updateQueue();
+                                            UnitManager.Instance.EnemyTurn();
+                                        }
+                                    }
+                                    heroUnit.setAmmo(heroUnit.getAmmo() - 1);
+                                }
                             }
                         }
                     }
                 }
                 else
                 {
-                    if (UnitManager.Instance.SelectedHero != null)
+                    if (UnitManager.Instance.SelectedHero != null && isWakable)
                     {
-                        //Attack
-                        if (UnitManager.Instance.SelectedHero is MeleeUnit)
-                        {
-                            if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
-                            {
-                                var enemy = (BaseEnemy)OccupiedUnit;
-                                enemy.takeDamage(UnitManager.Instance.SelectedHero.attackDamage);
-                                UnitManager.Instance.SetSelectedHero(null);
-                                UnitManager.Instance.EnemyTurn();
-                            }
-                        }
-                        else if (UnitManager.Instance.SelectedHero is RangedUnit)
-                        {
-                            var enemy = (BaseEnemy)OccupiedUnit;
-                            var rangeHero = (RangedUnit)UnitManager.Instance.SelectedHero;
-                            if (enemy.occupiedTile.x <= rangeHero.occupiedTile.x + rangeHero.attackRange)
-                            {
-                                enemy.takeDamage(UnitManager.Instance.SelectedHero.attackDamage);
-                                UnitManager.Instance.SetSelectedHero(null);
-                                UnitManager.Instance.EnemyTurn();
-                            }
-                        }
+                        //Move
+                        UnitManager.Instance.SelectedHero.Move(this);
+                        SetUnit(UnitManager.Instance.SelectedHero);
+                        UnitManager.Instance.SetSelectedHero(null);
+                        GridManager.Instance.ClearAStarTiles();
+                        BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
                         GridManager.Instance.ClearAllHighlightTiles();
+                        BattleMenuMenager.instance.updateQueue();
                     }
-                }
-            }
-            else
-            {
-                if (UnitManager.Instance.SelectedHero != null && isWakable)
-                {
-                    //Move
-                    UnitManager.Instance.SelectedHero.Move(this);
-                    SetUnit(UnitManager.Instance.SelectedHero);
-                    UnitManager.Instance.SetSelectedHero(null);
-                    GridManager.Instance.ClearAStarTiles();
-                    BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
-                    GridManager.Instance.ClearAllHighlightTiles();
                 }
             }
         }

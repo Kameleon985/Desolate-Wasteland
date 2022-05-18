@@ -11,6 +11,7 @@ public class GridManager : MonoBehaviour
 
     public Tile grassTile;
     public Tile mountainTile;
+    public GameObject notClickableThrough;
     public Transform cam;
 
     public Dictionary<Vector2, Tile> tiles;
@@ -32,7 +33,7 @@ public class GridManager : MonoBehaviour
                     var spawnedTile = Instantiate(grassTile, new Vector3(x, y), Quaternion.identity);
                     spawnedTile.name = $"Tile {x} {y}";
 
-                    spawnedTile.init(x, y);
+                    spawnedTile.init(x, y, notClickableThrough);
 
                     tiles[new Vector2(x, y)] = spawnedTile;
                 }
@@ -42,7 +43,7 @@ public class GridManager : MonoBehaviour
                     var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
                     spawnedTile.name = $"Tile {x} {y}";
 
-                    spawnedTile.init(x, y);
+                    spawnedTile.init(x, y, notClickableThrough);
 
                     tiles[new Vector2(x, y)] = spawnedTile;
                 }
