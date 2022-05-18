@@ -16,14 +16,50 @@ public class MapGrid : MonoBehaviour
     Vector3 mapOriginCorner;
 
     private Dictionary<Vector2, MapTile> tiles;
-    private Dictionary<Vector2, GameObject> locations = new Dictionary<Vector2, GameObject>();
+    private Dictionary<Vector2, GameObject> locations;
 
     private void Start()
     {
         mapFarCorner = map.transform.position + 0.5f * map.bounds.size;
         mapOriginCorner = map.transform.position - 0.5f * map.bounds.size;
-        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
-        GenerateGrid();
+        if (SaveSerial.terrain == null)
+        {
+            Debug.Log("new");
+            GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
+            GenerateGrid();
+            //SaveSerial.locations = Instantiate(locations);
+            SaveSerial.terrain = new Dictionary<Vector2, MapTile>();
+            var xd = tiles.GetEnumerator();
+            while (xd.MoveNext())
+            {
+                if (xd.Current.Value.CompareTag("Terrain"))
+                {
+                    SaveSerial.terrain.Add(xd.Current.Key, xd.Current.Value);
+                    Debug.Log(xd.Current.Key);
+                }
+            }
+            //Debug.Log(SaveSerial.locations.Count);
+        }
+        else
+        {
+            Debug.Log("load");
+            tiles = SaveSerial.terrain;
+            locations = SaveSerial.locations;
+            Debug.Log(locations.Count);
+            //var l = locations.GetEnumerator();
+            //while (l.MoveNext())
+            //{
+            //    Debug.Log(1);
+            //    Instantiate(l.Current.Value, l.Current.Key, Quaternion.identity);
+            //}
+            var t = tiles.GetEnumerator();
+            while (t.MoveNext())
+            {
+                Debug.Log(1);
+                Instantiate(t.Current.Value, t.Current.Key, Quaternion.identity);
+            }
+        }
+
     }
 
     void GenerateGrid()
@@ -58,6 +94,7 @@ public class MapGrid : MonoBehaviour
 
     public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics)
     {
+        locations = new Dictionary<Vector2, GameObject>();
         GameObject g = Instantiate(location);
 
         g.transform.localScale = new Vector3(30, 30, 1);
@@ -144,7 +181,7 @@ public class MapGrid : MonoBehaviour
             {
                 Vector2 loc = new Vector2(x, y);
                 GameObject g = Instantiate(location, new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
-                g.name = name;
+                g.name = "Battle";
                 locations.Add(loc, g);
                 locations.Add(new Vector2(loc.x + 1, loc.y), g);
                 locations.Add(new Vector2(loc.x + 1, loc.y + 1), g);

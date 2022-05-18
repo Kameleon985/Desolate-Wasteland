@@ -87,7 +87,7 @@ public class GameEventSystem : MonoBehaviour
     public void PilePickup(GameObject pile)
     {
         OnPilePickup?.Invoke(pile);
-
+    }
     public event Action OnSaveButton;
 
     public void SaveButton()

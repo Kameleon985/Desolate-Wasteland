@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Location : MonoBehaviour
 {
-    public string name;
+    public bool captured;
 
     void Start()
     {
-        name = this.gameObject.name;
+        if (captured == false)
+        {
+
+        }
     }
 
 

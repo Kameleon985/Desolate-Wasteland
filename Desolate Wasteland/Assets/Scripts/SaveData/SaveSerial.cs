@@ -29,8 +29,10 @@ public class SaveSerial : MonoBehaviour
     public static float[] onMapPosition;
     public static float onMapMovementPoints;
 
-    //OnMapLocationsCaptured
-    //TO-DO
+    //OnMapLayout
+    public static Dictionary<Vector2, bool> captured;
+    public static Dictionary<Vector2, GameObject> locations;
+    public static Dictionary<Vector2, MapTile> terrain;
 
     //PlayerArmy
 
@@ -91,8 +93,10 @@ public class SaveSerial : MonoBehaviour
         data.savedOnMapPosition = onMapPosition;
         data.savedOnMapMovementPoints = onMapMovementPoints;
 
-        //OnMapLocationsCaptured
-        //TO-DO
+        //OnMapLayout
+        data.captured = captured;
+        data.locations = locations;
+        data.terrain = terrain;
 
         //PlayerArmy
         data.savedMeleeUnit = MeleeUnit;
@@ -157,8 +161,10 @@ public class SaveSerial : MonoBehaviour
             onMapPosition = data.savedOnMapPosition;
             onMapMovementPoints = data.savedOnMapMovementPoints;
 
-            //OnMapLocationsCaptured
-            //TO-DO
+            //OnMapLayout
+            captured = data.captured;
+            locations = data.locations;
+            terrain = data.terrain;
 
             //PlayerArmy
             MeleeUnit = data.savedMeleeUnit;
@@ -231,8 +237,10 @@ public class SaveSerial : MonoBehaviour
             onMapPosition = new float[] { 0.0f, 0.0f };
             onMapMovementPoints = 10.0f;
 
-            //OnMapLocationsCaptured
-            //TO-DO
+            //OnMapLayout
+            captured = new Dictionary<Vector2, bool>();
+            locations = new Dictionary<Vector2, GameObject>();
+            terrain = new Dictionary<Vector2, MapTile>();
 
             //PlayerArmy
             MeleeUnit = 4; //To determine
@@ -289,17 +297,19 @@ public class SaveSerial : MonoBehaviour
         ArmoryBuild = false;
         HydroponicsBuild = false;
 
-            //PlayerPosition
-            onMapPosition = new float[] {0.0f, 0.0f};
-            onMapMovementPoints = 10.0f;
+        //PlayerPosition
+        onMapPosition = new float[] { 0.0f, 0.0f };
+        onMapMovementPoints = 10.0f;
 
-        //OnMapLocationsCaptured
-        //TO-DO
+        //OnMapLayout
+        captured = null;
+        locations = null;
+        terrain = null;
 
-            //PlayerArmy
-            MeleeUnit = 4; //To determine
-            RangeUnit = 2;
-            EliteUnit = 0;
+        //PlayerArmy
+        MeleeUnit = 4; //To determine
+        RangeUnit = 2;
+        EliteUnit = 0;
 
         //ArmyInCamp
         CampMeleeUnit = 0;
@@ -353,8 +363,10 @@ public class SaveSerial : MonoBehaviour
         public float[] savedOnMapPosition;
         public float savedOnMapMovementPoints;
 
-        //OnMapLocationsCaptured
-        //TO-DO
+        //OnMapLayout
+        public Dictionary<Vector2, bool> captured;
+        public Dictionary<Vector2, GameObject> locations;
+        public Dictionary<Vector2, MapTile> terrain;
 
         //PlayerArmy
         public int savedMeleeUnit;
