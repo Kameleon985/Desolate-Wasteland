@@ -35,6 +35,16 @@ public class RangedUnit : BaseHero
         return attackDamage;
 	}
 
+    public override int getInitiative()
+    {
+        return initiative;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
+    }
+
     static void dealDamage(int dmg)
     {
         if (quantity > 0)
@@ -131,5 +141,4 @@ public class RangedUnit : BaseHero
 
         }
     }
-
 }

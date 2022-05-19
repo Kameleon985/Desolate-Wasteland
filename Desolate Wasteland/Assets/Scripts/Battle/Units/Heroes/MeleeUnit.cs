@@ -42,6 +42,16 @@ public class MeleeUnit : BaseHero
         return sr;
     }
 
+    public override int getInitiative()
+    {
+        return initiative;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
+    }
+
     public void Start()
     {
         setUnitCount();
@@ -120,7 +130,7 @@ public class MeleeUnit : BaseHero
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 
-    public override void takeDamage(int dmg)
+	public override void takeDamage(int dmg)
     {
         if (quantity > 0)
         {

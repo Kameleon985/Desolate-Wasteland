@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,15 +19,25 @@ public class MeleeEnemy : BaseEnemy
         setUnitCount();
     }
 
+    public override int getInitiative()
+    {
+        return initiative;
+    }
+
 
     public int getCurrentHealth()
     {
         return currentHealth;
     }
-
+    
     public static int GetDamage()
     {
         return damage;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
     }
 
     public override void takeDamage(int dmg)

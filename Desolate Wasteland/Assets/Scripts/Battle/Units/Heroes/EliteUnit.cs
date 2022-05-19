@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,9 @@ public class EliteUnit : BaseHero
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
     static int currentHealth = 40;
-    int attackDamage = 10;
+    public static int meleeDamage = 10;
     int movementSpeed;
-    int initiative;
+    public static int initiative = 8;
 
 
     public int attackRange = 4; //TO DISCUSS
@@ -36,7 +37,7 @@ public class EliteUnit : BaseHero
 
     public int getAttackDamage()
     {
-        return attackDamage;
+        return meleeDamage;
     }
 
     public int getRangeDamage()
@@ -49,9 +50,19 @@ public class EliteUnit : BaseHero
         return ammo;
     }
 
+    public override int getInitiative()
+    {
+        return initiative;
+    }
+
     public void setAmmo(int ammo)
     {
         this.ammo = ammo;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
     }
 
     static void dealDamage(int dmg)
@@ -150,5 +161,4 @@ public class EliteUnit : BaseHero
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
-
 }

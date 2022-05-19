@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUnit : MonoBehaviour
+public abstract class BaseUnit : MonoBehaviour
 {
     public Tile occupiedTile;
     public Faction faction;
     public string unitName;
 
     private Pathfinding pathfinding;
+
+    public abstract int getInitiative();
+    public abstract void setInitiative(int init);
 
     public void Move(Tile targetTile)
     {

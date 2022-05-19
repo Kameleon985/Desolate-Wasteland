@@ -30,6 +30,16 @@ public class RangeEnemy : BaseEnemy
         return damage;
     }
 
+    public override int getInitiative()
+    {
+        return initiative;
+    }
+
+    public override void setInitiative(int init)
+    {
+        initiative = init;
+    }
+
     public override void takeDamage(int dmg)
     {
         if (quantity > 0)

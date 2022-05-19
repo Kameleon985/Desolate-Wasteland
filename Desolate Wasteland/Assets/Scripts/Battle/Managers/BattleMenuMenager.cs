@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,8 @@ public class BattleMenuMenager : MonoBehaviour
     public Sprite eliteImg;
 
     int count = 1;
+    BaseUnit[] arr = { new MeleeUnit(), new RangedUnit(), new EliteUnit(), new MeleeEnemy(), new RangeEnemy(), new EliteEnemy() };
+    Queue<BaseUnit> initQueue;
 
     private void Awake()
     {
@@ -79,76 +82,139 @@ public class BattleMenuMenager : MonoBehaviour
 
     public void setInitQueue()
     {
-        //List<BaseEnemy> enemyList = UnitManager.Instance.enemyList;
-        //List<BaseHero> heroList = UnitManager.Instance.heroList;
+        List<BaseEnemy> enemyList = UnitManager.Instance.enemyList;
+        List<BaseHero> heroList = UnitManager.Instance.heroList;
 
         var queue = initiativQueue.GetComponentsInChildren<Image>();
 
-        queue[0].sprite = meleeImg;
-        queue[0].color = Color.blue;
-        queue[1].sprite = meleeImg;
-        queue[1].color = Color.red;
-        queue[2].sprite = rangeImg;
-        queue[2].color = Color.blue;
-        queue[3].sprite = rangeImg;
-        queue[3].color = Color.red;
-        queue[4].sprite = eliteImg;
-        queue[4].color = Color.blue;
+        int[] accualInitiativeArr = { heroList[1].getInitiative(), heroList[2].getInitiative(), heroList[0].getInitiative(), enemyList[1].getInitiative(), enemyList[2].getInitiative(), enemyList[0].getInitiative() };
 
-        // 0 = MeleeUnit, 1 = RangedUnit, 2 = MeleeEnemy, 3 = RangeEnemy
-        //int[] unitInitiative = { MeleeUnit.initiative + 1, RangedUnit.initiative + 1, MeleeEnemy.initiative, RangeEnemy.initiative};
+        for (int i = 0 ; i < arr.Length ; i++)
+        {
+            arr[i].setInitiative(accualInitiativeArr[i]);
+        }
 
+        arr = BoubleSort(arr);
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (i < 5)
+            {
+                if (arr[i].getInitiative() == arr[i + 1].getInitiative())
+                {
+                    int rn = Random.Range(1, 3);
+                    if (rn == 1)
+                    {
+                        BaseUnit tmp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = tmp;
+                    }
+                }
+            }
+        }
+
+        initQueue = new Queue<BaseUnit>(arr);
+
+        for (int i = 0; i < queue.Length; i++) {
+            switch (initQueue.Dequeue())
+            {
+                case MeleeUnit mu:
+                    queue[i].sprite = meleeImg;
+                    queue[i].color = Color.blue;
+                    initQueue.Enqueue(mu);
+                    break;
+                case RangedUnit ru:
+                    queue[i].sprite = rangeImg;
+                    queue[i].color = Color.blue;
+                    initQueue.Enqueue(ru);
+                    break;
+                case EliteUnit eu:
+                    queue[i].sprite = eliteImg;
+                    queue[i].color = Color.blue;
+                    initQueue.Enqueue(eu);
+                    break;
+                case MeleeEnemy me:
+                    queue[i].sprite = meleeImg;
+                    queue[i].color = Color.red;
+                    initQueue.Enqueue(me);
+                    break;
+                case RangeEnemy re:
+                    queue[i].sprite = rangeImg;
+                    queue[i].color = Color.red;
+                    initQueue.Enqueue(re);
+                    break;
+                case EliteEnemy ee:
+                    queue[i].sprite = eliteImg;
+                    queue[i].color = Color.red;
+                    initQueue.Enqueue(ee);
+                    break;
+            }
+        }
     }
 
     public void updateQueue()
     {
         var queue = initiativQueue.GetComponentsInChildren<Image>();
 
-        for (int i = 0 ; i < 4 ; i++)
+        for (int i = 0; i < 4; i++)
         {
             queue[i].sprite = queue[i + 1].sprite;
             queue[i].color = queue[i + 1].color;
         }
 
-        int rn = Random.Range(1, 4);
-       
-
-        if (count % 2 == 0) {
-            switch (rn)
-            {
-                case 1:
-                    queue[4].sprite = meleeImg;
-                    queue[4].color = Color.blue;
-                    break;
-                case 2:
-                    queue[4].sprite = rangeImg;
-                    queue[4].color = Color.blue;
-                    break;
-                case 3:
-                    queue[4].sprite = eliteImg;
-                    queue[4].color = Color.blue;
-                    break;
-            }
-        }
-        else
+        switch (initQueue.Dequeue())
         {
-            switch (rn)
+            case MeleeUnit mu:
+                queue[4].sprite = meleeImg;
+                queue[4].color = Color.blue;
+                initQueue.Enqueue(mu);
+                break;
+            case RangedUnit ru:
+                queue[4].sprite = rangeImg;
+                queue[4].color = Color.blue;
+                initQueue.Enqueue(ru);
+                break;
+            case EliteUnit eu:
+                queue[4].sprite = eliteImg;
+                queue[4].color = Color.blue;
+                initQueue.Enqueue(eu);
+                break;
+            case MeleeEnemy me:
+                queue[4].sprite = meleeImg;
+                queue[4].color = Color.red;
+                initQueue.Enqueue(me);
+                break;
+            case RangeEnemy re:
+                queue[4].sprite = rangeImg;
+                queue[4].color = Color.red;
+                initQueue.Enqueue(re);
+                break;
+            case EliteEnemy ee:
+                queue[4].sprite = eliteImg;
+                queue[4].color = Color.red;
+                initQueue.Enqueue(ee);
+                break;
+        }
+    }
+
+    BaseUnit[] BoubleSort(BaseUnit[] arr)
+    {
+        int n = arr.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
             {
-                case 1:
-                    queue[4].sprite = meleeImg;
-                    queue[4].color = Color.red;
-                    break;
-                case 2:
-                    queue[4].sprite = rangeImg;
-                    queue[4].color = Color.red;
-                    break;
-                case 3:
-                    queue[4].sprite = meleeImg;
-                    queue[4].color = Color.red;
-                    break;
+                if (arr[j].getInitiative() > arr[j + 1].getInitiative())
+                {
+                    BaseUnit tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
+                }
             }
         }
 
-        count++;
+        System.Array.Reverse(arr);
+
+        return arr;
     }
 }
