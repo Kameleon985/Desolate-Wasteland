@@ -16,7 +16,7 @@ public class MapGrid : MonoBehaviour
     Vector3 mapOriginCorner;
 
     private Dictionary<Vector2, MapTile> tiles = new Dictionary<Vector2, MapTile>();
-    private Dictionary<Vector2, GameObject> locations;
+    private Dictionary<Vector2, GameObject> locations = new Dictionary<Vector2, GameObject>();
 
     private void Start()
     {
@@ -100,6 +100,19 @@ public class MapGrid : MonoBehaviour
                 //Debug.Log(ter.name);
                 tiles.Add(ter.transform.position, ter);
             }
+
+            var dictPiles = SaveSerial.piles;
+            var enumeratorPiles = dictPiles.GetEnumerator();
+            while (enumeratorPiles.MoveNext())
+            {
+                //GameObject g = Instantiate(pile, loc, Quaternion.identity);
+                var pileLoad = Instantiate(pile, new Vector2(enumeratorPiles.Current.Key[0], enumeratorPiles.Current.Key[1]), Quaternion.identity);
+                pileLoad.name = enumeratorPiles.Current.Value;
+                Debug.Log(pileLoad.name);
+                locations.Add(pileLoad.transform.position, pileLoad);
+            }
+
+
             GenerateGrid();
             //tiles = SaveSerial.terrain;
             //locations = SaveSerial.locations;
@@ -162,7 +175,7 @@ public class MapGrid : MonoBehaviour
 
     public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics)
     {
-        locations = new Dictionary<Vector2, GameObject>();
+        
         GameObject g = Instantiate(location);
 
         g.transform.localScale = new Vector3(30, 30, 1);
