@@ -29,11 +29,26 @@ public class UnitManager : MonoBehaviour
         for (int i = 0; i < heroCount; i++)
         {
             var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero, heroCount, i);
-            var spawnedHero = Instantiate(randomPrefab);
-            var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
-
-            randomSpawnTile.SetUnit(spawnedHero);
-            heroList.Add(spawnedHero);
+            if (randomPrefab is MeleeUnit && SaveSerial.MeleeUnit != 0) {
+                var spawnedHero = Instantiate(randomPrefab);
+                var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
+                randomSpawnTile.SetUnit(spawnedHero);
+                heroList.Add(spawnedHero);
+            }
+            if (randomPrefab is RangedUnit && SaveSerial.RangeUnit != 0)
+            {
+                var spawnedHero = Instantiate(randomPrefab);
+                var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
+                randomSpawnTile.SetUnit(spawnedHero);
+                heroList.Add(spawnedHero);
+            }
+            if (randomPrefab is EliteUnit && SaveSerial.EliteUnit != 0)
+            {
+                var spawnedHero = Instantiate(randomPrefab);
+                var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
+                randomSpawnTile.SetUnit(spawnedHero);
+                heroList.Add(spawnedHero);
+            }
         }
 
         BattleMenager.instance.ChangeState(GameState.SpawnEnemies);
