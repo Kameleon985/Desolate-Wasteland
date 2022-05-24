@@ -1,12 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pile : MonoBehaviour
 {
+
+    public GameObject OnMapMessagePanel;
+    public TextMeshProUGUI promptText;
+
     private void Start()
     {
+        Debug.Log("STARTED");
+
+        OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        //promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.GetComponentInChildren<TextMeshPro>();
+        promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+
         GameEventSystem.Instance.OnPilePickup += AddResources;
+        
+        if(OnMapMessagePanel != null)
+        {
+            Debug.Log("OnMapMessage panel is not null, should be set");
+        }
+        if (promptText != null)
+        {
+            Debug.Log("promptText is not null, should be set");
+        }
+        Debug.Log("Done");
     }
     public void AddResources(GameObject pile)
     {
@@ -17,30 +39,54 @@ public class Pile : MonoBehaviour
             {
                 case "Electronics":
                     {
-                        SaveSerial.Electronics = SaveSerial.Electronics + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Electronics = SaveSerial.Electronics + amount;
                         UIUpdate.Instance.UpdateUIValues();
                         Destroy(this.gameObject);
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Zdobyto " + amount + " elektroniki";
+
                         break;
                     }
                 case "Metal":
                     {
-                        SaveSerial.Scrap = SaveSerial.Scrap + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Scrap = SaveSerial.Scrap + amount;
                         UIUpdate.Instance.UpdateUIValues();
                         Destroy(this.gameObject);
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Zdobyto " + amount + " złomu";
+
                         break;
                     }
                 case "Plastics":
                     {
-                        SaveSerial.Plastic = SaveSerial.Plastic + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Plastic = SaveSerial.Plastic + amount;
                         UIUpdate.Instance.UpdateUIValues();
                         Destroy(this.gameObject);
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Zdobyto " + amount + " plastiku";
+
                         break;
                     }
                 case "Food":
                     {
-                        SaveSerial.Vitals = SaveSerial.Vitals + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Vitals = SaveSerial.Vitals + amount;
                         UIUpdate.Instance.UpdateUIValues();
                         Destroy(this.gameObject);
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Zdobyto " + amount + " pożywienia";
+
                         break;
                     }
             }

@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Location : MonoBehaviour
 {
     public bool captured = true;
+
+    public GameObject OnMapMessagePanel;
+    public TextMeshProUGUI promptText;
+
+
     private void Start()
     {
+        OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         GameEventSystem.Instance.OnNewTurn += AddResource;
     }
 
@@ -18,26 +27,48 @@ public class Location : MonoBehaviour
             {
                 case "Industrial Park":
                     {
-                        SaveSerial.Electronics = SaveSerial.Electronics + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Electronics = SaveSerial.Electronics + amount;
                         UIUpdate.Instance.UpdateUIValues();
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Przejąłeś Park Industrialny, zdobyto " + amount + " elektroniki";
                         break;
                     }
                 case "Scrapyard":
                     {
-                        SaveSerial.Scrap = SaveSerial.Scrap + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Scrap = SaveSerial.Scrap + amount;
                         UIUpdate.Instance.UpdateUIValues();
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Przejąłeś złomowisko, zdobyto " + amount + " złomu";
                         break;
                     }
                 case "Plastics":
                     {
-                        SaveSerial.Plastic = SaveSerial.Plastic + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Plastic = SaveSerial.Plastic + amount;
                         UIUpdate.Instance.UpdateUIValues();
+
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Przejąłeś 'Plastics', zdobyto " + amount + " plastiku";
                         break;
                     }
                 case "Shoping Center":
                     {
-                        SaveSerial.Vitals = SaveSerial.Vitals + Random.Range(2, 10);
+                        int amount = Random.Range(2, 10);
+
+                        SaveSerial.Vitals = SaveSerial.Vitals + amount;
                         UIUpdate.Instance.UpdateUIValues();
+
+
+                        OnMapMessagePanel.SetActive(true);
+                        promptText.text = "Przejąłeś Sklep, zdobyto " + amount + " pożywienia";
                         break;
                     }
             }
