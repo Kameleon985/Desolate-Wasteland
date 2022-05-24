@@ -11,7 +11,7 @@ public class MeleeEnemy : BaseEnemy
     static int currentHealth = 25;
     public static int initiative = 10;
     static int damage = 10;
-    static int quantity = 2;
+    static int quantity = 1;
     public GameObject unitCounter;
 
     public void Start()
@@ -56,6 +56,7 @@ public class MeleeEnemy : BaseEnemy
                 if (quantity <= 0)
                 {
                     UnitManager.Instance.enemyList.Remove(this);
+                    BattleMenuMenager.instance.UnitKilled(this);
                     Destroy(this.gameObject);
                 }
                 else

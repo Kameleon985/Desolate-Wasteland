@@ -146,6 +146,7 @@ public class EliteUnit : BaseHero
                 if (quantity <= 0)
                 {
                     UnitManager.Instance.heroList.Remove(this);
+                    BattleMenuMenager.instance.UnitKilled(this);
                     Destroy(this.gameObject);
                 }
                 else
