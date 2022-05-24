@@ -15,20 +15,9 @@ public class Pile : MonoBehaviour
         Debug.Log("STARTED");
 
         OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
-        //promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.GetComponentInChildren<TextMeshPro>();
         promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
         GameEventSystem.Instance.OnPilePickup += AddResources;
-        
-        if(OnMapMessagePanel != null)
-        {
-            Debug.Log("OnMapMessage panel is not null, should be set");
-        }
-        if (promptText != null)
-        {
-            Debug.Log("promptText is not null, should be set");
-        }
-        Debug.Log("Done");
     }
     public void AddResources(GameObject pile)
     {
