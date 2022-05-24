@@ -184,16 +184,23 @@ public class Tile : MonoBehaviour
 
                             if (UnitManager.Instance.SelectedHero is MeleeUnit)
                             {
-                                if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
+                                var occupiedNeighbours = NeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile);
+
+                                if (occupiedNeighbours != null)
                                 {
                                     var heroUnit = (MeleeUnit)UnitManager.Instance.SelectedHero;
-                                    enemy.takeDamage(heroUnit.getAttackDamage());
+                                    foreach (Tile tile in occupiedNeighbours)
+                                    {
 
-                                    //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
-
-                                    UnitManager.Instance.SetSelectedHero(null);
-                                    BattleMenuMenager.instance.updateQueue();
-                                    UnitManager.Instance.EnemyTurn();
+                                        if (enemy.occupiedTile.x == tile.x && enemy.occupiedTile.y == tile.y)
+                                        {
+                                            enemy.takeDamage(heroUnit.getAttackDamage());
+                                            UnitManager.Instance.SetSelectedHero(null);
+                                            BattleMenuMenager.instance.updateQueue();
+                                            UnitManager.Instance.EnemyTurn();
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                             else if (UnitManager.Instance.SelectedHero is RangedUnit)
@@ -228,15 +235,23 @@ public class Tile : MonoBehaviour
                                 var heroUnit = (EliteUnit)UnitManager.Instance.SelectedHero;
                                 if (heroUnit.getAmmo() <= 0)
                                 {
-                                    if (IsNeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile))
+                                    var occupiedNeighbours = NeighborOccupied(UnitManager.Instance.SelectedHero.occupiedTile);
+
+                                    if (occupiedNeighbours != null)
                                     {
-                                        enemy.takeDamage(heroUnit.getAttackDamage());
+                                        var eliteUnit = (EliteUnit)UnitManager.Instance.SelectedHero;
+                                        foreach (Tile tile in occupiedNeighbours)
+                                        {
 
-                                        //Debug.Log("attackDmg: " + heroUnit.getAttackDamage());
-
-                                        UnitManager.Instance.SetSelectedHero(null);
-                                        BattleMenuMenager.instance.updateQueue();
-                                        UnitManager.Instance.EnemyTurn();
+                                            if (enemy.occupiedTile.x == tile.x && enemy.occupiedTile.y == tile.y)
+                                            {
+                                                enemy.takeDamage(eliteUnit.getAttackDamage());
+                                                UnitManager.Instance.SetSelectedHero(null);
+                                                BattleMenuMenager.instance.updateQueue();
+                                                UnitManager.Instance.EnemyTurn();
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
                                 else
@@ -298,6 +313,7 @@ public class Tile : MonoBehaviour
         fCost = gCost + hCost;
     }
 
+    //Do przedyskutowania/usunięcia
     public bool IsNeighborOccupied(Tile tile)
     {
         if (tile.x - 1 >= 0)
@@ -320,5 +336,39 @@ public class Tile : MonoBehaviour
         if (tile.y + 1 < GridManager.Instance.height) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) return true;
 
         return false;
+    }
+
+    public List<Tile> NeighborOccupied(Tile tile)
+    {
+
+        List<Tile> occpiedTiles = new List<Tile>();
+
+        if (tile.x - 1 >= 0)
+        {
+            if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y)));
+            if (tile.y - 1 >= 0)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y - 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y - 1)));
+            if (tile.y + 1 < GridManager.Instance.height)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y + 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x - 1, tile.y + 1)));
+        }
+        if (tile.x + 1 < GridManager.Instance.width)
+        {
+            if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y)));
+            if (tile.y - 1 >= 0)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y - 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y - 1)));
+            if (tile.y + 1 < GridManager.Instance.height)
+                if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y + 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x + 1, tile.y + 1)));
+        }
+        if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)));
+        if (tile.y + 1 < GridManager.Instance.height) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)));
+
+        if(occpiedTiles.Count != 0)
+        {
+            return occpiedTiles;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
