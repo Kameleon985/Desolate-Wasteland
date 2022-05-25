@@ -319,6 +319,7 @@ public class Tile : MonoBehaviour
 
                         UnitManager.Instance.SelectedHero.Move(this);
                         //SetUnit(UnitManager.Instance.SelectedHero);
+
                         //MoveUnit(UnitManager.Instance.SelectedHero);
 
 
@@ -343,22 +344,30 @@ public class Tile : MonoBehaviour
     }
 
 
-    public void MoveUnit(BaseUnit unit)
+    public void MoveUnit(BaseUnit unit, Vector3 nextTile)
     {
         if (unit.occupiedTile != null) unit.occupiedTile.OccupiedUnit = null;
-        StartCoroutine(MoveToPosition(unit.transform, new Vector3(x,y,0), 0.5f));
+        //StartCoroutine(MoveToPosition(unit.transform, new Vector3(x,y,0), 0.5f));
+        Debug.Log("currentTile: " + unit.transform.position.x + " : " + unit.transform.position.y);
+        Debug.Log("nextTile: " + nextTile.x + " : " + nextTile.y);
+
+        StartCoroutine(MoveToPosition(unit.transform, nextTile, 0.5f));        
+
         OccupiedUnit = unit;
         unit.occupiedTile = this;
     }
 
-    IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeTo)
+
+    IEnumerator MoveToPosition(Transform transform, Vector3 targetPosition, float timeTo)
     {
+        
         var currentPos = transform.position;
         var t = 0f;
         while (t < 1)
         {
             t += Time.deltaTime / timeTo;
-            transform.position = Vector3.Lerp(currentPos, position, t);
+            transform.position = Vector3.Lerp(currentPos, targetPosition, t);
+            //transform.position = new Vector3(targetPosition.x, targetPosition.y);
             yield return null;
         }
     }
