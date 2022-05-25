@@ -194,16 +194,25 @@ public class BattleMenuMenager : MonoBehaviour
     {
         var queue = initiativQueue.GetComponentsInChildren<Image>();
 
-        if(flag)
-        {
+
+
+        if (flag)
+        {        
             List<BaseUnit> tmp = new List<BaseUnit>(initQueue.ToArray());
             int index = tmp.IndexOf(recentlyKilled);
+
+            if(index <= 0)
+            {
+                flag = false;
+                return;
+            }
+
             tmp.Remove(recentlyKilled);
             initQueue = new Queue<BaseUnit>(tmp.ToArray());
 
             Debug.Log("index: " + index);
-            queue[index-1].sprite = queue[index].sprite;
-            queue[index-1].color = queue[index].color;
+            queue[index - 1].sprite = queue[index].sprite;
+            queue[index - 1].color = queue[index].color;
 
             for (int i = index; i < 4; i++)
             {
@@ -247,6 +256,8 @@ public class BattleMenuMenager : MonoBehaviour
 
             flag = false;
         }
+        else
+        {
 
             for (int i = 0; i < 4; i++)
             {
@@ -287,6 +298,7 @@ public class BattleMenuMenager : MonoBehaviour
                     initQueue.Enqueue(ee);
                     break;
             }
+        }
 
         flag = false;
     }
