@@ -318,7 +318,7 @@ public class Tile : MonoBehaviour
 
 
                         UnitManager.Instance.SelectedHero.Move(this);
-                        SetUnit(UnitManager.Instance.SelectedHero);
+                        //SetUnit(UnitManager.Instance.SelectedHero);
 
                         //MoveUnit(UnitManager.Instance.SelectedHero);
 
