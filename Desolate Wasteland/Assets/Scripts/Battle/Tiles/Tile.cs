@@ -313,9 +313,15 @@ public class Tile : MonoBehaviour
                 {
                     if (UnitManager.Instance.SelectedHero != null && isWakable)
                     {
+
                         //Move
+
+
                         UnitManager.Instance.SelectedHero.Move(this);
-                        SetUnit(UnitManager.Instance.SelectedHero);
+                        //SetUnit(UnitManager.Instance.SelectedHero);
+                        //MoveUnit(UnitManager.Instance.SelectedHero);
+
+
                         //Debug.Log(this.OccupiedUnit.name + " x: " + this.OccupiedUnit.occupiedTile.x + " y: " + this.OccupiedUnit.occupiedTile.y);
                         UnitManager.Instance.SetSelectedHero(null);
                         GridManager.Instance.ClearAStarTiles();
@@ -336,8 +342,7 @@ public class Tile : MonoBehaviour
         unit.occupiedTile = this;
     }
 
-    //TODO ruch po czasie
-    /*
+
     public void MoveUnit(BaseUnit unit)
     {
         if (unit.occupiedTile != null) unit.occupiedTile.OccupiedUnit = null;
@@ -357,7 +362,6 @@ public class Tile : MonoBehaviour
             yield return null;
         }
     }
-    */
 
     public void CalculateFCost()
     {

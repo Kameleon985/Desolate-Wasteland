@@ -24,7 +24,7 @@ public abstract class BaseUnit : MonoBehaviour
             {
                 path[i].pathHighlight.SetActive(true);
                 //Debug.Log("Moveing");
-                //path[i].MoveUnit(this);
+                path[i].MoveUnit(this);
             }
         }
     }
