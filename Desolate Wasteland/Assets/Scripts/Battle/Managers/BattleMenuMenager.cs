@@ -23,12 +23,18 @@ public class BattleMenuMenager : MonoBehaviour
     public Sprite rangeImg;
     public Sprite eliteImg;
 
+<<<<<<< Updated upstream
     BaseUnit[] arr;
     public Queue<BaseUnit> initQueue;
 
     int queueCount;
     BaseUnit recentlyKilled;
     bool flag;
+=======
+    int count = 1;
+    BaseUnit[] arr = { new MeleeUnit(), new RangedUnit(), new EliteUnit(), new MeleeEnemy(), new RangeEnemy(), new EliteEnemy() };
+    public Queue<BaseUnit> initQueue;
+>>>>>>> Stashed changes
 
     private void Awake()
     {
@@ -56,7 +62,7 @@ public class BattleMenuMenager : MonoBehaviour
 
     public void ShowSelectedHero(BaseHero hero)
     {
-        if(hero == null)
+        if (hero == null)
         {
             selectedHeroObject.SetActive(false);
             return;
@@ -106,6 +112,7 @@ public class BattleMenuMenager : MonoBehaviour
 
         List<int> unitIndex = new List<int>();
 
+<<<<<<< Updated upstream
             for (int i = 0; i < arr.Length; i++)
             {
             switch (arr[i])
@@ -130,6 +137,12 @@ public class BattleMenuMenager : MonoBehaviour
                     break;
             }
             }
+=======
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i].setInitiative(accualInitiativeArr[i]);
+        }
+>>>>>>> Stashed changes
 
             arr = BoubleSort(arr);
 
@@ -220,6 +233,11 @@ public class BattleMenuMenager : MonoBehaviour
                 queue[i].color = queue[i + 1].color;
             }
 
+<<<<<<< Updated upstream
+=======
+        for (int i = 0; i < queue.Length; i++)
+        {
+>>>>>>> Stashed changes
             switch (initQueue.Dequeue())
             {
                 case MeleeUnit mu:

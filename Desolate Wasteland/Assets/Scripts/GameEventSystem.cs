@@ -74,11 +74,33 @@ public class GameEventSystem : MonoBehaviour
         OnPlayerClick?.Invoke(cost);
     }
 
-    public event Action OnUnitTurn;
+    public event Action<BaseUnit> OnUnitTurn;
+    public event Action OnMeleeTurn;
+    public event Action OnRangeTurn;
+    public event Action OnEliteTurn;
 
-    public void EnemyTurn()
+    public void EnemyTurn(BaseUnit enemy)
     {
-        OnUnitTurn?.Invoke();
+        //OnUnitTurn?.Invoke(enemy);
+        Debug.Log(enemy.GetType().Name);
+        switch (enemy.GetType().Name)
+        {
+            case "MeleeEnemy":
+                {
+                    OnMeleeTurn?.Invoke();
+                    break;
+                }
+            case "RangeEnemy":
+                {
+                    OnRangeTurn?.Invoke();
+                    break;
+                }
+            case "EliteEnemy":
+                {
+                    OnEliteTurn?.Invoke();
+                    break;
+                }
+        }
     }
 
 

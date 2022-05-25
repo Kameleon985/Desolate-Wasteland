@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RangeAI : AI
+public class EliteAI : AI
 {
     [SerializeField] private int startingHealth;
     [SerializeField] private int lowHealthThreshold;
@@ -15,7 +15,7 @@ public class RangeAI : AI
 
 
     //[SerializeField] private GameObject player;
-    [SerializeField] private RangeEnemy enemy;
+    [SerializeField] private EliteEnemy enemy;
 
 
     private Transform closestHero;
@@ -44,7 +44,7 @@ public class RangeAI : AI
     private void Start()
     {
         _currentHealth = startingHealth;
-        GameEventSystem.Instance.OnRangeTurn += TakeAction;
+        GameEventSystem.Instance.OnEliteTurn += TakeAction;
         ConstructBehaviourTree();
     }
 
@@ -62,29 +62,32 @@ public class RangeAI : AI
         RangeNode attackRangeNode = new RangeNode(enemy.attackRange, enemy, this);
         ShootNode shootNode = new ShootNode(this);
         RangeNode distanceNode = new RangeNode(distanceRange, enemy, this);
-        MoveToRangeNode moveToRangeNode = new MoveToRangeNode(enemy, this);
+        MoveToEliteRangeNode moveToRangeNode = new MoveToEliteRangeNode(enemy, this);
+        AmmoCheckNode ammoCheckNode = new AmmoCheckNode(enemy);
 
-        Sequence attackSequence = new Sequence(new List<Node> { attackRangeNode, shootNode }); ;
+
+        Sequence attackSequence = new Sequence(new List<Node> { attackRangeNode, shootNode });
+        Sequence ammoCheckSequence = new Sequence(new List<Node> { ammoCheckNode, attackSequence });
         Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
         Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, attackSequence });
         Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
         Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
         Sequence moveSequence = new Sequence(new List<Node> { distanceNode, moveToRangeNode });
 
-
-        topNode = new Selector(new List<Node> { mainCoverSequence, attackSequence, moveSequence });
+        topNode = new Selector(new List<Node> { mainCoverSequence, ammoCheckSequence, moveSequence });
     }
 
     public override void TakeAction()
     {
+
         _currentHealth = GameObject.FindObjectOfType<RangeEnemy>().getCurrentHealth();
         ConstructBehaviourTree();
         topNode.Evaluate();
         //if (topNode.Evaluate() == NodeState.FAILURE)
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-        //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-
         BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+
+        //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 
     public override void TakeDamage(int damage)
@@ -114,6 +117,7 @@ public class RangeAI : AI
 
     private void OnDestroy()
     {
-        GameEventSystem.Instance.OnRangeTurn -= TakeAction;
+        GameEventSystem.Instance.OnEliteTurn -= TakeAction;
     }
 }
+

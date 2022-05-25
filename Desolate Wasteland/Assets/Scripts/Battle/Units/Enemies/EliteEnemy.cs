@@ -12,6 +12,8 @@ public class EliteEnemy : BaseEnemy
     public static int initiative = 8;
     static int quantity = 1;
     public GameObject unitCounter;
+    public int attackRange = 10;
+    public int ammo = 2;
 
     public void Start()
     {

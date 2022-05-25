@@ -100,7 +100,8 @@ public class UnitManager : MonoBehaviour
     {
         //GameObject gameObject = units.Where(u => u.faction == Faction.Enemy && u.unitPrefab.unitName.Equals("MeleeEnemy")).First().unitPrefab.gameObject;
         BattleMenuMenager.instance.updateQueue();
-        GameEventSystem.Instance.EnemyTurn();
+        GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
+
         //gameObject.GetComponent<EnemyAI>().Invoke("Evaluate", 10);
         //Debug.Log(ai.gameObject.name);
         //Debug.Log("Enemy Turn");

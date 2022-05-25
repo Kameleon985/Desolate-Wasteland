@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8709347307796283927}
   - component: {fileID: 7203683315618331177}
   - component: {fileID: 3294263584297853376}
+  - component: {fileID: 2979901897286999700}
   m_Layer: 0
   m_Name: EliteEnemy
   m_TagString: Untagged
@@ -100,6 +101,24 @@ MonoBehaviour:
   unitName: EliteEnemy
   sr: {fileID: 7203683315618331177}
   unitCounter: {fileID: 6333189820932234863}
+--- !u!114 &2979901897286999700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537076171721428846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d14b5ed7447a0840a05678b546c78d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 30
+  lowHealthThreshold: 20
+  healthRestoreRate: 0
+  chasingRange: 0
+  distanceRange: 120
+  enemy: {fileID: 3294263584297853376}
 --- !u!1 &4750151702900502770
 GameObject:
   m_ObjectHideFlags: 0

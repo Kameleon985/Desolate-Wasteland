@@ -46,7 +46,7 @@ public class Tile : MonoBehaviour
             highlight.SetActive(true);
             BattleMenuMenager.instance.ShowTileInfo(this);
         }
-        
+
     }
 
     private void OnMouseExit()
@@ -60,7 +60,7 @@ public class Tile : MonoBehaviour
             highlight.SetActive(false);
             BattleMenuMenager.instance.ShowTileInfo(null);
         }
-        
+
     }
 
     private void OnMouseDown()
@@ -417,7 +417,7 @@ public class Tile : MonoBehaviour
         if (tile.y - 1 >= 0) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y - 1)));
         if (tile.y + 1 < GridManager.Instance.height) if (GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)).OccupiedUnit != null) occpiedTiles.Add(GridManager.Instance.GetTileAtPosition(new Vector2(tile.x, tile.y + 1)));
 
-        if(occpiedTiles.Count != 0)
+        if (occpiedTiles.Count != 0)
         {
             return occpiedTiles;
         }

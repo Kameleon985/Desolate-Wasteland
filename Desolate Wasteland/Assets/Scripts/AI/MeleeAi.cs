@@ -43,7 +43,7 @@ public class MeleeAi : AI
     private void Start()
     {
         _currentHealth = startingHealth;
-        GameEventSystem.Instance.OnUnitTurn += TakeAction;
+        GameEventSystem.Instance.OnMeleeTurn += TakeAction;
         ConstructBehaviourTree();
     }
 
@@ -77,9 +77,12 @@ public class MeleeAi : AI
     {
         _currentHealth = GameObject.FindObjectOfType<MeleeEnemy>().getCurrentHealth();
         ConstructBehaviourTree();
-        if (topNode.Evaluate() == NodeState.FAILURE)
-            BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        topNode.Evaluate();
+        //if (topNode.Evaluate() == NodeState.FAILURE)
+        //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+
+        //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 
     public override void TakeDamage(int damage)
@@ -99,7 +102,7 @@ public class MeleeAi : AI
 
     private void OnDestroy()
     {
-        GameEventSystem.Instance.OnUnitTurn -= TakeAction;
+        GameEventSystem.Instance.OnMeleeTurn -= TakeAction;
     }
 
     public override void SetClosestHero(Transform hero)
