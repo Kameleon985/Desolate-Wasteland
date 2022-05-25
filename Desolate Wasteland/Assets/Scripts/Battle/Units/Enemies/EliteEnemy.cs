@@ -10,7 +10,7 @@ public class EliteEnemy : BaseEnemy
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
     public static int initiative = 8;
-    static int quantity = 2;
+    static int quantity = 1;
     public GameObject unitCounter;
 
     public void Start()
@@ -44,6 +44,7 @@ public class EliteEnemy : BaseEnemy
                 if (quantity <= 0)
                 {
                     UnitManager.Instance.enemyList.Remove(this);
+                    BattleMenuMenager.instance.UnitKilled(this);
                     Destroy(this.gameObject);
                 }
                 else

@@ -55,7 +55,6 @@ public class MeleeUnit : BaseHero
     public void Start()
     {
         setUnitCount();
-        Debug.Log("attackDamage: "+attackDamage);
     }
 
     internal static void dealDamage(int dmg)
@@ -147,6 +146,7 @@ public class MeleeUnit : BaseHero
                 if (quantity <= 0)
                 {
                     UnitManager.Instance.heroList.Remove(this);
+                    BattleMenuMenager.instance.UnitKilled(this);
                     Destroy(this.gameObject);
                 }
                 else

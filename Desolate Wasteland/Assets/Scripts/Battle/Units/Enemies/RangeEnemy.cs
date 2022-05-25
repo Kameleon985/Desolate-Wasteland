@@ -10,7 +10,7 @@ public class RangeEnemy : BaseEnemy
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
     public static int initiative = 5;
-    static int quantity = 2;
+    static int quantity = 1;
     public GameObject unitCounter;
     public int attackRange = 50;
     static int damage = 7;
@@ -56,6 +56,7 @@ public class RangeEnemy : BaseEnemy
                 if (quantity <= 0)
                 {
                     UnitManager.Instance.enemyList.Remove(this);
+                    BattleMenuMenager.instance.UnitKilled(this);
                     Destroy(this.gameObject);
                 }
                 else

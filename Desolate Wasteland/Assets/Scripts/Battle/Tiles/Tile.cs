@@ -26,10 +26,13 @@ public class Tile : MonoBehaviour
 
     public GameObject notClickableThrough;
 
+    public Vector3 positionV3;
+
 
     public virtual void init(int x, int y, GameObject notClickableThrough)
     {
         this.notClickableThrough = notClickableThrough;
+        positionV3 = new Vector3(x, y, 0);
     }
 
     private void OnMouseEnter()
@@ -197,7 +200,11 @@ public class Tile : MonoBehaviour
                                             enemy.takeDamage(heroUnit.getAttackDamage());
                                             UnitManager.Instance.SetSelectedHero(null);
                                             BattleMenuMenager.instance.updateQueue();
-                                            UnitManager.Instance.EnemyTurn();
+                                            //UnitManager.Instance.EnemyTurn();
+                                            if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
+                                            {
+                                                UnitManager.Instance.EnemyTurn();
+                                            }
                                             break;
                                         }
                                     }
@@ -213,7 +220,11 @@ public class Tile : MonoBehaviour
                                         enemy.takeDamage(heroUnit.getAttackDamage());
                                         UnitManager.Instance.SetSelectedHero(null);
                                         BattleMenuMenager.instance.updateQueue();
-                                        UnitManager.Instance.EnemyTurn();
+                                        //UnitManager.Instance.EnemyTurn();
+                                        if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
+                                        {
+                                            UnitManager.Instance.EnemyTurn();
+                                        }
                                     }
                                 }
                                 else if (enemy.occupiedTile.x < heroUnit.occupiedTile.x)
@@ -223,7 +234,11 @@ public class Tile : MonoBehaviour
                                         enemy.takeDamage(heroUnit.getAttackDamage());
                                         UnitManager.Instance.SetSelectedHero(null);
                                         BattleMenuMenager.instance.updateQueue();
-                                        UnitManager.Instance.EnemyTurn();
+                                        //UnitManager.Instance.EnemyTurn();
+                                        if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
+                                        {
+                                            UnitManager.Instance.EnemyTurn();
+                                        }
                                     }
                                 }
 
@@ -248,7 +263,11 @@ public class Tile : MonoBehaviour
                                                 enemy.takeDamage(eliteUnit.getAttackDamage());
                                                 UnitManager.Instance.SetSelectedHero(null);
                                                 BattleMenuMenager.instance.updateQueue();
-                                                UnitManager.Instance.EnemyTurn();
+                                                //UnitManager.Instance.EnemyTurn();
+                                                if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
+                                                {
+                                                    UnitManager.Instance.EnemyTurn();
+                                                }
                                                 break;
                                             }
                                         }
@@ -263,7 +282,11 @@ public class Tile : MonoBehaviour
                                             enemy.takeDamage(heroUnit.getRangeDamage());
                                             UnitManager.Instance.SetSelectedHero(null);
                                             BattleMenuMenager.instance.updateQueue();
-                                            UnitManager.Instance.EnemyTurn();
+                                            //UnitManager.Instance.EnemyTurn();
+                                            if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
+                                            {
+                                                UnitManager.Instance.EnemyTurn();
+                                            }
                                         }
                                     }
                                     else if (enemy.occupiedTile.x < heroUnit.occupiedTile.x)
@@ -273,7 +296,11 @@ public class Tile : MonoBehaviour
                                             enemy.takeDamage(heroUnit.getRangeDamage());
                                             UnitManager.Instance.SetSelectedHero(null);
                                             BattleMenuMenager.instance.updateQueue();
-                                            UnitManager.Instance.EnemyTurn();
+                                            //UnitManager.Instance.EnemyTurn();
+                                            if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
+                                            {
+                                                UnitManager.Instance.EnemyTurn();
+                                            }
                                         }
                                     }
                                     heroUnit.setAmmo(heroUnit.getAmmo() - 1);
@@ -286,9 +313,16 @@ public class Tile : MonoBehaviour
                 {
                     if (UnitManager.Instance.SelectedHero != null && isWakable)
                     {
+
                         //Move
+
+
                         UnitManager.Instance.SelectedHero.Move(this);
-                        SetUnit(UnitManager.Instance.SelectedHero);
+                        //SetUnit(UnitManager.Instance.SelectedHero);
+                        //MoveUnit(UnitManager.Instance.SelectedHero);
+
+
+                        //Debug.Log(this.OccupiedUnit.name + " x: " + this.OccupiedUnit.occupiedTile.x + " y: " + this.OccupiedUnit.occupiedTile.y);
                         UnitManager.Instance.SetSelectedHero(null);
                         GridManager.Instance.ClearAStarTiles();
                         BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
@@ -306,6 +340,27 @@ public class Tile : MonoBehaviour
         unit.transform.position = transform.position;
         OccupiedUnit = unit;
         unit.occupiedTile = this;
+    }
+
+
+    public void MoveUnit(BaseUnit unit)
+    {
+        if (unit.occupiedTile != null) unit.occupiedTile.OccupiedUnit = null;
+        StartCoroutine(MoveToPosition(unit.transform, new Vector3(x,y,0), 0.5f));
+        OccupiedUnit = unit;
+        unit.occupiedTile = this;
+    }
+
+    IEnumerator MoveToPosition(Transform transform, Vector3 position, float timeTo)
+    {
+        var currentPos = transform.position;
+        var t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime / timeTo;
+            transform.position = Vector3.Lerp(currentPos, position, t);
+            yield return null;
+        }
     }
 
     public void CalculateFCost()

@@ -78,6 +78,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
+                //Debug.Log("x: " + x + " y: " + y);
                 GetTileAtPosition(new Vector2(x, y)).previouseTile = null;
                 GetTileAtPosition(new Vector2(x, y)).gCost = int.MaxValue;
                 GetTileAtPosition(new Vector2(x, y)).CalculateFCost();
