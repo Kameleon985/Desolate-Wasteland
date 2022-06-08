@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -80,8 +81,17 @@ public class MeleeAi : AI
         topNode.Evaluate();
         //if (topNode.Evaluate() == NodeState.FAILURE)
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-
+        //Debug.Log(BattleMenuMenager.instance.initQueue.First().faction + "==next turn");
+        if (BattleMenuMenager.instance.initQueue.Peek().faction == Faction.Enemy)
+        {
+            //UnitManager.Instance.EnemyTurn();
+            //GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
+            BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+        }
+        else
+        {
+            BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        }
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 

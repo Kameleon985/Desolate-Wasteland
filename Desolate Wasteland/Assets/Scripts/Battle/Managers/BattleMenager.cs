@@ -26,7 +26,9 @@ public class BattleMenager : MonoBehaviour
         if (UnitManager.Instance.enemyList.Count == 0)
         {
             Debug.Log("You win!");
-            GameEventSystem.Instance.EnterLocation("Map");
+            GameObject g = new GameObject();
+            g.name = "Map";
+            GameEventSystem.Instance.EnterLocation(g);
         }
         if (UnitManager.Instance.heroList.Count == 0)
         {

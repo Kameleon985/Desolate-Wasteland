@@ -111,6 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d91e800479dc14fb455155382c5151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  captured: 1
+  captured: 0
   OnMapMessagePanel: {fileID: 0}
   promptText: {fileID: 0}

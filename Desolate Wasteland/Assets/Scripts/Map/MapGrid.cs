@@ -16,7 +16,7 @@ public class MapGrid : MonoBehaviour
     Vector3 mapOriginCorner;
 
     private Dictionary<Vector2, MapTile> tiles = new Dictionary<Vector2, MapTile>();
-    private Dictionary<Vector2, GameObject> locations = new Dictionary<Vector2, GameObject>();
+    public Dictionary<Vector2, GameObject> locations = new Dictionary<Vector2, GameObject>();
 
     private void Start()
     {
@@ -29,112 +29,139 @@ public class MapGrid : MonoBehaviour
         if (SaveSerial.terrain == null)
         {
             Debug.Log("new");
-            GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
-            GenerateGrid();
-            //SaveSerial.locations = Instantiate(locations);
-
-            SaveSerial.terrain = new Dictionary<float[], string>();
-            var xd = tiles.GetEnumerator();
-            while (xd.MoveNext())
-            {
-                if (xd.Current.Value.CompareTag("Terrain"))
-                {
-                    float x = xd.Current.Key.x;
-                    float y = xd.Current.Key.y;
-                    SaveSerial.terrain.Add(new float[] { x, y }, xd.Current.Value.name);
-                    //Debug.Log(xd.Current.Key);
-                }
-            }
-            //Debug.Log(SaveSerial.locations.Count);
-
-
-            //Piles & Locations
-            SaveSerial.piles = new Dictionary<float[], string>();
-            SaveSerial.locations = new Dictionary<float[], string>();
-
-            var enumerator = locations.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (enumerator.Current.Value.name.Equals("Metal") || enumerator.Current.Value.name.Equals("Electronics") || enumerator.Current.Value.name.Equals("Plastic") || enumerator.Current.Value.name.Equals("Food"))
-                {
-                    float x = enumerator.Current.Key.x;
-                    float y = enumerator.Current.Key.y;
-                    SaveSerial.piles.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                }
-                if (enumerator.Current.Value.name.Contains("Scrapyard"))
-                {
-                    float x = enumerator.Current.Key.x;
-                    float y = enumerator.Current.Key.y;
-                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                }
-                if (enumerator.Current.Value.name.Contains("Shoping Center"))
-                {
-                    float x = enumerator.Current.Key.x;
-                    float y = enumerator.Current.Key.y;
-                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                }
-                if (enumerator.Current.Value.name.Contains("Industrial Park"))
-                {
-                    float x = enumerator.Current.Key.x;
-                    float y = enumerator.Current.Key.y;
-                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                }
-                if (enumerator.Current.Value.name.Contains("Hydrophonics"))
-                {
-                    float x = enumerator.Current.Key.x;
-                    float y = enumerator.Current.Key.y;
-                    SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                }
-            }
+            NewMap();
 
         }
         else
         {
             Debug.Log("load");
-            var dict = SaveSerial.terrain;
-            var enumerator = dict.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                var ter = Instantiate(terrainTile, new Vector2(enumerator.Current.Key[0], enumerator.Current.Key[1]), Quaternion.identity);
-                ter.name = enumerator.Current.Value;
-                //Debug.Log(ter.name);
-                tiles.Add(ter.transform.position, ter);
-            }
+            Load();
 
-            var dictPiles = SaveSerial.piles;
-            var enumeratorPiles = dictPiles.GetEnumerator();
-            while (enumeratorPiles.MoveNext())
-            {
-                //GameObject g = Instantiate(pile, loc, Quaternion.identity);
-                var pileLoad = Instantiate(pile, new Vector2(enumeratorPiles.Current.Key[0], enumeratorPiles.Current.Key[1]), Quaternion.identity);
-                pileLoad.name = enumeratorPiles.Current.Value;
-                Debug.Log(pileLoad.name);
-                locations.Add(pileLoad.transform.position, pileLoad);
-            }
-
-
-            GenerateGrid();
-            //tiles = SaveSerial.terrain;
-            //locations = SaveSerial.locations;
-
-            //Debug.Log(locations.Count);
-            //var l = locations.GetEnumerator();
-            //while (l.MoveNext())
-            //{
-            //    Debug.Log(1);
-            //    Instantiate(l.Current.Value, l.Current.Key, Quaternion.identity);
-            //}
-            //var t = tiles.GetEnumerator();
-            //while (t.MoveNext())
-            //{
-            //    Debug.Log(1);
-            //    Instantiate(t.Current.Value, t.Current.Key, Quaternion.identity);
-            //}
         }
 
 
     }
 
+    void NewMap()
+    {
+        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
+        GenerateGrid();
+        //SaveSerial.locations = Instantiate(locations);
+
+        SaveSerial.terrain = new Dictionary<float[], string>();
+        var xd = tiles.GetEnumerator();
+        while (xd.MoveNext())
+        {
+            if (xd.Current.Value.CompareTag("Terrain"))
+            {
+                float x = xd.Current.Key.x;
+                float y = xd.Current.Key.y;
+                SaveSerial.terrain.Add(new float[] { x, y }, xd.Current.Value.name);
+                //Debug.Log(xd.Current.Key);
+            }
+        }
+        //Debug.Log(SaveSerial.locations.Count);
+
+
+        //Piles & Locations
+        SaveSerial.piles = new Dictionary<float[], string>();
+        SaveSerial.locations = new Dictionary<float[], string>();
+        SaveSerial.captured = new Dictionary<float[], bool>();
+
+        var enumerator = locations.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            if (enumerator.Current.Value.name.Equals("Metal") || enumerator.Current.Value.name.Equals("Electronics") || enumerator.Current.Value.name.Equals("Plastics") || enumerator.Current.Value.name.Equals("Food"))
+            {
+                float x = enumerator.Current.Key.x;
+                float y = enumerator.Current.Key.y;
+                SaveSerial.piles.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                //Debug.Log("Pile saved");
+            }
+            if (enumerator.Current.Value.name.Equals("Scrapyard"))
+            {
+                float x = enumerator.Current.Key.x;
+                float y = enumerator.Current.Key.y;
+                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                //Debug.Log("scrapyard saved");
+            }
+            if (enumerator.Current.Value.name.Equals("Shoping Center"))
+            {
+                float x = enumerator.Current.Key.x;
+                float y = enumerator.Current.Key.y;
+                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                //Debug.Log("center saved");
+            }
+            if (enumerator.Current.Value.name.Equals("Industrial Park"))
+            {
+                float x = enumerator.Current.Key.x;
+                float y = enumerator.Current.Key.y;
+                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                //Debug.Log("park saved");
+            }
+            if (enumerator.Current.Value.name.Equals("Hydrophonics"))
+            {
+                float x = enumerator.Current.Key.x;
+                float y = enumerator.Current.Key.y;
+                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                //Debug.Log("hydro saved");
+            }
+        }
+    }
+
+    public void Load()
+    {
+        GenerateCampFactory();
+        var dict = SaveSerial.terrain;
+        var enumerator = dict.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            var ter = Instantiate(terrainTile, new Vector2(enumerator.Current.Key[0], enumerator.Current.Key[1]), Quaternion.identity);
+            ter.name = enumerator.Current.Value;
+            //Debug.Log(ter.name);
+            tiles.Add(ter.transform.position, ter);
+            ter.transform.parent = gameObject.transform;
+        }
+
+        var dictPiles = SaveSerial.piles;
+        var enumeratorPiles = dictPiles.GetEnumerator();
+        while (enumeratorPiles.MoveNext())
+        {
+            //GameObject g = Instantiate(pile, loc, Quaternion.identity);
+            var pileLoad = Instantiate(pile, new Vector2(enumeratorPiles.Current.Key[0], enumeratorPiles.Current.Key[1]), Quaternion.identity);
+            pileLoad.name = enumeratorPiles.Current.Value;
+            pileLoad.transform.parent = gameObject.transform;
+            //Debug.Log(pileLoad.name);
+            locations.Add(pileLoad.transform.position, pileLoad);
+        }
+
+        var dictLoc = SaveSerial.locations;
+        var enumeratorLocs = dictLoc.GetEnumerator();
+        while (enumeratorLocs.MoveNext())
+        {
+            //GameObject g = Instantiate(pile, loc, Quaternion.identity);
+            var x = enumeratorLocs.Current.Key[0];
+            var y = enumeratorLocs.Current.Key[1];
+            enumeratorLocs.MoveNext();
+            x += enumeratorLocs.Current.Key[0];
+            y += enumeratorLocs.Current.Key[1];
+            enumeratorLocs.MoveNext();
+            x += enumeratorLocs.Current.Key[0];
+            y += enumeratorLocs.Current.Key[1];
+            enumeratorLocs.MoveNext();
+            x += enumeratorLocs.Current.Key[0];
+            y += enumeratorLocs.Current.Key[1];
+            var locLoad = Instantiate(location, new Vector2(x / 4, y / 4), Quaternion.identity);
+            locLoad.name = enumeratorLocs.Current.Value;
+            locLoad.transform.parent = gameObject.transform;
+            Debug.Log(locLoad.name);
+            locations.Add(locLoad.transform.position, locLoad);
+
+        }
+
+
+        GenerateGrid();
+    }
     void GenerateGrid()
     {
         bool loaded = false;
@@ -175,19 +202,60 @@ public class MapGrid : MonoBehaviour
 
     public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics)
     {
-        
+
+        GenerateCampFactory();
+
+        for (int i = 0; i < scrapyards; i++)
+        {
+            GenerateLocation("Scrapyard");
+        }
+        for (int i = 0; i < hydrophonics; i++)
+        {
+            GenerateLocation("Hydrophonics");
+        }
+        for (int i = 0; i < industrialParks; i++)
+        {
+            GenerateLocation("Industrial Park");
+        }
+        for (int i = 0; i < shopingCenters; i++)
+        {
+            GenerateLocation("Shoping Center");
+        }
+        for (int i = 0; i < metal; i++)
+        {
+            GeneratePile("Metal");
+        }
+        for (int i = 0; i < electronics; i++)
+        {
+            GeneratePile("Electronics");
+        }
+        for (int i = 0; i < food; i++)
+        {
+            GeneratePile("Food");
+        }
+        for (int i = 0; i < plastics; i++)
+        {
+            GeneratePile("Plastics");
+        }
+
+    }
+
+    public void GenerateCampFactory()
+    {
         GameObject g = Instantiate(location);
 
         g.transform.localScale = new Vector3(30, 30, 1);
         GameObject factory = Instantiate(g, new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
         factory.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.4f);
         factory.name = "Factory";
+        factory.transform.parent = gameObject.transform;
         locations.Add(factory.transform.position, factory);
 
         g.transform.localScale = new Vector3(20, 20, 1);
         GameObject camp = Instantiate(g, new Vector2(mapOriginCorner.x + 8, mapOriginCorner.y + 8), Quaternion.identity);
         camp.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.4f);
         camp.name = "Camp";
+        camp.transform.parent = gameObject.transform;
         locations.Add(camp.transform.position, camp);
 
         Destroy(g);
@@ -216,40 +284,6 @@ public class MapGrid : MonoBehaviour
             }
 
         }
-
-        for (int i = 0; i < scrapyards; i++)
-        {
-            GenerateLocation("Scrapyard "+i);
-        }
-        for (int i = 0; i < hydrophonics; i++)
-        {
-            GenerateLocation("Hydrophonics "+ i);
-        }
-        for (int i = 0; i < industrialParks; i++)
-        {
-            GenerateLocation("Industrial Park "+i);
-        }
-        for (int i = 0; i < shopingCenters; i++)
-        {
-            GenerateLocation("Shoping Center "+i);
-        }
-        for (int i = 0; i < metal; i++)
-        {
-            GeneratePile("Metal");
-        }
-        for (int i = 0; i < electronics; i++)
-        {
-            GeneratePile("Electronics");
-        }
-        for (int i = 0; i < food; i++)
-        {
-            GeneratePile("Food");
-        }
-        for (int i = 0; i < plastics; i++)
-        {
-            GeneratePile("Plastics");
-        }
-
     }
 
     public GameObject GenerateLocation(string name)
@@ -262,12 +296,13 @@ public class MapGrid : MonoBehaviour
             {
                 Vector2 loc = new Vector2(x, y);
                 GameObject g = Instantiate(location, new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
-                g.name = "Battle";
+                g.name = name;
                 locations.Add(loc, g);
                 locations.Add(new Vector2(loc.x + 1, loc.y), g);
                 locations.Add(new Vector2(loc.x + 1, loc.y + 1), g);
                 locations.Add(new Vector2(loc.x, loc.y + 1), g);
                 //Debug.Log(name + " coords: x=" + (loc.x + 1) + " " + loc.x + " y=" + (loc.y + 1) + " " + loc.y);
+                g.transform.parent = gameObject.transform;
                 return g;
             }
             else
@@ -290,6 +325,7 @@ public class MapGrid : MonoBehaviour
                 GameObject g = Instantiate(pile, loc, Quaternion.identity);
                 g.name = name;
                 locations.Add(g.transform.position, g);
+                g.transform.parent = gameObject.transform;
                 return g;
             }
             else

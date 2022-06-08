@@ -12,7 +12,7 @@ public class MapMovement : MonoBehaviour
     private Vector2 destPosition;
     private bool moving;
     private SpriteRenderer sprite;
-    private string atLocation;
+    private GameObject atLocation;
     private GameObject atPile;
     private bool mouseOver;
     public float movePoints;
@@ -34,6 +34,7 @@ public class MapMovement : MonoBehaviour
         GameEventSystem.Instance.OnEnterLocation += SavePosition;
         GameEventSystem.Instance.OnEnterMap += LoadData;
         GameEventSystem.Instance.OnSaveButton += SavePosition;
+        GameEventSystem.Instance.OnNewTurn += ResetMovePoints;
     }
 
     void Update()
@@ -113,7 +114,8 @@ public class MapMovement : MonoBehaviour
     {
         if (collision.CompareTag("Location"))
         {
-            atLocation = collision.name;
+            //Debug.Log(collision.gameObject.name);
+            atLocation = collision.gameObject;
         }
         if (collision.CompareTag("Pile"))
         {
@@ -127,7 +129,8 @@ public class MapMovement : MonoBehaviour
     {
         if (collision.CompareTag("Location"))
         {
-            atLocation = collision.name;
+            //Debug.Log(collision.gameObject.name);
+            atLocation = collision.gameObject;
         }
         if (collision.CompareTag("Pile"))
         {
@@ -161,7 +164,7 @@ public class MapMovement : MonoBehaviour
         }
     }
 
-    public void SavePosition()
+    public void SavePosition(GameObject g)
     {
         float[] mapPositionArr = { transform.position.x, transform.position.y };
         SaveSerial.onMapPosition = mapPositionArr;
@@ -179,6 +182,13 @@ public class MapMovement : MonoBehaviour
     {
         GameEventSystem.Instance.OnEnterLocation -= SavePosition;
         GameEventSystem.Instance.OnEnterMap -= LoadData;
+        GameEventSystem.Instance.OnSaveButton -= SavePosition;
+        GameEventSystem.Instance.OnNewTurn -= ResetMovePoints;
+    }
+
+    public void ResetMovePoints()
+    {
+        movePoints = 10;
     }
 
 }

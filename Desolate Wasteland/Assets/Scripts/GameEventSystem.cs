@@ -21,18 +21,28 @@ public class GameEventSystem : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public event Action OnEnterLocation;
-    public void EnterLocation(String name)
+    public event Action<GameObject> OnEnterLocation;
+    public void EnterLocation(GameObject location)
     {
-        if (name == "Map")
+        location.GetComponent<Location>().SetCaptured(true);
+        var cap = location.GetComponent<Location>();
+        if (location.name == "Map")
         {
-            SceneManager.LoadScene(name);
+            SceneManager.LoadScene(location.name);
             StartCoroutine(LoadPosition());
+        }
+        else if (location.name != "Camp" && !cap)
+        {
+            Debug.Log(cap);
+            OnEnterLocation?.Invoke(location);
+            float[] l = { location.transform.position.x, location.transform.position.y };
+            SaveSerial.captured.Add(l, true);
+            SceneManager.LoadScene(location.name);
         }
         else
         {
-            OnEnterLocation?.Invoke();
-            SceneManager.LoadScene(name);
+            OnEnterLocation?.Invoke(location);
+            SceneManager.LoadScene(location.name);
         }
 
     }
@@ -82,25 +92,31 @@ public class GameEventSystem : MonoBehaviour
     public void EnemyTurn(BaseUnit enemy)
     {
         //OnUnitTurn?.Invoke(enemy);
-        Debug.Log(enemy.GetType().Name);
-        switch (enemy.GetType().Name)
+        //Debug.Log(enemy.faction + " current faction");
+        Debug.Log(enemy.GetType().Name + " unit name on enemy turn");
+        if (enemy.faction == Faction.Enemy)
         {
-            case "MeleeEnemy":
-                {
-                    OnMeleeTurn?.Invoke();
-                    break;
-                }
-            case "RangeEnemy":
-                {
-                    OnRangeTurn?.Invoke();
-                    break;
-                }
-            case "EliteEnemy":
-                {
-                    OnEliteTurn?.Invoke();
-                    break;
-                }
+            //Debug.Log(enemy.GetType().Name);
+            switch (enemy.GetType().Name)
+            {
+                case "MeleeEnemy":
+                    {
+                        OnMeleeTurn?.Invoke();
+                        break;
+                    }
+                case "RangeEnemy":
+                    {
+                        OnRangeTurn?.Invoke();
+                        break;
+                    }
+                case "EliteEnemy":
+                    {
+                        OnEliteTurn?.Invoke();
+                        break;
+                    }
+            }
         }
+
     }
 
 
@@ -110,11 +126,13 @@ public class GameEventSystem : MonoBehaviour
     {
         OnPilePickup?.Invoke(pile);
     }
-    public event Action OnSaveButton;
+
+    public event Action<GameObject> OnSaveButton;
 
     public void SaveButton()
     {
-        OnSaveButton?.Invoke();
+        GameObject g = new GameObject();
+        OnSaveButton?.Invoke(g);
 
     }
 

@@ -29,7 +29,8 @@ public class UnitManager : MonoBehaviour
         for (int i = 0; i < heroCount; i++)
         {
             var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero, heroCount, i);
-            if (randomPrefab is MeleeUnit && SaveSerial.MeleeUnit != 0) {
+            if (randomPrefab is MeleeUnit && SaveSerial.MeleeUnit != 0)
+            {
                 var spawnedHero = Instantiate(randomPrefab);
                 var randomSpawnTile = GridManager.Instance.GetHeroSpawn();
                 randomSpawnTile.SetUnit(spawnedHero);
@@ -99,9 +100,10 @@ public class UnitManager : MonoBehaviour
     public void EnemyTurn()
     {
         //GameObject gameObject = units.Where(u => u.faction == Faction.Enemy && u.unitPrefab.unitName.Equals("MeleeEnemy")).First().unitPrefab.gameObject;
+        //BaseUnit b = BattleMenuMenager.instance.initQueue.Dequeue();
         BattleMenuMenager.instance.updateQueue();
         GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
-
+        //BattleMenuMenager.instance.initQueue.Enqueue(b);
         //gameObject.GetComponent<EnemyAI>().Invoke("Evaluate", 10);
         //Debug.Log(ai.gameObject.name);
         //Debug.Log("Enemy Turn");

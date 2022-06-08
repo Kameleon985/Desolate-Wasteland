@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class Location : MonoBehaviour
 {
-    public bool captured = true;
+    private bool captured = false;
 
     public GameObject OnMapMessagePanel;
     public TextMeshProUGUI promptText;
 
+    public void SetCaptured(bool b)
+    {
+        captured = b;
+    }
+
+    public bool GetCaptured()
+    {
+        return captured;
+    }
 
     private void Start()
     {

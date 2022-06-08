@@ -15,7 +15,9 @@ public class ButtonListButton : MonoBehaviour
 
     public void OnClick()
     {
-        manager.load(btnName.text+"");
-        GameEventSystem.Instance.EnterLocation("Map");
+        manager.load(btnName.text + "");
+        GameObject g = new GameObject();
+        g.name = "Map";
+        GameEventSystem.Instance.EnterLocation(g);
     }
 }

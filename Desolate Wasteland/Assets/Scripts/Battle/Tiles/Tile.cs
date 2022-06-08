@@ -199,7 +199,7 @@ public class Tile : MonoBehaviour
                                         {
                                             enemy.takeDamage(heroUnit.getAttackDamage());
                                             UnitManager.Instance.SetSelectedHero(null);
-                                            BattleMenuMenager.instance.updateQueue();
+                                            //BattleMenuMenager.instance.updateQueue();
                                             //UnitManager.Instance.EnemyTurn();
                                             if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
                                             {
@@ -219,7 +219,7 @@ public class Tile : MonoBehaviour
                                     {
                                         enemy.takeDamage(heroUnit.getAttackDamage());
                                         UnitManager.Instance.SetSelectedHero(null);
-                                        BattleMenuMenager.instance.updateQueue();
+                                        //BattleMenuMenager.instance.updateQueue();
                                         //UnitManager.Instance.EnemyTurn();
                                         if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
                                         {
@@ -233,7 +233,7 @@ public class Tile : MonoBehaviour
                                     {
                                         enemy.takeDamage(heroUnit.getAttackDamage());
                                         UnitManager.Instance.SetSelectedHero(null);
-                                        BattleMenuMenager.instance.updateQueue();
+                                        //BattleMenuMenager.instance.updateQueue();
                                         //UnitManager.Instance.EnemyTurn();
                                         if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
                                         {
@@ -262,7 +262,7 @@ public class Tile : MonoBehaviour
                                             {
                                                 enemy.takeDamage(eliteUnit.getAttackDamage());
                                                 UnitManager.Instance.SetSelectedHero(null);
-                                                BattleMenuMenager.instance.updateQueue();
+                                                //BattleMenuMenager.instance.updateQueue();
                                                 //UnitManager.Instance.EnemyTurn();
                                                 if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
                                                 {
@@ -281,7 +281,7 @@ public class Tile : MonoBehaviour
                                         {
                                             enemy.takeDamage(heroUnit.getRangeDamage());
                                             UnitManager.Instance.SetSelectedHero(null);
-                                            BattleMenuMenager.instance.updateQueue();
+                                            //BattleMenuMenager.instance.updateQueue();
                                             //UnitManager.Instance.EnemyTurn();
                                             if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
                                             {
@@ -295,7 +295,7 @@ public class Tile : MonoBehaviour
                                         {
                                             enemy.takeDamage(heroUnit.getRangeDamage());
                                             UnitManager.Instance.SetSelectedHero(null);
-                                            BattleMenuMenager.instance.updateQueue();
+                                            //BattleMenuMenager.instance.updateQueue();
                                             //UnitManager.Instance.EnemyTurn();
                                             if (BattleMenuMenager.instance.initiativQueue.GetComponentInChildren<Image>().color == Color.red)
                                             {
@@ -326,9 +326,9 @@ public class Tile : MonoBehaviour
                         //Debug.Log(this.OccupiedUnit.name + " x: " + this.OccupiedUnit.occupiedTile.x + " y: " + this.OccupiedUnit.occupiedTile.y);
                         UnitManager.Instance.SetSelectedHero(null);
                         GridManager.Instance.ClearAStarTiles();
-                        BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+                        UnitManager.Instance.EnemyTurn();
                         GridManager.Instance.ClearAllHighlightTiles();
-                        BattleMenuMenager.instance.updateQueue();
+                        //BattleMenuMenager.instance.updateQueue();
                     }
                 }
             }
@@ -351,7 +351,7 @@ public class Tile : MonoBehaviour
         Debug.Log("currentTile: " + unit.transform.position.x + " : " + unit.transform.position.y);
         Debug.Log("nextTile: " + nextTile.x + " : " + nextTile.y);
 
-        StartCoroutine(MoveToPosition(unit.transform, nextTile, 0.5f));        
+        StartCoroutine(MoveToPosition(unit.transform, nextTile, 0.5f));
 
         OccupiedUnit = unit;
         unit.occupiedTile = this;
@@ -360,7 +360,7 @@ public class Tile : MonoBehaviour
 
     IEnumerator MoveToPosition(Transform transform, Vector3 targetPosition, float timeTo)
     {
-        
+
         var currentPos = transform.position;
         var t = 0f;
         while (t < 1)

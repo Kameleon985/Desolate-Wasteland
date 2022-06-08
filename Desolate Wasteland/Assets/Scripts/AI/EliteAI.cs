@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -60,7 +61,7 @@ public class EliteAI : AI
         HealthNode healthNode = new HealthNode(_currentHealth, lowHealthThreshold);
         IsCovered isCoveredNode = new IsCovered(enemy);
         RangeNode attackRangeNode = new RangeNode(enemy.attackRange, enemy, this);
-        ShootNode shootNode = new ShootNode(this);
+        EliteShootNode shootNode = new EliteShootNode(this, enemy);
         RangeNode distanceNode = new RangeNode(distanceRange, enemy, this);
         MoveToEliteRangeNode moveToRangeNode = new MoveToEliteRangeNode(enemy, this);
         AmmoCheckNode ammoCheckNode = new AmmoCheckNode(enemy);
@@ -85,8 +86,17 @@ public class EliteAI : AI
         topNode.Evaluate();
         //if (topNode.Evaluate() == NodeState.FAILURE)
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-
+        //Debug.Log(BattleMenuMenager.instance.initQueue.First().faction + "==next turn");
+        if (BattleMenuMenager.instance.initQueue.Peek().faction == Faction.Enemy)
+        {
+            //UnitManager.Instance.EnemyTurn();
+            //GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
+            BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+        }
+        else
+        {
+            BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+        }
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }
 

@@ -23,18 +23,14 @@ public class BattleMenuMenager : MonoBehaviour
     public Sprite rangeImg;
     public Sprite eliteImg;
 
-<<<<<<< Updated upstream
+
     BaseUnit[] arr;
     public Queue<BaseUnit> initQueue;
 
     int queueCount;
     BaseUnit recentlyKilled;
     bool flag;
-=======
-    int count = 1;
-    BaseUnit[] arr = { new MeleeUnit(), new RangedUnit(), new EliteUnit(), new MeleeEnemy(), new RangeEnemy(), new EliteEnemy() };
-    public Queue<BaseUnit> initQueue;
->>>>>>> Stashed changes
+
 
     private void Awake()
     {
@@ -95,7 +91,7 @@ public class BattleMenuMenager : MonoBehaviour
         List<BaseHero> heroList = UnitManager.Instance.heroList;
 
         List<BaseUnit> unitList = new List<BaseUnit>();
-        foreach(BaseHero bh in heroList)
+        foreach (BaseHero bh in heroList)
         {
             unitList.Add(bh);
         }
@@ -112,9 +108,8 @@ public class BattleMenuMenager : MonoBehaviour
 
         List<int> unitIndex = new List<int>();
 
-<<<<<<< Updated upstream
-            for (int i = 0; i < arr.Length; i++)
-            {
+        for (int i = 0; i < arr.Length; i++)
+        {
             switch (arr[i])
             {
                 case MeleeUnit mu:
@@ -136,71 +131,66 @@ public class BattleMenuMenager : MonoBehaviour
                     arr[i].setInitiative(unitList[unitList.FindIndex(r => r is EliteEnemy)].getInitiative());
                     break;
             }
-            }
-=======
+        }
+
+
+        arr = BoubleSort(arr);
+
         for (int i = 0; i < arr.Length; i++)
         {
-            arr[i].setInitiative(accualInitiativeArr[i]);
-        }
->>>>>>> Stashed changes
-
-            arr = BoubleSort(arr);
-
-            for (int i = 0; i < arr.Length; i++)
+            if (i < arr.Length - 1)
             {
-                if (i < arr.Length - 1)
+                if (arr[i].getInitiative() == arr[i + 1].getInitiative())
                 {
-                    if (arr[i].getInitiative() == arr[i + 1].getInitiative())
+                    int rn = Random.Range(1, 3);
+                    if (rn == 1)
                     {
-                        int rn = Random.Range(1, 3);
-                        if (rn == 1)
-                        {
-                            BaseUnit tmp = arr[i];
-                            arr[i] = arr[i + 1];
-                            arr[i + 1] = tmp;
-                        }
+                        BaseUnit tmp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = tmp;
                     }
                 }
             }
+        }
 
-            initQueue = new Queue<BaseUnit>(arr);
+        initQueue = new Queue<BaseUnit>(arr);
 
-            for (int i = 0; i < queue.Length; i++)
+        for (int i = 0; i < queue.Length; i++)
+        {
+            switch (initQueue.Dequeue())
             {
-                switch (initQueue.Dequeue())
-                {
-                    case MeleeUnit mu:
-                        queue[i].sprite = meleeImg;
-                        queue[i].color = Color.blue;
-                        initQueue.Enqueue(mu);
-                        break;
-                    case RangedUnit ru:
-                        queue[i].sprite = rangeImg;
-                        queue[i].color = Color.blue;
-                        initQueue.Enqueue(ru);
-                        break;
-                    case EliteUnit eu:
-                        queue[i].sprite = eliteImg;
-                        queue[i].color = Color.blue;
-                        initQueue.Enqueue(eu);
-                        break;
-                    case MeleeEnemy me:
-                        queue[i].sprite = meleeImg;
-                        queue[i].color = Color.red;
-                        initQueue.Enqueue(me);
-                        break;
-                    case RangeEnemy re:
-                        queue[i].sprite = rangeImg;
-                        queue[i].color = Color.red;
-                        initQueue.Enqueue(re);
-                        break;
-                    case EliteEnemy ee:
-                        queue[i].sprite = eliteImg;
-                        queue[i].color = Color.red;
-                        initQueue.Enqueue(ee);
-                        break;
-                }
+                case MeleeUnit mu:
+                    queue[i].sprite = meleeImg;
+                    queue[i].color = Color.blue;
+                    initQueue.Enqueue(mu);
+                    break;
+                case RangedUnit ru:
+                    queue[i].sprite = rangeImg;
+                    queue[i].color = Color.blue;
+                    initQueue.Enqueue(ru);
+                    break;
+                case EliteUnit eu:
+                    queue[i].sprite = eliteImg;
+                    queue[i].color = Color.blue;
+                    initQueue.Enqueue(eu);
+                    break;
+                case MeleeEnemy me:
+                    queue[i].sprite = meleeImg;
+                    queue[i].color = Color.red;
+                    initQueue.Enqueue(me);
+                    break;
+                case RangeEnemy re:
+                    queue[i].sprite = rangeImg;
+                    queue[i].color = Color.red;
+                    initQueue.Enqueue(re);
+                    break;
+                case EliteEnemy ee:
+                    queue[i].sprite = eliteImg;
+                    queue[i].color = Color.red;
+                    initQueue.Enqueue(ee);
+                    break;
             }
+        }
     }
 
     public void updateQueue()
@@ -210,11 +200,11 @@ public class BattleMenuMenager : MonoBehaviour
 
 
         if (flag)
-        {        
+        {
             List<BaseUnit> tmp = new List<BaseUnit>(initQueue.ToArray());
             int index = tmp.IndexOf(recentlyKilled);
 
-            if(index <= 0)
+            if (index <= 0)
             {
                 flag = false;
                 return;
@@ -233,11 +223,7 @@ public class BattleMenuMenager : MonoBehaviour
                 queue[i].color = queue[i + 1].color;
             }
 
-<<<<<<< Updated upstream
-=======
-        for (int i = 0; i < queue.Length; i++)
-        {
->>>>>>> Stashed changes
+
             switch (initQueue.Dequeue())
             {
                 case MeleeUnit mu:

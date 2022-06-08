@@ -9,14 +9,15 @@ public class Pile : MonoBehaviour
 
     public GameObject OnMapMessagePanel;
     public TextMeshProUGUI promptText;
+    public MapGrid grid;
 
     private void Start()
     {
-        Debug.Log("STARTED");
+        //Debug.Log("STARTED");
 
         OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
         promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
-
+        grid = GameObject.Find("Grid").GetComponent<MapGrid>();
         GameEventSystem.Instance.OnPilePickup += AddResources;
     }
     public void AddResources(GameObject pile)
@@ -79,6 +80,17 @@ public class Pile : MonoBehaviour
                         break;
                     }
             }
+            float[] p = { transform.position.x, transform.position.y };
+            var en = SaveSerial.piles.GetEnumerator();
+            while (en.MoveNext())
+            {
+                if (en.Current.Key[0] == p[0] && en.Current.Key[1] == p[1])
+                {
+                    SaveSerial.piles.Remove(en.Current.Key);
+                    break;
+                }
+            }
+
         }
 
     }

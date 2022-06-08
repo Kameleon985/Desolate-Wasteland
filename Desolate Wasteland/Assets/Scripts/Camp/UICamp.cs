@@ -506,6 +506,8 @@ public class UICamp : MonoBehaviour
 
     public void ReturnToMap()
     {
-        GameEventSystem.Instance.EnterLocation("Map");
+        GameObject g = new GameObject();
+        g.name = "Map";
+        GameEventSystem.Instance.EnterLocation(g);
     }
 }
