@@ -28,13 +28,13 @@ public class MapGrid : MonoBehaviour
 
         if (SaveSerial.terrain == null)
         {
-            Debug.Log("new");
+            //Debug.Log("new");
             NewMap();
 
         }
         else
         {
-            Debug.Log("load");
+            //Debug.Log("load");
             Load();
 
         }
@@ -154,7 +154,16 @@ public class MapGrid : MonoBehaviour
             var locLoad = Instantiate(location, new Vector2(x / 4, y / 4), Quaternion.identity);
             locLoad.name = enumeratorLocs.Current.Value;
             locLoad.transform.parent = gameObject.transform;
-            Debug.Log(locLoad.name);
+            var en = SaveSerial.captured.GetEnumerator();
+            while (en.MoveNext())
+            {
+                if (en.Current.Key[0] == x / 4 && en.Current.Key[1] == y / 4)
+                {
+                    locLoad.GetComponent<Location>().SetCaptured(true);
+                    break;
+                }
+            }
+            //Debug.Log(locLoad.name);
             locations.Add(locLoad.transform.position, locLoad);
 
         }

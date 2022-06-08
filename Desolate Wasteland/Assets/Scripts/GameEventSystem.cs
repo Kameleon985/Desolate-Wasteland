@@ -24,20 +24,23 @@ public class GameEventSystem : MonoBehaviour
     public event Action<GameObject> OnEnterLocation;
     public void EnterLocation(GameObject location)
     {
-        location.GetComponent<Location>().SetCaptured(true);
-        var cap = location.GetComponent<Location>();
+
         if (location.name == "Map")
         {
             SceneManager.LoadScene(location.name);
             StartCoroutine(LoadPosition());
         }
-        else if (location.name != "Camp" && !cap)
+        else if (location.name != "Camp")
         {
-            Debug.Log(cap);
-            OnEnterLocation?.Invoke(location);
-            float[] l = { location.transform.position.x, location.transform.position.y };
-            SaveSerial.captured.Add(l, true);
-            SceneManager.LoadScene(location.name);
+            Debug.Log("Is already captured? " + location.GetComponent<Location>().GetCaptured());
+            if (!location.GetComponent<Location>().GetCaptured())
+            {
+                location.GetComponent<Location>().SetCaptured(true);
+                OnEnterLocation?.Invoke(location);
+                float[] l = { location.transform.position.x, location.transform.position.y };
+                SaveSerial.captured.Add(l, true);
+                SceneManager.LoadScene(location.name);
+            }
         }
         else
         {

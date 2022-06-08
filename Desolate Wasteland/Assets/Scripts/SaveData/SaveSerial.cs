@@ -128,7 +128,7 @@ public class SaveSerial : MonoBehaviour
 
         bf.Serialize(file, data);
         file.Close();
-        Debug.Log("Data Saved to " + Application.persistentDataPath + "/saves/" + saveName + ".dat");
+        //Debug.Log("Data Saved to " + Application.persistentDataPath + "/saves/" + saveName + ".dat");
     }
 
     public static void LoadGame(string fileName)
