@@ -143,5 +143,9 @@ public class GameEventSystem : MonoBehaviour
         OnNewTurn?.Invoke();
     }
 
-
+    public event Action<bool> OnOverButtons;
+    public void OverButtons(bool mouseOver)
+    {
+        OnOverButtons?.Invoke(mouseOver);
+    }
 }

@@ -19,6 +19,9 @@ public class MapMovement : MonoBehaviour
     public GameObject roundButton;
 
     public GameObject notClickableThrough;
+    public GameObject OnMapMessage;
+
+    private bool isMouseOverButtons;
 
 
     private void Start()
@@ -35,13 +38,22 @@ public class MapMovement : MonoBehaviour
         GameEventSystem.Instance.OnEnterMap += LoadData;
         GameEventSystem.Instance.OnSaveButton += SavePosition;
         GameEventSystem.Instance.OnNewTurn += ResetMovePoints;
+
+        GameEventSystem.Instance.OnOverButtons += MouseOverButtons;
+        isMouseOverButtons = false;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            notClickableThrough.SetActive(!notClickableThrough.activeInHierarchy);
+            if(OnMapMessage.activeInHierarchy == true) {
+                OnMapMessage.SetActive(false);
+            }
+            else
+            {
+                notClickableThrough.SetActive(!notClickableThrough.activeInHierarchy);
+            }
         }
         //RaycastHit hitt = new RaycastHit();
         //RaycastHit2D hitt = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 1, LayerMask.NameToLayer("UI"));
@@ -57,7 +69,7 @@ public class MapMovement : MonoBehaviour
                 movePoints -= Time.deltaTime;
                 GameEventSystem.Instance.PlayerMovement(movePoints);
             }
-            if (Input.GetMouseButtonDown(0) && !mouseOver)
+            if (Input.GetMouseButtonDown(0) && !mouseOver && !isMouseOverButtons)  //Lewy przycik Myszy
             {
                 //Debug.Log(hitt.collider.name);
                 destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -78,7 +90,7 @@ public class MapMovement : MonoBehaviour
                 GameEventSystem.Instance.PlayerClick(distance / speed);
                 moving = true;
             }
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))  //Prawy przycisk Myszy
             {
                 destPosition = (Vector2)transform.position;
                 moving = false;
@@ -139,7 +151,7 @@ public class MapMovement : MonoBehaviour
     }
 
     private void OnMouseOver()
-    {
+    {        
         mouseOver = true;
     }
 
@@ -189,6 +201,11 @@ public class MapMovement : MonoBehaviour
     public void ResetMovePoints()
     {
         movePoints = 10;
+    }
+
+    public void MouseOverButtons(bool isMouseOverButtons)
+    {
+        this.isMouseOverButtons = isMouseOverButtons;
     }
 
 }
