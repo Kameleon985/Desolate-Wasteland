@@ -5328,7 +5328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 1
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5365,7 +5365,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 556458282}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -5373,7 +5373,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1386443796
 RectTransform:
@@ -6782,9 +6782,20 @@ MonoBehaviour:
   terrainTile: {fileID: -6456855339206453884, guid: 1ef5cccf626bc9b41806db19988e280f,
     type: 3}
   map: {fileID: 1586581763}
-  location: {fileID: 5365419962196281463, guid: c049e9760ddb6664486d5a9efd805e52,
+  Hydrophonics: {fileID: 8962974256635400041, guid: 44019e9e63fde1549aa046c06afbd613,
     type: 3}
-  pile: {fileID: 2860123122011809717, guid: b9784a540dd702640b92a128a1f0b111, type: 3}
+  Scrapyard: {fileID: 2005172669287363888, guid: 4fc463c805d86d14bbf3bfee87fb6736,
+    type: 3}
+  Industrial_Park: {fileID: 1018876701995756876, guid: 4fc56366df0078d4e80b0e8b58224022,
+    type: 3}
+  Shoping_Center: {fileID: 8788581367237090882, guid: 99c5b18d258ef3847b09ca19ef8a11ea,
+    type: 3}
+  Metal: {fileID: 5896222699731678626, guid: 4a8acbc8f7082b2428f3fac09f5eaf75, type: 3}
+  Plastics: {fileID: 880024857817017464, guid: 1580e2a14795415408b575cabccdf732, type: 3}
+  Food: {fileID: 8742526868337619203, guid: f58c124789f12884586603b83a5c7db8, type: 3}
+  Chems: {fileID: 5745080995106535232, guid: 31f40869b30b6e746938ebe688157db3, type: 3}
+  Electronics: {fileID: 495810678550886286, guid: 8ad1750504d48d249882ddf47a1495ad,
+    type: 3}
 --- !u!4 &1666668440
 Transform:
   m_ObjectHideFlags: 0

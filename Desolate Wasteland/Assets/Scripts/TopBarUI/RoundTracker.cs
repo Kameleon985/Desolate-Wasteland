@@ -17,6 +17,7 @@ public class RoundTracker : MonoBehaviour
         SaveSerial.CurrentRound++;
         UIUpdate.Instance.UpdateRound(SaveSerial.CurrentRound);
         GameEventSystem.Instance.NewTurn();
+        GameEventSystem.Instance.PlayerMovement(10);
 
         if (SceneManager.GetActiveScene().name.Equals("Camp"))
         {

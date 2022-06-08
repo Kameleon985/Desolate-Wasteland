@@ -22,17 +22,21 @@ public class GameEventSystem : MonoBehaviour
     }
 
     public event Action<GameObject> OnEnterLocation;
+    public event Action<Vector2> OnLocationCapture;
     public void EnterLocation(GameObject location)
     {
 
         if (location.name == "Map")
         {
             SceneManager.LoadScene(location.name);
+            Debug.Log("Ay yo?");
             StartCoroutine(LoadPosition());
+
+            //Debug.Log("yoooooooo");
         }
         else if (location.name != "Camp")
         {
-            Debug.Log("Is already captured? " + location.GetComponent<Location>().GetCaptured());
+            //Debug.Log("Is already captured? " + location.GetComponent<Location>().GetCaptured());
             if (!location.GetComponent<Location>().GetCaptured())
             {
                 location.GetComponent<Location>().SetCaptured(true);
@@ -67,16 +71,18 @@ public class GameEventSystem : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         OnEnterMap?.Invoke();
         OnPlayerMovement?.Invoke();
+        yield return new WaitForSeconds(0.1f);
+        OnLocationCapture?.Invoke(new Vector2(SaveSerial.onMapPosition[0], SaveSerial.onMapPosition[1]));
     }
 
     public event Action OnPlayerMovement;
 
     public void PlayerMovement(float points)
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Map"))
-        {
-            SaveSerial.onMapMovementPoints = points;
-        }
+        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Map"))
+        //{
+        SaveSerial.onMapMovementPoints = points;
+        //}
         OnPlayerMovement?.Invoke();
     }
 

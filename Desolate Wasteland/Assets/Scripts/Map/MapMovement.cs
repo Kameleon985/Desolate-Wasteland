@@ -47,7 +47,8 @@ public class MapMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(OnMapMessage.activeInHierarchy == true) {
+            if (OnMapMessage.activeInHierarchy == true)
+            {
                 OnMapMessage.SetActive(false);
             }
             else
@@ -151,7 +152,7 @@ public class MapMovement : MonoBehaviour
     }
 
     private void OnMouseOver()
-    {        
+    {
         mouseOver = true;
     }
 
@@ -162,7 +163,7 @@ public class MapMovement : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (moving == false && atLocation != null && movePoints >= 1)
+        if (moving == false && atLocation != null && movePoints >= 1 && !atLocation.GetComponent<Location>().GetCaptured())
         {
             movePoints -= 1;
             GameEventSystem.Instance.PlayerMovement(movePoints);

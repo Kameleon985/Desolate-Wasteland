@@ -53,6 +53,7 @@ MonoBehaviour:
   movePoints: 10
   roundButton: {fileID: 0}
   notClickableThrough: {fileID: 0}
+  OnMapMessage: {fileID: 0}
 --- !u!212 &1007352211175093475
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: aaa793063efcf5349af6a3a0a9fd5b86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

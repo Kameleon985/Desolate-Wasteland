@@ -8,9 +8,9 @@ public class MapGrid : MonoBehaviour
 
     [SerializeField] private SpriteRenderer map;
 
-    [SerializeField] private GameObject location;
+    [SerializeField] private GameObject Hydrophonics, Scrapyard, Industrial_Park, Shoping_Center;
 
-    [SerializeField] private GameObject pile;
+    [SerializeField] private GameObject Metal, Plastics, Food, Chems, Electronics;
 
     Vector3 mapFarCorner;
     Vector3 mapOriginCorner;
@@ -30,16 +30,12 @@ public class MapGrid : MonoBehaviour
         {
             //Debug.Log("new");
             NewMap();
-
         }
         else
         {
             //Debug.Log("load");
             Load();
-
         }
-
-
     }
 
     void NewMap()
@@ -128,7 +124,7 @@ public class MapGrid : MonoBehaviour
         while (enumeratorPiles.MoveNext())
         {
             //GameObject g = Instantiate(pile, loc, Quaternion.identity);
-            var pileLoad = Instantiate(pile, new Vector2(enumeratorPiles.Current.Key[0], enumeratorPiles.Current.Key[1]), Quaternion.identity);
+            var pileLoad = Instantiate(ChoosePrefab(enumeratorPiles.Current.Value), new Vector2(enumeratorPiles.Current.Key[0], enumeratorPiles.Current.Key[1]), Quaternion.identity);
             pileLoad.name = enumeratorPiles.Current.Value;
             pileLoad.transform.parent = gameObject.transform;
             //Debug.Log(pileLoad.name);
@@ -151,7 +147,7 @@ public class MapGrid : MonoBehaviour
             enumeratorLocs.MoveNext();
             x += enumeratorLocs.Current.Key[0];
             y += enumeratorLocs.Current.Key[1];
-            var locLoad = Instantiate(location, new Vector2(x / 4, y / 4), Quaternion.identity);
+            var locLoad = Instantiate(ChoosePrefab(enumeratorLocs.Current.Value), new Vector2(x / 4, y / 4), Quaternion.identity);
             locLoad.name = enumeratorLocs.Current.Value;
             locLoad.transform.parent = gameObject.transform;
             var en = SaveSerial.captured.GetEnumerator();
@@ -220,15 +216,18 @@ public class MapGrid : MonoBehaviour
         }
         for (int i = 0; i < hydrophonics; i++)
         {
-            GenerateLocation("Hydrophonics");
+            var g = GenerateLocation("Hydrophonics");
+            //g.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
         }
         for (int i = 0; i < industrialParks; i++)
         {
-            GenerateLocation("Industrial Park");
+            var g = GenerateLocation("Industrial Park");
+            //g.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
         }
         for (int i = 0; i < shopingCenters; i++)
         {
-            GenerateLocation("Shoping Center");
+            var g = GenerateLocation("Shoping Center");
+            //g.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
         }
         for (int i = 0; i < metal; i++)
         {
@@ -236,22 +235,25 @@ public class MapGrid : MonoBehaviour
         }
         for (int i = 0; i < electronics; i++)
         {
-            GeneratePile("Electronics");
+            var g = GeneratePile("Electronics");
+            //g.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
         }
         for (int i = 0; i < food; i++)
         {
-            GeneratePile("Food");
+            var g = GeneratePile("Food");
+            //g.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
         }
         for (int i = 0; i < plastics; i++)
         {
-            GeneratePile("Plastics");
+            var g = GeneratePile("Plastics");
+            //g.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
         }
 
     }
 
     public void GenerateCampFactory()
     {
-        GameObject g = Instantiate(location);
+        GameObject g = Instantiate(ChoosePrefab("hihi"));
 
         g.transform.localScale = new Vector3(30, 30, 1);
         GameObject factory = Instantiate(g, new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
@@ -262,7 +264,7 @@ public class MapGrid : MonoBehaviour
 
         g.transform.localScale = new Vector3(20, 20, 1);
         GameObject camp = Instantiate(g, new Vector2(mapOriginCorner.x + 8, mapOriginCorner.y + 8), Quaternion.identity);
-        camp.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.4f);
+        camp.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.2f, 0.4f);
         camp.name = "Camp";
         camp.transform.parent = gameObject.transform;
         locations.Add(camp.transform.position, camp);
@@ -304,7 +306,7 @@ public class MapGrid : MonoBehaviour
             if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
             {
                 Vector2 loc = new Vector2(x, y);
-                GameObject g = Instantiate(location, new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
+                GameObject g = Instantiate(ChoosePrefab(name), new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
                 g.name = name;
                 locations.Add(loc, g);
                 locations.Add(new Vector2(loc.x + 1, loc.y), g);
@@ -324,14 +326,14 @@ public class MapGrid : MonoBehaviour
 
     public GameObject GeneratePile(string name)
     {
-        int x = (int)Random.Range(mapOriginCorner.x, mapFarCorner.x);
-        int y = (int)Random.Range(mapOriginCorner.y, mapFarCorner.y);
+        int x = (int)Random.Range(mapOriginCorner.x + 2, mapFarCorner.x - 2);
+        int y = (int)Random.Range(mapOriginCorner.y + 2, mapFarCorner.y - 2);
         while (true)
         {
             Vector2 loc = new Vector2(x, y);
             if (!locations.ContainsKey(loc))
             {
-                GameObject g = Instantiate(pile, loc, Quaternion.identity);
+                GameObject g = Instantiate(ChoosePrefab(name), loc, Quaternion.identity);
                 g.name = name;
                 locations.Add(g.transform.position, g);
                 g.transform.parent = gameObject.transform;
@@ -352,5 +354,31 @@ public class MapGrid : MonoBehaviour
             return tile;
         }
         return null;
+    }
+
+    public GameObject ChoosePrefab(string name)
+    {
+        switch (name)
+        {
+            case "Hydrophonics":
+                return Hydrophonics;
+            case "Industrain Park":
+                return Industrial_Park;
+            case "Shoping Center":
+                return Shoping_Center;
+            case "Scrapyard":
+                return Scrapyard;
+            case "Chems":
+                return Chems;
+            case "Electronics":
+                return Electronics;
+            case "Food":
+                return Food;
+            case "Metal":
+                return Metal;
+            case "Plastics":
+                return Plastics;
+        }
+        return Hydrophonics;
     }
 }
