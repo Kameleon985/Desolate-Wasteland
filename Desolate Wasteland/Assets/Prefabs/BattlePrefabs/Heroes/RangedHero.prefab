@@ -250,7 +250,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
-  m_Color: {r: 0, g: 0.74361134, b: 1, a: 1}
+  m_Color: {r: 0.8222306, g: 0.8490566, b: 0.38047346, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -275,9 +275,9 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 0
   unitName: RangedHero
+  attackDamage: 10
   sr: {fileID: 9147258148800377415}
   attackRange: 5
-  initiative: 5
   unitCounter: {fileID: 8943051950739178991}
 --- !u!1 &8943051950739178991
 GameObject:

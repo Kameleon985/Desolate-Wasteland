@@ -50,7 +50,7 @@ public class BattleMenuMenager : MonoBehaviour
 
     public void ShowSelectedHero(BaseHero hero)
     {
-        if(hero == null)
+        if (hero == null)
         {
             selectedHeroObject.SetActive(false);
             return;
@@ -70,7 +70,7 @@ public class BattleMenuMenager : MonoBehaviour
         endPrepareHeroes.SetActive(false);
         endSteroids.SetActive(false);
         endSteroidsButton.SetActive(false);
-        initiativQueue.SetActive(true);
+        //initiativQueue.SetActive(true);
 
         setInitQueue();
 
@@ -104,16 +104,17 @@ public class BattleMenuMenager : MonoBehaviour
     {
         var queue = initiativQueue.GetComponentsInChildren<Image>();
 
-        for (int i = 0 ; i < 4 ; i++)
+        for (int i = 0; i < 4; i++)
         {
             queue[i].sprite = queue[i + 1].sprite;
             queue[i].color = queue[i + 1].color;
         }
 
         int rn = Random.Range(1, 4);
-       
 
-        if (count % 2 == 0) {
+
+        if (count % 2 == 0)
+        {
             switch (rn)
             {
                 case 1:
@@ -150,5 +151,6 @@ public class BattleMenuMenager : MonoBehaviour
         }
 
         count++;
+        Debug.Log(queue[0].sprite.name);
     }
 }

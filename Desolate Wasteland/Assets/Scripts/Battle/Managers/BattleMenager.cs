@@ -53,6 +53,7 @@ public class BattleMenager : MonoBehaviour
                 UnitManager.Instance.PrepareHeroes();
                 break;
             case GameState.HeroesTurn:
+                //Debug.Log(BattleMenuMenager.instance.initiativQueue.)
                 break;
             case GameState.EnemiesTurn:
                 UnitManager.Instance.EnemyTurn();

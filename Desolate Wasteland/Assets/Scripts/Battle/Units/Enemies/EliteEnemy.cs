@@ -7,17 +7,24 @@ public class EliteEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 25;
-    static int currentHealth = 25;
-    public static int initiative = 5;
-    static int quantity = 2;
+    static readonly int maxHealth = 100;
+    static int currentHealth = 100;
+    public static int initiative = 8;
+    static int quantity = 1;
     public GameObject unitCounter;
+    public int attackRange = 120;
+    public int ammo = 2;
+    static int damage = 10;
 
     public void Start()
     {
         setUnitCount();
     }
 
+    public static int GetDamage()
+    {
+        return damage;
+    }
     public override void takeDamage(int dmg)
     {
         if (quantity > 0)
@@ -42,7 +49,16 @@ public class EliteEnemy : BaseEnemy
                 }
             }
         }
+    }
 
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int getAmmo()
+    {
+        return ammo;
     }
 
     public void setUnitCount()
