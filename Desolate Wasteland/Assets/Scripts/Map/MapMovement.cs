@@ -79,7 +79,7 @@ public class MapMovement : MonoBehaviour
 
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, ((Vector3)destPosition - transform.position), distance, LayerMask.GetMask("Terrain"));
 
-                Debug.DrawRay(transform.position, ((Vector3)destPosition - transform.position), Color.red);
+                //Debug.DrawRay(transform.position, ((Vector3)destPosition - transform.position), Color.red);
 
 
                 if (hit)
@@ -93,6 +93,23 @@ public class MapMovement : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(1))  //Prawy przycisk Myszy
             {
+                destPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                float distance = Vector3.Distance(transform.position, (Vector3)destPosition);
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, ((Vector3)destPosition - transform.position), distance, LayerMask.GetMask("Terrain"));
+
+                //Debug.DrawRay(transform.position, ((Vector3)destPosition - transform.position), Color.red);
+
+                if (hit)
+                {
+                    Ray2D ray = new Ray2D(transform.position, (Vector3)hit.point - transform.position);
+                    distance = Vector3.Distance(transform.position, hit.point);
+                    destPosition = ray.GetPoint(distance - 0.2f);
+                }
+
+                GameEventSystem.Instance.PlayerClick(distance / speed);
+
                 destPosition = (Vector2)transform.position;
                 moving = false;
             }
@@ -138,7 +155,7 @@ public class MapMovement : MonoBehaviour
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Location"))
         {
@@ -149,7 +166,7 @@ public class MapMovement : MonoBehaviour
         {
             atPile = collision.gameObject;
         }
-    }
+    }*/
 
     private void OnMouseOver()
     {

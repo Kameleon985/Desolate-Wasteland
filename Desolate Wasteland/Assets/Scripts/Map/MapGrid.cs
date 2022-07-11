@@ -40,7 +40,7 @@ public class MapGrid : MonoBehaviour
 
     void NewMap()
     {
-        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20);
+        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20, 30);
         GenerateGrid();
         //SaveSerial.locations = Instantiate(locations);
 
@@ -205,7 +205,7 @@ public class MapGrid : MonoBehaviour
 
     }
 
-    public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics)
+    public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics, int chems)
     {
 
         GenerateCampFactory();
@@ -247,6 +247,10 @@ public class MapGrid : MonoBehaviour
         {
             var g = GeneratePile("Plastics");
             //g.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+        }
+        for (int i = 0; i < chems; i++)
+        {
+            var g = GeneratePile("Chems");
         }
 
     }

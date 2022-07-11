@@ -79,6 +79,27 @@ public class Pile : MonoBehaviour
 
                         break;
                     }
+                case "Chems":
+                    {
+                        int amount = Random.Range(2, 10);
+                        SaveSerial.ChemA = SaveSerial.ChemA + amount;
+                        promptText.text = "Zdobyto " + amount + " ChemA,";
+                        amount = Random.Range(2, 10);
+                        SaveSerial.ChemB = SaveSerial.ChemB + amount;
+                        promptText.text += "\n" + amount + " ChemB,";
+                        amount = Random.Range(2, 10);
+                        SaveSerial.ChemC = SaveSerial.ChemC + amount;
+                        promptText.text += "\n" + amount + " ChemC,";
+                        amount = Random.Range(2, 10);
+                        SaveSerial.ChemD = SaveSerial.ChemD + amount;
+                        promptText.text += "\n" + amount + " ChemD";
+                        UIUpdate.Instance.UpdateUIValues();
+                        Destroy(this.gameObject);
+
+                        OnMapMessagePanel.SetActive(true);
+
+                        break;
+                    }
             }
             float[] p = { transform.position.x, transform.position.y };
             var en = SaveSerial.piles.GetEnumerator();
