@@ -29,12 +29,17 @@ public class GameEventSystem : MonoBehaviour
         if (location.name == "Map")
         {
             SceneManager.LoadScene(location.name);
-            Debug.Log("Ay yo?");
+            //Debug.Log("Ay yo?");
             StartCoroutine(LoadPosition());
 
             //Debug.Log("yoooooooo");
         }
-        else if (location.name != "Camp")
+        else if (location.name == "Camp" || location.name == "Random")
+        {
+            OnEnterLocation?.Invoke(location);
+            SceneManager.LoadScene(location.name);
+        }
+        else
         {
             //Debug.Log("Is already captured? " + location.GetComponent<Location>().GetCaptured());
             if (!location.GetComponent<Location>().GetCaptured())
@@ -45,11 +50,6 @@ public class GameEventSystem : MonoBehaviour
                 SaveSerial.captured.Add(l, true);
                 SceneManager.LoadScene(location.name);
             }
-        }
-        else
-        {
-            OnEnterLocation?.Invoke(location);
-            SceneManager.LoadScene(location.name);
         }
 
     }

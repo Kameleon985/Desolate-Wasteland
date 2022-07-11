@@ -17,6 +17,9 @@ public class MapMovement : MonoBehaviour
     private bool mouseOver;
     public float movePoints;
     public GameObject roundButton;
+    public GameObject randomEncounter;
+
+    private float encouterTimer = 0;
 
     public GameObject notClickableThrough;
     public GameObject OnMapMessage;
@@ -69,6 +72,16 @@ public class MapMovement : MonoBehaviour
             {
                 movePoints -= Time.deltaTime;
                 GameEventSystem.Instance.PlayerMovement(movePoints);
+                encouterTimer += Time.deltaTime;
+                if (encouterTimer > 1)
+                {
+                    encouterTimer = 0;
+                    if (EncounterCheck())
+                    {
+                        atLocation = new GameObject("Random");
+                        GameEventSystem.Instance.EnterLocation(atLocation);
+                    }
+                }
             }
             if (Input.GetMouseButtonDown(0) && !mouseOver && !isMouseOverButtons)  //Lewy przycik Myszy
             {
@@ -153,6 +166,21 @@ public class MapMovement : MonoBehaviour
         }
 
 
+    }
+
+    private bool EncounterCheck()
+    {
+        float rand = UnityEngine.Random.Range(0f, 1f);
+        Debug.Log(rand);
+        if (rand < 0.05)
+        {
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /*private void OnTriggerStay2D(Collider2D collision)
