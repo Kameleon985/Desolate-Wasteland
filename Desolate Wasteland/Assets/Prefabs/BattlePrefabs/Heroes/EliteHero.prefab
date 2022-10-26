@@ -136,7 +136,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &3027337883087369752
 MonoBehaviour:
@@ -248,7 +248,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
   m_Color: {r: 0.27058825, g: 0.4509804, b: 0.76862746, a: 1}
   m_FlipX: 0
@@ -275,7 +275,11 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 0
   unitName: EliteHero
+  attackDamage: 10
   sr: {fileID: 8242928713307980569}
+  attackRange: 4
+  rangeDamage: 15
+  ammo: 3
   unitCounter: {fileID: 8109099957085041841}
 --- !u!1 &8109099957085041841
 GameObject:

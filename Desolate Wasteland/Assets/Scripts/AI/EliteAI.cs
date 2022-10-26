@@ -61,33 +61,42 @@ public class EliteAI : AI
         HealthNode healthNode = new HealthNode(_currentHealth, lowHealthThreshold);
         IsCovered isCoveredNode = new IsCovered(enemy);
         RangeNode attackRangeNode = new RangeNode(enemy.attackRange, enemy, this);
-        EliteShootNode shootNode = new EliteShootNode(this, enemy);
+        IsInMeleeRange meleeRangeNode = new IsInMeleeRange(enemy, this);
+        MeleeAtackNode meleeAtackNode = new MeleeAtackNode(this);
+        EliteShootNode shotNode = new EliteShootNode(this, enemy);
         RangeNode distanceNode = new RangeNode(distanceRange, enemy, this);
         MoveToEliteRangeNode moveToRangeNode = new MoveToEliteRangeNode(enemy, this);
         AmmoCheckNode ammoCheckNode = new AmmoCheckNode(enemy);
+        RangeNode chasingRangeNode = new RangeNode(chasingRange, enemy, this);
+        ChaseNode chaseNode = new ChaseNode(enemy, this);
 
 
-        Sequence attackSequence = new Sequence(new List<Node> { attackRangeNode, shootNode });
-        Sequence ammoCheckSequence = new Sequence(new List<Node> { ammoCheckNode, attackSequence });
+        Sequence shotSequence = new Sequence(new List<Node> { attackRangeNode, shotNode });
+
         Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
-        Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, attackSequence });
+        Sequence moveSequence = new Sequence(new List<Node> { distanceNode, moveToRangeNode });
+        Selector rangeSelector = new Selector(new List<Node> { shotSequence, moveSequence });
+        Sequence ammoCheckSequence = new Sequence(new List<Node> { ammoCheckNode, rangeSelector });
+        Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, ammoCheckSequence });
         Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
         Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
-        Sequence moveSequence = new Sequence(new List<Node> { distanceNode, moveToRangeNode });
+        Sequence attackSequence = new Sequence(new List<Node> { meleeRangeNode, meleeAtackNode });
+        Sequence chaseSequence = new Sequence(new List<Node> { chasingRangeNode, chaseNode });
 
-        topNode = new Selector(new List<Node> { mainCoverSequence, ammoCheckSequence, moveSequence });
+        topNode = new Selector(new List<Node> { mainCoverSequence, ammoCheckSequence, attackSequence, chaseSequence });
     }
 
     public override void TakeAction()
     {
 
-        _currentHealth = GameObject.FindObjectOfType<RangeEnemy>().getCurrentHealth();
+        _currentHealth = GameObject.FindObjectOfType<EliteEnemy>().getCurrentHealth();
         ConstructBehaviourTree();
         topNode.Evaluate();
         //if (topNode.Evaluate() == NodeState.FAILURE)
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         //Debug.Log(BattleMenuMenager.instance.initQueue.First().faction + "==next turn");
-        if (BattleMenuMenager.instance.initQueue.Peek().faction == Faction.Enemy)
+        BattleMenuMenager.instance.UpdateQueue();
+        if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
         {
             //UnitManager.Instance.EnemyTurn();
             //GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());

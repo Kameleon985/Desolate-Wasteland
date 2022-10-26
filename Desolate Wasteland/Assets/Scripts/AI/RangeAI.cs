@@ -85,7 +85,8 @@ public class RangeAI : AI
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         //Debug.Log(BattleMenuMenager.instance.initQueue.First().faction + "==next turn");
-        if (BattleMenuMenager.instance.initQueue.Peek().faction == Faction.Enemy)
+        BattleMenuMenager.instance.UpdateQueue();
+        if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
         {
             //UnitManager.Instance.EnemyTurn();
             //GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());

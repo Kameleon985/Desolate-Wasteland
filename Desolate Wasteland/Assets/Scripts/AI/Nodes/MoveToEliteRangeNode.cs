@@ -15,6 +15,7 @@ public class MoveToEliteRangeNode : Node
 
     public override NodeState Evaluate()
     {
+        Debug.Log("Moving to range");
         Transform closestHero = ai.GetClosestHero();
         Pathfinding pf = new Pathfinding();
         Tile start = GridManager.Instance.GetTileAtPosition(enemy.transform.position);

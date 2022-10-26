@@ -18,7 +18,7 @@ public class EliteShootNode : Node
     public override NodeState Evaluate()
     {
         Transform closest = ai.GetClosestHero();
-        GridManager.Instance.GetTileAtPosition(closest.position).OccupiedUnit.GetComponent<BaseHero>().takeDamage(RangeEnemy.GetDamage());
+        GridManager.Instance.GetTileAtPosition(closest.position).OccupiedUnit.GetComponent<BaseHero>().takeDamage(EliteEnemy.GetDamage());
         enemy.ammo -= 1;
         return NodeState.SUCCESS;
     }

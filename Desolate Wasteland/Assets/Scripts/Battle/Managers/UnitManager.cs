@@ -101,8 +101,8 @@ public class UnitManager : MonoBehaviour
     {
         //GameObject gameObject = units.Where(u => u.faction == Faction.Enemy && u.unitPrefab.unitName.Equals("MeleeEnemy")).First().unitPrefab.gameObject;
         //BaseUnit b = BattleMenuMenager.instance.initQueue.Dequeue();
-        BattleMenuMenager.instance.updateQueue();
-        GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
+        //BattleMenuMenager.instance.UpdateQueue();
+        GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.q1.Peek());
         //BattleMenuMenager.instance.initQueue.Enqueue(b);
         //gameObject.GetComponent<EnemyAI>().Invoke("Evaluate", 10);
         //Debug.Log(ai.gameObject.name);
