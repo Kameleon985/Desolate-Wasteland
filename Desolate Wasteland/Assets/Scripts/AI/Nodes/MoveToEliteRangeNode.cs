@@ -25,7 +25,7 @@ public class MoveToEliteRangeNode : Node
         {
             foreach (Tile t in path)
             {
-                if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange)
+                if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange && t.OccupiedUnit == null)
                 {
                     enemy.Move(t);
                     t.SetUnit(enemy);
