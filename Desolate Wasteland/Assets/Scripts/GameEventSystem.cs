@@ -162,6 +162,14 @@ public class GameEventSystem : MonoBehaviour
         OnNewTurn?.Invoke();
     }
 
+    public event Action OnHeroesTurn;
+
+    public void HeroTurn()
+    {
+        //Debug.Log("Hero turn");
+        OnHeroesTurn?.Invoke();
+    }
+
     public event Action<bool> OnOverButtons;
     public void OverButtons(bool mouseOver)
     {

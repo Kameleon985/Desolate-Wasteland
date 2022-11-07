@@ -13,6 +13,27 @@ public abstract class BaseUnit : MonoBehaviour
     public abstract int getInitiative();
     public abstract void setInitiative(int init);
 
+    private void Awake()
+    {
+        GameEventSystem.Instance.OnHeroesTurn += HighlightCurrent;
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.Instance.OnHeroesTurn -= HighlightCurrent;
+    }
+
+    public void HighlightCurrent()
+    {
+        var peek = BattleMenuMenager.instance.q1.Peek();
+        //Debug.Log("peek = " + peek);
+        //Debug.Log("this name = " + this.GetType().Name);
+        if (peek.GetType().Name.Equals(this.GetType().Name))
+        {
+            occupiedTile.highlight.SetActive(true);
+        }
+    }
+
     public void Move(Tile targetTile)
     {
         //Debug.Log("MOVEING OOOOOOOOOOOOOO");

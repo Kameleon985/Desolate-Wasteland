@@ -141,7 +141,7 @@ public class BattleMenuMenager : MonoBehaviour
         endPrepareHeroes.SetActive(false);
         endSteroids.SetActive(false);
         endSteroidsButton.SetActive(false);
-        initiativQueue.SetActive(true);
+        //initiativQueue.SetActive(true);
 
         setInitQueue();
 
@@ -167,7 +167,7 @@ public class BattleMenuMenager : MonoBehaviour
 
         arr = unitList.ToArray();
 
-        var queue = initiativQueue.GetComponentsInChildren<Image>();
+        //var queue = initiativQueue.GetComponentsInChildren<Image>();
 
         List<int> unitIndex = new List<int>();
 
@@ -217,7 +217,7 @@ public class BattleMenuMenager : MonoBehaviour
         }
 
         initQueue = new Queue<BaseUnit>(arr);
-
+        /*
         for (int i = 0; i < queue.Length; i++)
         {
             switch (initQueue.Dequeue())
@@ -253,7 +253,7 @@ public class BattleMenuMenager : MonoBehaviour
                     initQueue.Enqueue(ee);
                     break;
             }
-        }
+        }*/
     }
     /*
     public void updatQueue()
