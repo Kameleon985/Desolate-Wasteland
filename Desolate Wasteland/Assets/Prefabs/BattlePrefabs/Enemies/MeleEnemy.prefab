@@ -368,5 +368,5 @@ MonoBehaviour:
   startingHealth: 25
   lowHealthThreshold: 20
   healthRestoreRate: 0
-  chasingRange: 60
+  chasingRange: 200
   enemy: {fileID: 2148950024788620048}

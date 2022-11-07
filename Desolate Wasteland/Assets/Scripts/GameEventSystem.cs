@@ -110,7 +110,7 @@ public class GameEventSystem : MonoBehaviour
     {
         //OnUnitTurn?.Invoke(enemy);
         //Debug.Log(enemy.faction + " current faction");
-        Debug.Log(enemy.GetType().Name + " unit name on enemy turn");
+        //Debug.Log(enemy.GetType().Name + " unit name on enemy turn");
         if (enemy.faction == Faction.Enemy)
         {
             //Debug.Log(enemy.GetType().Name);
