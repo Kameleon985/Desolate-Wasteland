@@ -21,7 +21,7 @@ public class BattleMenuMenager : MonoBehaviour
 
     private void Start()
     {
-        GameEventSystem.Instance.OnNewTurn += UpdateQueue;
+        //GameEventSystem.Instance.OnNewTurn += UpdateQueue;
 
         SetQueue();
 

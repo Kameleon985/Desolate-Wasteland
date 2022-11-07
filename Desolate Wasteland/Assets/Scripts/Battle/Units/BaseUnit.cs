@@ -78,7 +78,7 @@ public abstract class BaseUnit : MonoBehaviour
                 }*/
                 //Debug.Log("Moveing");
                 path[i].MoveUnit(this, new Vector3(path[i].x, path[i].y));
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
             }
             path[path.Count - 1].SetUnit(this);
             occupiedTile = path[path.Count - 1];

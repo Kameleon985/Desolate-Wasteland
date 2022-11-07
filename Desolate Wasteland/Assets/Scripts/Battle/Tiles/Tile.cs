@@ -354,11 +354,11 @@ public class Tile : MonoBehaviour
     public void MoveUnit(BaseUnit unit, Vector3 nextTile)
     {
         if (unit.occupiedTile != null) unit.occupiedTile.OccupiedUnit = null;
-        StartCoroutine(MoveToPosition(unit.transform, new Vector3(x, y, 0), 0.1f));
+        StartCoroutine(MoveToPosition(unit.transform, new Vector3(x, y, 0), 0.05f));
         //Debug.Log("currentTile: " + unit.transform.position.x + " : " + unit.transform.position.y);
         //Debug.Log("nextTile: " + nextTile.x + " : " + nextTile.y);
 
-        StartCoroutine(MoveToPosition(unit.transform, nextTile, 0.1f));
+        StartCoroutine(MoveToPosition(unit.transform, nextTile, 0.05f));
 
         //OccupiedUnit = unit;
         //unit.occupiedTile = this;

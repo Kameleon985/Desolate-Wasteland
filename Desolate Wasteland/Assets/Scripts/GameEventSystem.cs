@@ -157,8 +157,8 @@ public class GameEventSystem : MonoBehaviour
 
     public void NewTurn()
     {
-        GridManager.Instance.ClearAllHighlightTiles();
-        GridManager.Instance.ClearAStarTiles();
+        //GridManager.Instance.ClearAllHighlightTiles();
+        //GridManager.Instance.ClearAStarTiles();
         OnNewTurn?.Invoke();
     }
 
