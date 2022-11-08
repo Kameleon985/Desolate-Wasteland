@@ -12,8 +12,9 @@ public class EliteEnemy : BaseEnemy
     public static int initiative = 8;
     static int quantity = 1;
     public GameObject unitCounter;
-    public int attackRange = 10;
+    public int attackRange = 50;
     public int ammo = 2;
+    static int damage = 10;
 
     public void Start()
     {
@@ -24,10 +25,18 @@ public class EliteEnemy : BaseEnemy
     {
         return initiative;
     }
-
+    public int getCurrentHealth()
+    {
+        return currentHealth;
+    }
     public override void setInitiative(int init)
     {
         initiative = init;
+    }
+
+    public static int GetDamage()
+    {
+        return damage;
     }
 
     public override void takeDamage(int dmg)

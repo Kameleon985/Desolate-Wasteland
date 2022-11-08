@@ -13,6 +13,7 @@ public class AmmoCheckNode : Node
 
     public override NodeState Evaluate()
     {
+        //Debug.Log("AMMO = " + enemy.ammo);
         if (enemy.ammo <= 0)
         {
             return NodeState.FAILURE;

@@ -265,7 +265,7 @@ public class MapGrid : MonoBehaviour
 
     public void GenerateCampFactory()
     {
-        GameObject g = Instantiate(ChoosePrefab("hihi"));
+        GameObject g = Instantiate(ChoosePrefab("Empty"));
 
         g.transform.localScale = new Vector3(30, 30, 1);
         GameObject factory = Instantiate(g, new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);

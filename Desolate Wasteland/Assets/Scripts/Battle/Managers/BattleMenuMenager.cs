@@ -7,6 +7,69 @@ using UnityEngine.UI;
 public class BattleMenuMenager : MonoBehaviour
 {
     public static BattleMenuMenager instance;
+    public Queue<BaseUnit> q1 = new Queue<BaseUnit>(6);
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+
+    }
+
+    private void Start()
+    {
+        //GameEventSystem.Instance.OnNewTurn += UpdateQueue;
+
+        SetQueue();
+
+        Rotate();
+
+    }
+    public void SetQueue()
+    {
+        foreach (BaseHero b in UnitManager.Instance.heroList)
+        {
+            q1.Enqueue(b);
+        }
+        foreach (BaseEnemy b in UnitManager.Instance.enemyList)
+        {
+            q1.Enqueue(b);
+        }
+    }
+    public void UpdateQueue()
+    {
+        q1.Enqueue(q1.Dequeue());
+    }
+    public void Rotate()
+    {
+        for (int i = 0; i < q1.Count; i++)
+        {
+            UpdateQueue();
+        }
+    }
+    public void UnitKilled(BaseUnit unit)
+    {
+        int c = 0;
+        while (q1.Peek().name != unit.name)
+        {
+            UpdateQueue();
+            c += 1;
+        }
+        Debug.Log(q1.Dequeue().name + " is kill");
+        for (int i = 0; i < q1.Count - c; i++)
+        {
+            UpdateQueue();
+        }
+
+    }
+
+    /// <summary>
+    /// hahah tu sie zaczyna kupa :]
+    /// </summary>
+    //public static BattleMenuMenager instance;
 
     public GameObject selectedHeroObject;
     public GameObject tileObject;
@@ -32,10 +95,10 @@ public class BattleMenuMenager : MonoBehaviour
     bool flag;
 
 
-    private void Awake()
+    /*private void Awake()
     {
         instance = this;
-    }
+    }*/
 
     public void ShowTileInfo(Tile tile)
     {
@@ -78,7 +141,7 @@ public class BattleMenuMenager : MonoBehaviour
         endPrepareHeroes.SetActive(false);
         endSteroids.SetActive(false);
         endSteroidsButton.SetActive(false);
-        initiativQueue.SetActive(true);
+        //initiativQueue.SetActive(true);
 
         setInitQueue();
 
@@ -104,7 +167,7 @@ public class BattleMenuMenager : MonoBehaviour
 
         arr = unitList.ToArray();
 
-        var queue = initiativQueue.GetComponentsInChildren<Image>();
+        //var queue = initiativQueue.GetComponentsInChildren<Image>();
 
         List<int> unitIndex = new List<int>();
 
@@ -154,7 +217,7 @@ public class BattleMenuMenager : MonoBehaviour
         }
 
         initQueue = new Queue<BaseUnit>(arr);
-
+        /*
         for (int i = 0; i < queue.Length; i++)
         {
             switch (initQueue.Dequeue())
@@ -190,10 +253,10 @@ public class BattleMenuMenager : MonoBehaviour
                     initQueue.Enqueue(ee);
                     break;
             }
-        }
+        }*/
     }
-
-    public void updateQueue()
+    /*
+    public void updatQueue()
     {
         var queue = initiativQueue.GetComponentsInChildren<Image>();
 
@@ -306,7 +369,7 @@ public class BattleMenuMenager : MonoBehaviour
 
         flag = false;
     }
-
+    */
     BaseUnit[] BoubleSort(BaseUnit[] arr)
     {
         int n = arr.Length;
@@ -328,10 +391,10 @@ public class BattleMenuMenager : MonoBehaviour
         return arr;
     }
 
-    public void UnitKilled(BaseUnit unit)
+    /*public void UnitKilled(BaseUnit unit)
     {
         Debug.Log("Unit died: " + unit);
         recentlyKilled = unit;
         flag = true;
-    }
+    }*/
 }

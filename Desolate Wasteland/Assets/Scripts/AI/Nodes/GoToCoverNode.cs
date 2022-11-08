@@ -23,8 +23,11 @@ public class GoToCoverNode : Node
             return NodeState.FAILURE;
         }
         Tile tile = GridManager.Instance.GetTileAtPosition(coverSpot.position);
+        GridManager.Instance.ClearAStarTiles();
         enemy.Move(tile);
-        tile.SetUnit(enemy);
+        //tile.SetUnit(enemy);
+        //BattleMenuMenager.instance.UpdateQueue();
+        //GridManager.Instance.ClearAStarTiles();
         return NodeState.SUCCESS;
 
     }

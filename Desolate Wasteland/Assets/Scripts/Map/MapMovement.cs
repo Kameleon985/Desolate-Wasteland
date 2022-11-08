@@ -171,8 +171,8 @@ public class MapMovement : MonoBehaviour
     private bool EncounterCheck()
     {
         float rand = UnityEngine.Random.Range(0f, 1f);
-        Debug.Log(rand);
-        if (rand < 0.05)
+        //Debug.Log(rand);
+        if (rand < 0.5)
         {
 
             return true;

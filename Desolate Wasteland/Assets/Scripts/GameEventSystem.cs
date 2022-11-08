@@ -10,6 +10,9 @@ public class GameEventSystem : MonoBehaviour
 
 
 
+
+
+
     private void Awake()
     {
         if (Instance != null)
@@ -34,10 +37,15 @@ public class GameEventSystem : MonoBehaviour
 
             //Debug.Log("yoooooooo");
         }
-        else if (location.name == "Camp" || location.name == "Random")
+        else if (location.name == "Camp")
         {
             OnEnterLocation?.Invoke(location);
             SceneManager.LoadScene(location.name);
+        }
+        else if (location.name == "Random")
+        {
+            OnEnterLocation?.Invoke(location);
+            SceneManager.LoadScene("Random");
         }
         else
         {
@@ -102,7 +110,7 @@ public class GameEventSystem : MonoBehaviour
     {
         //OnUnitTurn?.Invoke(enemy);
         //Debug.Log(enemy.faction + " current faction");
-        Debug.Log(enemy.GetType().Name + " unit name on enemy turn");
+        //Debug.Log(enemy.GetType().Name + " unit name on enemy turn");
         if (enemy.faction == Faction.Enemy)
         {
             //Debug.Log(enemy.GetType().Name);
@@ -149,7 +157,17 @@ public class GameEventSystem : MonoBehaviour
 
     public void NewTurn()
     {
+        //GridManager.Instance.ClearAllHighlightTiles();
+        //GridManager.Instance.ClearAStarTiles();
         OnNewTurn?.Invoke();
+    }
+
+    public event Action OnHeroesTurn;
+
+    public void HeroTurn()
+    {
+        //Debug.Log("Hero turn");
+        OnHeroesTurn?.Invoke();
     }
 
     public event Action<bool> OnOverButtons;

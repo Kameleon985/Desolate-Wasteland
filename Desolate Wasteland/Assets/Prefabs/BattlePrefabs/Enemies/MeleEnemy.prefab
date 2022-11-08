@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &102386553446001830
 MonoBehaviour:
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 5499424878093299644}
   m_Layer: 0
   m_Name: MeleEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,7 +324,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
   m_Color: {r: 0.8867924, g: 0.21333212, b: 0.21333212, a: 1}
   m_FlipX: 0
@@ -352,7 +352,6 @@ MonoBehaviour:
   faction: 1
   unitName: MeleeEnemy
   sr: {fileID: 6112767854147102087}
-  initiative: 10
   unitCounter: {fileID: 4094593727113177388}
 --- !u!114 &5499424878093299644
 MonoBehaviour:
@@ -369,5 +368,5 @@ MonoBehaviour:
   startingHealth: 25
   lowHealthThreshold: 20
   healthRestoreRate: 0
-  chasingRange: 60
+  chasingRange: 200
   enemy: {fileID: 2148950024788620048}

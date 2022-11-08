@@ -22,13 +22,15 @@ public class MoveToRangeNode : Node
         List<Tile> path = pf.FindPath(start, closest);
         if (path != null)
         {
+            GridManager.Instance.ClearAStarTiles();
             foreach (Tile t in path)
             {
-                if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange)
+                if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange && t.OccupiedUnit == null)
                 {
                     enemy.Move(t);
-                    t.SetUnit(enemy);
-                    GridManager.Instance.ClearAStarTiles();
+                    //t.SetUnit(enemy);
+                    //GridManager.Instance.ClearAStarTiles();
+                    //BattleMenuMenager.instance.UpdateQueue();
                     return NodeState.SUCCESS;
                 }
             }

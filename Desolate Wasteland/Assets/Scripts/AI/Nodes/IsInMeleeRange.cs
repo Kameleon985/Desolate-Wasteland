@@ -29,6 +29,7 @@ public class IsInMeleeRange : Node
                 }
             }
         }
+        //Debug.Log(b.name + " = closest retard");
         if (b == null || b.faction != Faction.Hero)
         {
             return NodeState.FAILURE;

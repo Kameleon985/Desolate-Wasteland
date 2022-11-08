@@ -15,6 +15,7 @@ public class MoveToEliteRangeNode : Node
 
     public override NodeState Evaluate()
     {
+        //Debug.Log("Moving to range");
         Transform closestHero = ai.GetClosestHero();
         Pathfinding pf = new Pathfinding();
         Tile start = GridManager.Instance.GetTileAtPosition(enemy.transform.position);
@@ -22,13 +23,15 @@ public class MoveToEliteRangeNode : Node
         List<Tile> path = pf.FindPath(start, closest);
         if (path != null)
         {
+            GridManager.Instance.ClearAStarTiles();
             foreach (Tile t in path)
             {
-                if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange)
+                if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange && t.OccupiedUnit == null)
                 {
                     enemy.Move(t);
-                    t.SetUnit(enemy);
-                    GridManager.Instance.ClearAStarTiles();
+                    //t.SetUnit(enemy);
+                    //GridManager.Instance.ClearAStarTiles();
+                    //BattleMenuMenager.instance.UpdateQueue();
                     return NodeState.SUCCESS;
                 }
             }

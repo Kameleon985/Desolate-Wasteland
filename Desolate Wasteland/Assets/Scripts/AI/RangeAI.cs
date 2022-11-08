@@ -80,21 +80,25 @@ public class RangeAI : AI
     {
         _currentHealth = GameObject.FindObjectOfType<RangeEnemy>().getCurrentHealth();
         ConstructBehaviourTree();
-        topNode.Evaluate();
+        if (topNode.Evaluate() == NodeState.FAILURE)
+        {
+            BattleMenuMenager.instance.UpdateQueue();
+            if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
+            {
+                //UnitManager.Instance.EnemyTurn();
+                //GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
+                BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
+            }
+            else
+            {
+                BattleMenager.instance.ChangeState(GameState.HeroesTurn);
+            }
+        }
         //if (topNode.Evaluate() == NodeState.FAILURE)
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
         //Debug.Log(BattleMenuMenager.instance.initQueue.First().faction + "==next turn");
-        if (BattleMenuMenager.instance.initQueue.Peek().faction == Faction.Enemy)
-        {
-            //UnitManager.Instance.EnemyTurn();
-            //GameEventSystem.Instance.EnemyTurn(BattleMenuMenager.instance.initQueue.Peek());
-            BattleMenager.instance.ChangeState(GameState.EnemiesTurn);
-        }
-        else
-        {
-            BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-        }
+
 
     }
 

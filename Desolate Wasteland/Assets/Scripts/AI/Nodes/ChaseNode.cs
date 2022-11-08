@@ -21,8 +21,7 @@ public class ChaseNode : Node
 
         gameObject.Chase(target);
 
-        BattleMenager.instance.ChangeState(GameState.HeroesTurn);
-
+        //BattleMenager.instance.ChangeState(GameState.HeroesTurn);
 
         return NodeState.SUCCESS;
 

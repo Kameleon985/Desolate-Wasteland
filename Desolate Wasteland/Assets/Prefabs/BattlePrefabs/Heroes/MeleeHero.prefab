@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
   m_Color: {r: 0.0990566, g: 0.22980808, b: 1, a: 1}
   m_FlipX: 0
@@ -98,8 +98,8 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 0
   unitName: MeleeHero
+  attackDamage: 10
   sr: {fileID: 139546207583226121}
-  initiative: 10
   unitCounter: {fileID: 9113207288357756754}
 --- !u!1 &1850426750680682096
 GameObject:
@@ -237,7 +237,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &6651047492959989899
 MonoBehaviour:

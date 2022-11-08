@@ -7,7 +7,7 @@ public abstract class BaseEnemy : BaseUnit
 
     private Pathfinding pathfinding;
 
-    
+
 
     public void Chase(Tile target)
     {
@@ -16,9 +16,10 @@ public abstract class BaseEnemy : BaseUnit
 
         if (path != null)
         {
-            Move(path[path.Count - 2]);
-            path[path.Count - 2].SetUnit(this);
             GridManager.Instance.ClearAStarTiles();
+            Move(path[path.Count - 2]);
+            //path[path.Count - 2].SetUnit(this);
+            //GridManager.Instance.ClearAStarTiles();
 
         }
     }
