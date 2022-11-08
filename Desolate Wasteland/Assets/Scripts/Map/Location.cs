@@ -12,6 +12,8 @@ public class Location : MonoBehaviour
     public GameObject OnMapMessagePanel;
     public TextMeshProUGUI promptText;
 
+    public int[] defendingArmy;
+
     public void SetCaptured(bool b)
     {
         captured = b;
@@ -24,10 +26,19 @@ public class Location : MonoBehaviour
 
     private void Start()
     {
+        if (defendingArmy == null)
+        {
+            generateDefendingArmy(5);
+        }
         OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
         promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         GameEventSystem.Instance.OnNewTurn += AddResource;
         GameEventSystem.Instance.OnLocationCapture += CapturedPrompt;
+    }
+
+    private void Update()
+    {
+        updateArmyDuePassingTurns();
     }
 
     private void CapturedPrompt(Vector2 obj)
@@ -143,6 +154,76 @@ public class Location : MonoBehaviour
             }
         }
 
+    }
+
+    public int[] generateDefendingArmy(int limitSumOfUnits)
+    {
+        int currentSumOfUnits = 0;
+        int maxDueLimit = limitSumOfUnits;
+
+        int melee = 0;
+        int ranged = 0;
+        int elite = 0;
+
+
+        while (currentSumOfUnits < limitSumOfUnits)
+        {
+            if (currentSumOfUnits < limitSumOfUnits)
+            {
+                melee = UnityEngine.Random.Range(2, maxDueLimit);
+                currentSumOfUnits += melee;
+                maxDueLimit -= melee;
+            }
+
+            if (currentSumOfUnits < limitSumOfUnits)
+            {
+                ranged = UnityEngine.Random.Range(0, maxDueLimit);
+                currentSumOfUnits += ranged;
+                maxDueLimit -= ranged;
+            }
+
+            if (currentSumOfUnits < limitSumOfUnits)
+            {
+                if (maxDueLimit < 2)
+                {
+                    elite = UnityEngine.Random.Range(0, maxDueLimit);
+                }
+                else
+                {
+                    elite = UnityEngine.Random.Range(0, 2);
+                }
+                currentSumOfUnits += elite;
+                maxDueLimit -= elite;
+            }
+            
+        }
+
+        defendingArmy[0] = melee;
+        defendingArmy[1] = ranged;
+        defendingArmy[2] = elite;
+
+        return defendingArmy;
+            
+    }
+
+    private void updateArmyDuePassingTurns()
+    {
+        if (SaveSerial.CurrentRound >= 1 && defendingArmy != null && defendingArmy[0] != 1)
+        {
+            if (SaveSerial.CurrentRound % 7 == 0)
+            {
+                defendingArmy[0] += 1;
+            }
+            if (SaveSerial.CurrentRound % 14 == 0)
+            {
+                defendingArmy[1] += 1;
+            }
+            if( SaveSerial.CurrentRound % 21 == 0)
+            {
+                defendingArmy[2] += 1;
+            }
+        }
+        
     }
 
     private void OnDestroy()

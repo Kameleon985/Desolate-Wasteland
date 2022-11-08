@@ -111,6 +111,10 @@ public class MeleeUnit : BaseHero
             Debug.Log("MeleeUnits are feed from hunger currently: " + feedness);
             if (currentHealth < maxHealth)
             {
+                if(maxHealth - currentHealth < 5)
+                {
+                    currentHealth = maxHealth;
+                }
                 Debug.Log("MU Healed from: " + currentHealth);
                 currentHealth += 5;
                 Debug.Log("MU Healed to: " + currentHealth);

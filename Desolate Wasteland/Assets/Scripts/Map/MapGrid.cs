@@ -40,6 +40,7 @@ public class MapGrid : MonoBehaviour
 
     void NewMap()
     {
+        Location tempLocation = gameObject.GetComponent<Location>();
         GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20, 30);
         GenerateGrid();
         //SaveSerial.locations = Instantiate(locations);
@@ -61,7 +62,7 @@ public class MapGrid : MonoBehaviour
 
         //Piles & Locations
         SaveSerial.piles = new Dictionary<float[], string>();
-        SaveSerial.locations = new Dictionary<float[], string>();
+        SaveSerial.locationsType = new Dictionary<float[], string>();
         SaveSerial.captured = new Dictionary<float[], bool>();
 
         var enumerator = locations.GetEnumerator();
@@ -78,28 +79,33 @@ public class MapGrid : MonoBehaviour
             {
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
-                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
                 //Debug.Log("scrapyard saved");
             }
             if (enumerator.Current.Value.name.Equals("Shoping Center"))
             {
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
-                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
+
                 //Debug.Log("center saved");
             }
             if (enumerator.Current.Value.name.Equals("Industrial Park"))
             {
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
-                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
                 //Debug.Log("park saved");
             }
             if (enumerator.Current.Value.name.Equals("Hydrophonics"))
             {
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
-                SaveSerial.locations.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
                 //Debug.Log("hydro saved");
             }
         }
@@ -131,7 +137,9 @@ public class MapGrid : MonoBehaviour
             locations.Add(pileLoad.transform.position, pileLoad);
         }
 
-        var dictLoc = SaveSerial.locations;
+        var dictLoc = SaveSerial.locationsType;
+        var dictLocArmy = SaveSerial.locationsArmy;
+        //TODO wczytywanie armii
         var enumeratorLocs = dictLoc.GetEnumerator();
         while (enumeratorLocs.MoveNext())
         {
@@ -308,7 +316,7 @@ public class MapGrid : MonoBehaviour
         while (true)
         {
             if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
-            {
+            { 
                 Vector2 loc = new Vector2(x, y);
                 GameObject g = Instantiate(ChoosePrefab(name), new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
                 g.name = name;
@@ -318,6 +326,7 @@ public class MapGrid : MonoBehaviour
                 locations.Add(new Vector2(loc.x, loc.y + 1), g);
                 //Debug.Log(name + " coords: x=" + (loc.x + 1) + " " + loc.x + " y=" + (loc.y + 1) + " " + loc.y);
                 g.transform.parent = gameObject.transform;
+
                 return g;
             }
             else

@@ -31,7 +31,8 @@ public class SaveSerial : MonoBehaviour
 
     //OnMapLayout
     public static Dictionary<float[], bool> captured;
-    public static Dictionary<float[], string> locations;
+    public static Dictionary<float[], string> locationsType;
+    public static Dictionary<float[], int[]> locationsArmy;
     public static Dictionary<float[], string> piles;
     public static Dictionary<float[], string> terrain;
 
@@ -97,7 +98,8 @@ public class SaveSerial : MonoBehaviour
 
         //OnMapLayout
         data.savedCaptured = captured;
-        data.savedLocations = locations;
+        data.savedLocationsType = locationsType;
+        data.savedLocationsArmy = locationsArmy;
         data.savedTerrain = terrain;
         data.savedPiles = piles;
 
@@ -166,7 +168,8 @@ public class SaveSerial : MonoBehaviour
 
             //OnMapLayout
             captured = data.savedCaptured;
-            locations = data.savedLocations;
+            locationsType = data.savedLocationsType;
+            locationsArmy = data.savedLocationsArmy;
             terrain = data.savedTerrain;
             piles = data.savedPiles;
 
@@ -243,7 +246,8 @@ public class SaveSerial : MonoBehaviour
 
             //OnMapLayout
             captured = new Dictionary<float[], bool>();
-            locations = new Dictionary<float[], string>();
+            locationsType = new Dictionary<float[], string>();
+            locationsArmy = new Dictionary<float[], int[]>();
             terrain = new Dictionary<float[], string>();
             piles = new Dictionary<float[], string>();
 
@@ -308,7 +312,8 @@ public class SaveSerial : MonoBehaviour
 
         //OnMapLayout
         captured = null;
-        locations = null;
+        locationsType = null;
+        locationsArmy = null;
         terrain = null;
         piles = null;
 
@@ -371,7 +376,8 @@ public class SaveSerial : MonoBehaviour
 
         //OnMapLayout
         public Dictionary<float[], bool> savedCaptured;
-        public Dictionary<float[], string> savedLocations;
+        public Dictionary<float[], string> savedLocationsType;
+        public Dictionary<float[], int[]> savedLocationsArmy;
         public Dictionary<float[], string> savedTerrain;
         public Dictionary<float[], string> savedPiles;
 
