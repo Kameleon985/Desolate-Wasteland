@@ -723,8 +723,8 @@ Transform:
   m_Children:
   - {fileID: 1909709364}
   - {fileID: 1832168004}
-  - {fileID: 1242484927}
   - {fileID: 1191848047}
+  - {fileID: 1671483328}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2915,7 +2915,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 155757338}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1192058184
 GameObject:
@@ -3070,53 +3070,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238228215}
   m_CullTransparentMesh: 0
---- !u!1 &1242484926
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1242484927}
-  - component: {fileID: 1242484928}
-  m_Layer: 0
-  m_Name: UnitManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1242484927
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242484926}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 155757338}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1242484928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242484926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d1c74be58c96a14ea315d4eff4b35e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectedHero: {fileID: 0}
-  ai: {fileID: 0}
-  heroList: []
-  enemyList: []
 --- !u!1 &1254108295
 GameObject:
   m_ObjectHideFlags: 0
@@ -3836,6 +3789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6904b75cf628cf44c95b5b12632adbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentEnemies: 
 --- !u!1 &1507993159
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,6 +4251,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652052381}
   m_CullTransparentMesh: 0
+--- !u!1 &1671483327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1671483328}
+  - component: {fileID: 1671483329}
+  m_Layer: 0
+  m_Name: UnitManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1671483328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671483327}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 155757338}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1671483329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671483327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1c74be58c96a14ea315d4eff4b35e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  melee: {fileID: 2148950024788620048, guid: d66f61c48c02e7d43934a18b799343d5, type: 3}
+  ranged: {fileID: 1649183430979494267, guid: dbc3e4c6a3e09e64285702180f8742ac, type: 3}
+  elite: {fileID: 3294263584297853376, guid: da896b01efafca4419a77ec889daa671, type: 3}
+  SelectedHero: {fileID: 0}
+  ai: {fileID: 0}
+  heroList: []
+  enemyList: []
 --- !u!1 &1700314398
 GameObject:
   m_ObjectHideFlags: 0
@@ -4501,6 +4505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  enemies: 
 --- !u!1 &1851869965
 GameObject:
   m_ObjectHideFlags: 0

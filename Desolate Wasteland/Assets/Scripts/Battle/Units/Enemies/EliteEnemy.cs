@@ -10,7 +10,6 @@ public class EliteEnemy : BaseEnemy
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
     public static int initiative = 8;
-    static int quantity = 1;
     public GameObject unitCounter;
     public int attackRange = 50;
     public int ammo = 2;
@@ -19,6 +18,7 @@ public class EliteEnemy : BaseEnemy
     public void Start()
     {
         setUnitCount();
+        //takeDamage(0);
     }
 
     public override int getInitiative()

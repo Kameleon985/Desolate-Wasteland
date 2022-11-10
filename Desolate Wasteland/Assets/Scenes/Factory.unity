@@ -1764,6 +1764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6904b75cf628cf44c95b5b12632adbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentEnemies: 
 --- !u!1 &815978650
 GameObject:
   m_ObjectHideFlags: 0
@@ -3630,6 +3631,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1c74be58c96a14ea315d4eff4b35e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  melee: {fileID: 2148950024788620048, guid: d66f61c48c02e7d43934a18b799343d5, type: 3}
+  ranged: {fileID: 1649183430979494267, guid: dbc3e4c6a3e09e64285702180f8742ac, type: 3}
+  elite: {fileID: 3294263584297853376, guid: da896b01efafca4419a77ec889daa671, type: 3}
   SelectedHero: {fileID: 0}
   ai: {fileID: 0}
   heroList: []
@@ -4247,6 +4251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  enemies: 
 --- !u!1 &1651395182
 GameObject:
   m_ObjectHideFlags: 0

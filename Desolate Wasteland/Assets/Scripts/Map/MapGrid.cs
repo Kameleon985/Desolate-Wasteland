@@ -40,7 +40,7 @@ public class MapGrid : MonoBehaviour
 
     void NewMap()
     {
-        Location tempLocation = gameObject.GetComponent<Location>();
+        //Location tempLocation = gameObject.GetComponent<Location>();
         GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20, 30);
         GenerateGrid();
         //SaveSerial.locations = Instantiate(locations);
@@ -64,6 +64,7 @@ public class MapGrid : MonoBehaviour
         SaveSerial.piles = new Dictionary<float[], string>();
         SaveSerial.locationsType = new Dictionary<float[], string>();
         SaveSerial.captured = new Dictionary<float[], bool>();
+        SaveSerial.locationsArmy = new Dictionary<float[], int[]>();
 
         var enumerator = locations.GetEnumerator();
         while (enumerator.MoveNext())
@@ -80,7 +81,7 @@ public class MapGrid : MonoBehaviour
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
                 SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
                 //Debug.Log("scrapyard saved");
             }
             if (enumerator.Current.Value.name.Equals("Shoping Center"))
@@ -88,7 +89,7 @@ public class MapGrid : MonoBehaviour
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
                 SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
 
                 //Debug.Log("center saved");
             }
@@ -97,7 +98,7 @@ public class MapGrid : MonoBehaviour
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
                 SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
                 //Debug.Log("park saved");
             }
             if (enumerator.Current.Value.name.Equals("Hydrophonics"))
@@ -105,7 +106,7 @@ public class MapGrid : MonoBehaviour
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
                 SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, tempLocation.generateDefendingArmy(5));
+                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
                 //Debug.Log("hydro saved");
             }
         }
@@ -139,6 +140,7 @@ public class MapGrid : MonoBehaviour
 
         var dictLoc = SaveSerial.locationsType;
         var dictLocArmy = SaveSerial.locationsArmy;
+
         //TODO wczytywanie armii
         var enumeratorLocs = dictLoc.GetEnumerator();
         while (enumeratorLocs.MoveNext())
@@ -316,7 +318,7 @@ public class MapGrid : MonoBehaviour
         while (true)
         {
             if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
-            { 
+            {
                 Vector2 loc = new Vector2(x, y);
                 GameObject g = Instantiate(ChoosePrefab(name), new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
                 g.name = name;

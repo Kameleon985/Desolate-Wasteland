@@ -28,6 +28,7 @@ public class MoveToEliteRangeNode : Node
             {
                 if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange && t.OccupiedUnit == null)
                 {
+                    Debug.Log("move to elite range");
                     enemy.Move(t);
                     //t.SetUnit(enemy);
                     //GridManager.Instance.ClearAStarTiles();

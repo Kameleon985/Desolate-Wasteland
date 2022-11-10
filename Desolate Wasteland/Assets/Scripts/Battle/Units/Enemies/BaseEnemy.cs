@@ -6,6 +6,7 @@ public abstract class BaseEnemy : BaseUnit
 {
 
     private Pathfinding pathfinding;
+    public int quantity = 1;
 
 
 

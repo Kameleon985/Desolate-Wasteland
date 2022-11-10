@@ -10,7 +10,6 @@ public class RangeEnemy : BaseEnemy
     static readonly int maxHealth = 25;
     static int currentHealth = 25;
     public static int initiative = 5;
-    static int quantity = 1;
     public GameObject unitCounter;
     public int attackRange = 50;
     static int damage = 7;
@@ -18,6 +17,7 @@ public class RangeEnemy : BaseEnemy
     public void Start()
     {
         setUnitCount();
+        //takeDamage(0);
     }
 
     public int getCurrentHealth()

@@ -11,10 +11,8 @@ public class BattleMenuMenager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        instance = this;
+
 
 
     }
@@ -22,18 +20,18 @@ public class BattleMenuMenager : MonoBehaviour
     private void Start()
     {
         //GameEventSystem.Instance.OnNewTurn += UpdateQueue;
-
         SetQueue();
-
         Rotate();
-
     }
+
     public void SetQueue()
     {
+        //Debug.Log(UnitManager.Instance.heroList.Count);
         foreach (BaseHero b in UnitManager.Instance.heroList)
         {
             q1.Enqueue(b);
         }
+        //Debug.Log(UnitManager.Instance.enemyList.Count);
         foreach (BaseEnemy b in UnitManager.Instance.enemyList)
         {
             q1.Enqueue(b);
@@ -143,7 +141,7 @@ public class BattleMenuMenager : MonoBehaviour
         endSteroidsButton.SetActive(false);
         //initiativQueue.SetActive(true);
 
-        setInitQueue();
+        SetQueue();
 
         BattleMenager.instance.ChangeState(GameState.HeroesTurn);
     }

@@ -8,9 +8,7 @@ public class GameEventSystem : MonoBehaviour
 {
     public static GameEventSystem Instance;
 
-
-
-
+    public int[] currentEnemies;
 
 
     private void Awake()
@@ -66,6 +64,10 @@ public class GameEventSystem : MonoBehaviour
         if (level == 0)
         {
             OnEnterMap?.Invoke();
+        }
+        else if (level > 2)
+        {
+            OnEnterBattle?.Invoke(currentEnemies);
         }
     }
     public event Action OnEnterMap;
@@ -175,4 +177,17 @@ public class GameEventSystem : MonoBehaviour
     {
         OnOverButtons?.Invoke(mouseOver);
     }
+
+    public event Action<int[]> OnEnterBattle;
+
+    public void EnterBattle(int[] enemies)
+    {
+        currentEnemies = new int[3];
+        //OnEnterBattle?.Invoke(enemies);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            currentEnemies[i] = enemies[i];
+        }
+    }
+
 }

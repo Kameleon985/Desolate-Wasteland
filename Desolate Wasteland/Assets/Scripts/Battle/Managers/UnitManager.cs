@@ -9,16 +9,21 @@ public class UnitManager : MonoBehaviour
 
     private List<ScriptableUnit> units;
 
+    public BaseEnemy melee;
+    public BaseEnemy ranged;
+    public BaseEnemy elite;
+
     public BaseHero SelectedHero;
 
     public MeleeAi ai;
-    public List<BaseHero> heroList;
-    public List<BaseEnemy> enemyList;
+    public List<BaseHero> heroList = new List<BaseHero>();
+    public List<BaseEnemy> enemyList = new List<BaseEnemy>();
 
     private void Awake()
     {
         Instance = this;
         units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
+        //GameEventSystem.Instance.OnEnterBattle += SpawnEnemies;
 
     }
 
@@ -68,6 +73,47 @@ public class UnitManager : MonoBehaviour
             randomSpawnTile.SetUnit(spawnedEnemy);
             enemyList.Add(spawnedEnemy);
         }
+
+        BattleMenager.instance.ChangeState(GameState.PrepareHeroes);
+    }
+
+    public void SpawnEnemies(int[] enemies)
+    {
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            BaseEnemy prefab = null;
+            switch (i)
+            {
+                case 0:
+                    prefab = melee;
+                    break;
+                case 1:
+                    prefab = ranged;
+                    break;
+                case 2:
+                    prefab = elite;
+                    break;
+            }
+
+            //var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy, enemies.Length, i);
+            prefab.quantity = enemies[i];
+
+            if (enemies[i] > 0)
+            {
+                var spawnedEnemy = Instantiate(prefab);
+                var randomSpawnTile = GridManager.Instance.GetEnemySpawn();
+
+                randomSpawnTile.SetUnit(spawnedEnemy);
+                enemyList.Add(spawnedEnemy);
+            }
+
+
+
+
+
+        }
+
 
         BattleMenager.instance.ChangeState(GameState.PrepareHeroes);
     }

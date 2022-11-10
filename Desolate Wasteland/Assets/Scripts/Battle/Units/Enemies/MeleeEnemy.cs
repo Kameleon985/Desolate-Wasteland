@@ -11,12 +11,13 @@ public class MeleeEnemy : BaseEnemy
     static int currentHealth = 25;
     public static int initiative = 10;
     static int damage = 10;
-    static int quantity = 1;
     public GameObject unitCounter;
 
     public void Start()
     {
+
         setUnitCount();
+        //takeDamage(0);
     }
 
     public override int getInitiative()
@@ -29,7 +30,7 @@ public class MeleeEnemy : BaseEnemy
     {
         return currentHealth;
     }
-    
+
     public static int GetDamage()
     {
         return damage;

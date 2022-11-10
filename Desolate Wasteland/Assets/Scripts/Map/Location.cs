@@ -34,11 +34,15 @@ public class Location : MonoBehaviour
         promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         GameEventSystem.Instance.OnNewTurn += AddResource;
         GameEventSystem.Instance.OnLocationCapture += CapturedPrompt;
+        for (int i = 0; i < defendingArmy.Length; i++)
+        {
+            Debug.Log(defendingArmy[i] + " number of enemy [" + i + "] for location " + gameObject.name);
+        }
     }
 
     private void Update()
     {
-        updateArmyDuePassingTurns();
+        //updateArmyDuePassingTurns();
     }
 
     private void CapturedPrompt(Vector2 obj)
@@ -158,6 +162,7 @@ public class Location : MonoBehaviour
 
     public int[] generateDefendingArmy(int limitSumOfUnits)
     {
+        defendingArmy = new int[3];
         int currentSumOfUnits = 0;
         int maxDueLimit = limitSumOfUnits;
 
@@ -170,32 +175,26 @@ public class Location : MonoBehaviour
         {
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                melee = UnityEngine.Random.Range(2, maxDueLimit);
+                melee = UnityEngine.Random.Range(1, maxDueLimit);
                 currentSumOfUnits += melee;
                 maxDueLimit -= melee;
             }
 
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                ranged = UnityEngine.Random.Range(0, maxDueLimit);
+                ranged = UnityEngine.Random.Range(1, maxDueLimit);
                 currentSumOfUnits += ranged;
                 maxDueLimit -= ranged;
             }
 
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                if (maxDueLimit < 2)
-                {
-                    elite = UnityEngine.Random.Range(0, maxDueLimit);
-                }
-                else
-                {
-                    elite = UnityEngine.Random.Range(0, 2);
-                }
+
+                elite = UnityEngine.Random.Range(0, maxDueLimit);
                 currentSumOfUnits += elite;
                 maxDueLimit -= elite;
             }
-            
+
         }
 
         defendingArmy[0] = melee;
@@ -203,7 +202,7 @@ public class Location : MonoBehaviour
         defendingArmy[2] = elite;
 
         return defendingArmy;
-            
+
     }
 
     private void updateArmyDuePassingTurns()
@@ -218,12 +217,12 @@ public class Location : MonoBehaviour
             {
                 defendingArmy[1] += 1;
             }
-            if( SaveSerial.CurrentRound % 21 == 0)
+            if (SaveSerial.CurrentRound % 21 == 0)
             {
                 defendingArmy[2] += 1;
             }
         }
-        
+
     }
 
     private void OnDestroy()

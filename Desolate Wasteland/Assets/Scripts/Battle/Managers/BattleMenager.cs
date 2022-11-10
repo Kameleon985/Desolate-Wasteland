@@ -7,10 +7,12 @@ public class BattleMenager : MonoBehaviour
 {
     public static BattleMenager instance;
     public GameState gameState;
+    public int[] enemies;
 
     private void Awake()
     {
         instance = this;
+        GameEventSystem.Instance.OnEnterBattle += LoadEnemies;
     }
 
     private void Start()
@@ -37,6 +39,15 @@ public class BattleMenager : MonoBehaviour
         }
     }
 
+    public void LoadEnemies(int[] enemies)
+    {
+        this.enemies = new int[3];
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            this.enemies[i] = enemies[i];
+        }
+    }
+
     public void ChangeState(GameState newState)
     {
         gameState = newState;
@@ -49,7 +60,7 @@ public class BattleMenager : MonoBehaviour
                 UnitManager.Instance.SpawnHeroes();
                 break;
             case GameState.SpawnEnemies:
-                UnitManager.Instance.SpawnEnemies();
+                UnitManager.Instance.SpawnEnemies(enemies);
                 break;
             case GameState.PrepareHeroes:
                 UnitManager.Instance.PrepareHeroes();
@@ -63,6 +74,11 @@ public class BattleMenager : MonoBehaviour
                 break;
         }
     }
+
+    public void OnDestroy()
+    {
+        GameEventSystem.Instance.OnEnterBattle -= LoadEnemies;
+    }
 }
 
 public enum GameState
@@ -74,3 +90,5 @@ public enum GameState
     HeroesTurn = 4,
     EnemiesTurn = 5
 }
+
+
