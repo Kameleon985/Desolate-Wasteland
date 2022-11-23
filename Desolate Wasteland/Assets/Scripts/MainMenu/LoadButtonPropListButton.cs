@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonListButton : MonoBehaviour
+public class LoadButtonPropListButton : MonoBehaviour
 {
     public SaveManager manager;
     public Text btnName;
@@ -19,5 +19,6 @@ public class ButtonListButton : MonoBehaviour
         GameObject g = new GameObject();
         g.name = "Map";
         GameEventSystem.Instance.EnterLocation(g);
+            
     }
 }

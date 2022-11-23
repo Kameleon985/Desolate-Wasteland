@@ -10,8 +10,7 @@ public class SaveManager : MonoBehaviour
 {
     public TMP_InputField saveNameInputField;
 
-
-    public GameObject buttonTemplate;
+    public GameObject rowTemplate;
 
     public string[] saveFilesFullPath;
     public List<string> saveFilesJustNames;
@@ -39,13 +38,22 @@ public class SaveManager : MonoBehaviour
 
         for (int i = 0; i <= saveFilesJustNames.Count - 1; i++)
         {
-            GameObject button = Instantiate(buttonTemplate) as GameObject;
-            buttons.Add(button);
-            button.SetActive(true);
-            //button.GetComponent<ButtonListButton>().setButtonName(saveFilesJustNames[i]);
-            button.GetComponent<ButtonListButton>().setButtonName(saveFilesNamesAndDates[i]);
+            GameObject newRow = Instantiate(rowTemplate);
+            buttons.Add(newRow);
+            newRow.SetActive(true);
+            foreach (Transform eachChild in newRow.transform)
+            {               
+                    Debug.Log("Child found. Mame: " + eachChild.name);
+            }
 
-            button.transform.SetParent(buttonTemplate.transform.parent, false);
+            GameObject saveButton = newRow.transform.Find("Button").gameObject;
+            GameObject deleteButton = newRow.transform.Find("ButtonDel").gameObject;
+            Debug.Log(deleteButton.name + "!");
+            //button.GetComponent<ButtonListButton>().setButtonName(saveFilesJustNames[i]);
+            saveButton.GetComponent<LoadButtonPropListButton>().setButtonName(saveFilesNamesAndDates[i]);
+            deleteButton.GetComponent<DeleteButtonPropListButton>().setButtonName("Usuń", saveFilesJustNames[i], newRow);
+
+            newRow.transform.SetParent(rowTemplate.transform.parent, false);
         }
     }
 
@@ -126,5 +134,22 @@ public class SaveManager : MonoBehaviour
         GameEventSystem.Instance.SaveButton();
 
         SaveSerial.SaveGame(fileName);
+    }
+
+    public void delete(string saveToDelete, GameObject rowToDelete)
+    {
+        Debug.Log("Delete request: " + saveToDelete);
+
+        string filePath = Application.persistentDataPath + "/saves/" + saveToDelete + ".dat";
+
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("File '" + saveToDelete + ".dat' DOESN'T EXIST");
+        } else
+        {
+            File.Delete(filePath);
+            Destroy(rowToDelete);
+            Debug.Log("Succefully deleted save");
+        }
     }
 }
