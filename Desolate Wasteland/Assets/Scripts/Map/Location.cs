@@ -175,14 +175,14 @@ public class Location : MonoBehaviour
         {
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                melee = UnityEngine.Random.Range(1, maxDueLimit);
+                melee = UnityEngine.Random.Range(1, maxDueLimit+1);
                 currentSumOfUnits += melee;
                 maxDueLimit -= melee;
             }
 
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                ranged = UnityEngine.Random.Range(1, maxDueLimit);
+                ranged = UnityEngine.Random.Range(1, maxDueLimit+1);
                 currentSumOfUnits += ranged;
                 maxDueLimit -= ranged;
             }
@@ -190,7 +190,14 @@ public class Location : MonoBehaviour
             if (currentSumOfUnits < limitSumOfUnits)
             {
 
-                elite = UnityEngine.Random.Range(0, maxDueLimit);
+                if (maxDueLimit < 2)
+                {
+                    elite = UnityEngine.Random.Range(0, maxDueLimit+1);
+                }
+                else
+                {
+                    elite = UnityEngine.Random.Range(0, 2);
+                }
                 currentSumOfUnits += elite;
                 maxDueLimit -= elite;
             }

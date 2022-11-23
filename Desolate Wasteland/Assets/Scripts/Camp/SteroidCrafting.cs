@@ -444,22 +444,19 @@ public class SteroidCrafting : MonoBehaviour
 
     public int[] GenerateRecipeBuffB()
     {
-        int controlSum = 8; //To Determine
+        int controlSum = 8;
         
-        int costChemB = Random.Range(3, 7); //
-        int costChemA = Random.Range(0, controlSum-costChemB+1); //
+        int costChemB = Random.Range(3, 7);
+        int costChemA = Random.Range(0, controlSum-costChemB+1);
 
         int costChemC = 0;
         if (costChemA + costChemB < controlSum)
         {
             costChemC = controlSum - costChemA - costChemB;
-            //RecipeBuffB = "ChemA:" + costChemA + ";" + "ChemB:" + costChemB + ";" + "ChemC:" + costChemC + ";ChemD:" + costChemD;
-            RecipeBuffB = new int[] { costChemA, costChemB, costChemC, costChemD, controlSum};
         }
-        //RecipeBuffB = "ChemA:" + costChemA + ";" + "ChemB:" + costChemB + ";" + "ChemC:" + costChemC + ";ChemD:" + costChemD;
         RecipeBuffB = new int[] { costChemA, costChemB, costChemC, costChemD, controlSum};
 
-        Debug.Log("RecipeB: A"+RecipeBuffB[0]+", B"+RecipeBuffB[1]+", C"+RecipeBuffB[2]+", D"+RecipeBuffB[3] + ", SUM" + RecipeBuffB[4]);
+        
         return RecipeBuffB;
     }
 

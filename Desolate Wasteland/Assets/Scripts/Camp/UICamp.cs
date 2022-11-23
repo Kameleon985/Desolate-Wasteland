@@ -55,6 +55,14 @@ public class UICamp : MonoBehaviour
     public Text BuffBAmount;
     public Text BuffCAmount;
 
+    public GameObject barracksImage;
+    public GameObject shootingRangeImage;
+    public GameObject armoryImage;
+    public GameObject laboratoriumImage;
+    public GameObject marketplaceImage;
+    public GameObject hydroponicsImage;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -155,6 +163,7 @@ public class UICamp : MonoBehaviour
                 Debug.Log("Labo Built");
                 buildLaboButton.interactable = false;
                 goLaboButton.interactable = true;
+                laboratoriumImage.SetActive(true);
 
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
@@ -170,6 +179,7 @@ public class UICamp : MonoBehaviour
         {
             buildLaboButton.interactable = false;
             goLaboButton.interactable = true;
+            laboratoriumImage.SetActive(true);
         }
 
 
@@ -201,6 +211,7 @@ public class UICamp : MonoBehaviour
                 SaveSerial.MarketBuild = MarketBuild;
                 buildMarketButton.interactable = false;
                 goMarketButton.interactable = true;
+                marketplaceImage.SetActive(true);
 
             }
             else if (!sufficientScrap || !sufficientPlastic)
@@ -217,6 +228,7 @@ public class UICamp : MonoBehaviour
         {
             buildMarketButton.interactable = false;
             goMarketButton.interactable = true;
+            marketplaceImage.SetActive(true);
         }
 
 
@@ -247,6 +259,7 @@ public class UICamp : MonoBehaviour
                 SaveSerial.BarracksBuild = BarracksBuild;
                 buildBarracksButton.interactable = false;
                 armyHandler.BarrackBuiltIncrease();
+                barracksImage.SetActive(true);
 
 
             }
@@ -263,6 +276,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildBarracksButton.interactable = false;
+            barracksImage.SetActive(true);
 
         }
 
@@ -296,6 +310,7 @@ public class UICamp : MonoBehaviour
                 SaveSerial.ShootingRangeBuild = ShootingRangeBuild;
                 buildShootingRangeButton.interactable = false;
                 armyHandler.ShootingRangeBuiltIncrease();
+                shootingRangeImage.SetActive(true);
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
             {
@@ -309,6 +324,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildShootingRangeButton.interactable = false;
+            shootingRangeImage.SetActive(true);
 
         }
 
@@ -341,6 +357,7 @@ public class UICamp : MonoBehaviour
                 SaveSerial.ArmoryBuild = ArmoryBuild;
                 buildArmoryButton.interactable = false;
                 armyHandler.ArmoryBuiltIncrease();
+                armoryImage.SetActive(true);
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
             {
@@ -354,6 +371,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildArmoryButton.interactable = false;
+            armoryImage.SetActive(true);
 
         }
 
@@ -388,6 +406,7 @@ public class UICamp : MonoBehaviour
                 SaveSerial.HydroponicsBuild = HydroponicsBuild;
                 buildHydroponicsButton.interactable = false;
                 roundTracker.isHydroponicsBuilt = true;
+                hydroponicsImage.SetActive(true);
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
             {
@@ -402,6 +421,7 @@ public class UICamp : MonoBehaviour
         {
             buildHydroponicsButton.interactable = false;
             roundTracker.isHydroponicsBuilt = true;
+            hydroponicsImage.SetActive(true);
         }
 
     }
@@ -423,27 +443,33 @@ public class UICamp : MonoBehaviour
     {
         buildLaboButton.interactable = !(SaveSerial.LabBuild);
         goLaboButton.interactable = SaveSerial.LabBuild;
+        laboratoriumImage.SetActive(SaveSerial.LabBuild);
     }
     void updateMarketBuild()
     {
         buildMarketButton.interactable = !(SaveSerial.MarketBuild);
         goMarketButton.interactable = SaveSerial.MarketBuild;
+        marketplaceImage.SetActive(SaveSerial.MarketBuild);
     }
     void updateBarracksBuild()
     {
         buildBarracksButton.interactable = !(SaveSerial.BarracksBuild);
+        barracksImage.SetActive(SaveSerial.BarracksBuild);
     }
     void updateShootingRangeBuild()
     {
         buildShootingRangeButton.interactable = !(SaveSerial.ShootingRangeBuild);
+        shootingRangeImage.SetActive(SaveSerial.ShootingRangeBuild);
     }
     void updateArmoryBuild()
     {
         buildArmoryButton.interactable = !(SaveSerial.ArmoryBuild);
+        armoryImage.SetActive(SaveSerial.ArmoryBuild);
     }
     void updateHydroponicsBuild()
     {
         buildHydroponicsButton.interactable = !(SaveSerial.HydroponicsBuild);
+        hydroponicsImage.SetActive(SaveSerial.HydroponicsBuild);
     }
 
     void updateCampArmy()
