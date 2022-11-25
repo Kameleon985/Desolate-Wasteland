@@ -24,7 +24,7 @@ public class GoToCoverNode : Node
         }
         Tile tile = GridManager.Instance.GetTileAtPosition(coverSpot.position);
         GridManager.Instance.ClearAStarTiles();
-        Debug.Log("go to cover");
+        //Debug.Log("go to cover");
         enemy.Move(tile);
 
         //tile.SetUnit(enemy);

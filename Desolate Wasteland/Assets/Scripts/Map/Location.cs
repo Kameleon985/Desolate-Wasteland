@@ -11,6 +11,7 @@ public class Location : MonoBehaviour
 
     public GameObject OnMapMessagePanel;
     public TextMeshProUGUI promptText;
+    public GameObject enterButton;
 
     public int[] defendingArmy;
 
@@ -30,15 +31,57 @@ public class Location : MonoBehaviour
         {
             generateDefendingArmy(5);
         }
-        OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
-        promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        GameObject canvas = GameObject.Find("Canvas");
+        //OnMapMessagePanel = canvas.GetComponentInChildren<GameObject>(true);
+        OnMapMessagePanel = canvas.transform.GetChild(0).gameObject;
+        promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        enterButton = OnMapMessagePanel.transform.GetChild(2).gameObject;
         GameEventSystem.Instance.OnNewTurn += AddResource;
         GameEventSystem.Instance.OnLocationCapture += CapturedPrompt;
+        GameEventSystem.Instance.OnScoutBattle += BattlePrompt;
         for (int i = 0; i < defendingArmy.Length; i++)
         {
-            Debug.Log(defendingArmy[i] + " number of enemy [" + i + "] for location " + gameObject.name);
+            //Debug.Log(defendingArmy[i] + " number of enemy [" + i + "] for location " + gameObject.name);
         }
     }
+
+    private void BattlePrompt(Vector2 vector)
+    {
+        if (vector.x == transform.position.x && vector.y == transform.position.y)
+        {
+            OnMapMessagePanel.SetActive(true);
+            enterButton.SetActive(true);
+
+            promptText.text = "Entering Battle!" + "\n" + "Difficulty: \t" + CalculateDifficulty();
+        }
+    }
+
+    private string CalculateDifficulty()
+    {
+        int difficulty = 0;
+        for (int i = 0; i < defendingArmy.Length; i++)
+        {
+            difficulty += defendingArmy[i] * (i + 1);
+        }
+        int armyStr = SaveSerial.MeleeUnit * 1 + SaveSerial.RangeUnit * 2 + SaveSerial.EliteUnit * 3;
+        difficulty -= armyStr;
+
+        if (difficulty < 0)
+        {
+            return "Easy";
+        }
+        else if (difficulty >= 0 && difficulty < 5)
+        {
+            return "Medium";
+        }
+        else if (difficulty > 4)
+        {
+            return "Hard";
+        }
+
+        return null;
+    }
+
 
     private void Update()
     {
@@ -50,7 +93,7 @@ public class Location : MonoBehaviour
         Debug.Log(obj.x + "," + obj.y);
         if ((transform.position.x - 1.5f < obj.x && obj.x < transform.position.x + 1.5f) && (transform.position.y - 1.5f < obj.y && obj.y < transform.position.y + 1.5f))
         {
-
+            enterButton.SetActive(false);
             switch (gameObject.name)
             {
                 case "Industrial Park":
@@ -102,6 +145,7 @@ public class Location : MonoBehaviour
             }
         }
     }
+
 
     public void AddResource()
     {
@@ -175,14 +219,14 @@ public class Location : MonoBehaviour
         {
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                melee = UnityEngine.Random.Range(1, maxDueLimit+1);
+                melee = UnityEngine.Random.Range(1, maxDueLimit + 1);
                 currentSumOfUnits += melee;
                 maxDueLimit -= melee;
             }
 
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                ranged = UnityEngine.Random.Range(1, maxDueLimit+1);
+                ranged = UnityEngine.Random.Range(1, maxDueLimit + 1);
                 currentSumOfUnits += ranged;
                 maxDueLimit -= ranged;
             }
@@ -192,7 +236,7 @@ public class Location : MonoBehaviour
 
                 if (maxDueLimit < 2)
                 {
-                    elite = UnityEngine.Random.Range(0, maxDueLimit+1);
+                    elite = UnityEngine.Random.Range(0, maxDueLimit + 1);
                 }
                 else
                 {
@@ -236,5 +280,6 @@ public class Location : MonoBehaviour
     {
         GameEventSystem.Instance.OnNewTurn -= AddResource;
         GameEventSystem.Instance.OnLocationCapture -= CapturedPrompt;
+        GameEventSystem.Instance.OnScoutBattle -= BattlePrompt;
     }
 }

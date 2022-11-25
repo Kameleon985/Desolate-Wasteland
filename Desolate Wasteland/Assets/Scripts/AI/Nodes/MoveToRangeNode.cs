@@ -27,7 +27,7 @@ public class MoveToRangeNode : Node
             {
                 if (Pathfinding.CalculateDistance(t, closest) <= enemy.attackRange && t.OccupiedUnit == null)
                 {
-                    Debug.Log("move to range");
+                    //Debug.Log("move to range");
                     enemy.Move(t);
                     //t.SetUnit(enemy);
                     //GridManager.Instance.ClearAStarTiles();

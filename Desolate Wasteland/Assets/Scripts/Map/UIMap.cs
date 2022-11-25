@@ -7,11 +7,18 @@ public class UIMap : MonoBehaviour
 {
     public Text movePoints;
     public Text potentialCost;
+    public GameObject canvas;
 
+
+    private void Awake()
+    {
+
+    }
     public void Start()
     {
         GameEventSystem.Instance.OnPlayerMovement += StatusUpdate;
         GameEventSystem.Instance.OnPlayerClick += CostUpdate;
+        //canvas.SetActive(false);
     }
 
     public void StatusUpdate()

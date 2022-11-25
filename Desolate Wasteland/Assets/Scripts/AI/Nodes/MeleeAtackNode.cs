@@ -14,7 +14,7 @@ public class MeleeAtackNode : Node
     {
         Transform hero = ai.GetClosestHero();
         GridManager.Instance.GetTileAtPosition(hero.position).OccupiedUnit.GetComponent<BaseHero>().takeDamage(MeleeEnemy.GetDamage());
-        Debug.Log("melee attack");
+        //Debug.Log("melee attack");
         BattleMenuMenager.instance.UpdateQueue();
         if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
         {

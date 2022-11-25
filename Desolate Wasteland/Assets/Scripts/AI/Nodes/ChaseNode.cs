@@ -18,7 +18,7 @@ public class ChaseNode : Node
     {
 
         Tile target = GridManager.Instance.GetTileAtPosition(ai.GetClosestHero().position);
-        Debug.Log("Chasin");
+        //Debug.Log("Chasin");
         gameObject.Chase(target);
 
         //BattleMenager.instance.ChangeState(GameState.HeroesTurn);

@@ -17,7 +17,7 @@ public class ShootNode : Node
     {
         Transform closest = ai.GetClosestHero();
         GridManager.Instance.GetTileAtPosition(closest.position).OccupiedUnit.GetComponent<BaseHero>().takeDamage(RangeEnemy.GetDamage());
-        Debug.Log("shot ");
+        //Debug.Log("shot ");
         BattleMenuMenager.instance.UpdateQueue();
         if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
         {

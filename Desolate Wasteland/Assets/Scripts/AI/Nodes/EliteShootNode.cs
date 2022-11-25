@@ -20,7 +20,7 @@ public class EliteShootNode : Node
         Transform closest = ai.GetClosestHero();
         GridManager.Instance.GetTileAtPosition(closest.position).OccupiedUnit.GetComponent<BaseHero>().takeDamage(EliteEnemy.GetDamage());
         enemy.ammo -= 1;
-        Debug.Log("elite shot");
+        //Debug.Log("elite shot");
         BattleMenuMenager.instance.UpdateQueue();
         if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
         {

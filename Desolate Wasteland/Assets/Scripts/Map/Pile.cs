@@ -15,8 +15,11 @@ public class Pile : MonoBehaviour
     {
         //Debug.Log("STARTED");
 
-        OnMapMessagePanel = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
-        promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        GameObject canvas = GameObject.Find("Canvas");
+        OnMapMessagePanel = canvas.transform.GetChild(0).gameObject;
+        promptText = OnMapMessagePanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+
+        //promptText = OnMapMessagePanel.GetComponentInChildren<TextMeshProUGUI>();
         grid = GameObject.Find("Grid").GetComponent<MapGrid>();
         GameEventSystem.Instance.OnPilePickup += AddResources;
     }

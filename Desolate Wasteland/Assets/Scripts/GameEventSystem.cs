@@ -9,6 +9,7 @@ public class GameEventSystem : MonoBehaviour
     public static GameEventSystem Instance;
 
     public int[] currentEnemies;
+    public GameObject location;
 
 
     private void Awake()
@@ -18,12 +19,14 @@ public class GameEventSystem : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
+        location = new GameObject();
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
 
     public event Action<GameObject> OnEnterLocation;
     public event Action<Vector2> OnLocationCapture;
+    public event Action<Vector2> OnScoutBattle;
     public void EnterLocation(GameObject location)
     {
 
@@ -50,15 +53,32 @@ public class GameEventSystem : MonoBehaviour
             //Debug.Log("Is already captured? " + location.GetComponent<Location>().GetCaptured());
             if (!location.GetComponent<Location>().GetCaptured())
             {
+                this.location = location;
+                /*
                 location.GetComponent<Location>().SetCaptured(true);
                 OnEnterLocation?.Invoke(location);
                 float[] l = { location.transform.position.x, location.transform.position.y };
                 SaveSerial.captured.Add(l, true);
                 SceneManager.LoadScene(location.name);
+                */
+                Vector2 v = new Vector2(location.transform.position.x, location.transform.position.y);
+                OnScoutBattle?.Invoke(v);
+
             }
         }
 
     }
+
+
+    public void ConfirmEnter()
+    {
+        location.GetComponent<Location>().SetCaptured(true);
+        OnEnterLocation?.Invoke(location);
+        float[] l = { location.transform.position.x, location.transform.position.y };
+        SaveSerial.captured.Add(l, true);
+        SceneManager.LoadScene(location.name);
+    }
+
     private void OnLevelWasLoaded(int level)
     {
         if (level == 0)
