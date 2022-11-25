@@ -90,7 +90,7 @@ public class Location : MonoBehaviour
 
     private void CapturedPrompt(Vector2 obj)
     {
-        Debug.Log(obj.x + "," + obj.y);
+        //Debug.Log(obj.x + "," + obj.y);
         if ((transform.position.x - 1.5f < obj.x && obj.x < transform.position.x + 1.5f) && (transform.position.y - 1.5f < obj.y && obj.y < transform.position.y + 1.5f))
         {
             enterButton.SetActive(false);
