@@ -41,7 +41,7 @@ public class MapGrid : MonoBehaviour
     void NewMap()
     {
         //Location tempLocation = gameObject.GetComponent<Location>();
-        GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20, 30);
+        GameObject factory = GenerateLocations(5, 5, 5, 5, 20, 20, 20, 20, 30);
         GenerateGrid();
         //SaveSerial.locations = Instantiate(locations);
 
@@ -65,6 +65,8 @@ public class MapGrid : MonoBehaviour
         SaveSerial.locationsType = new Dictionary<float[], string>();
         SaveSerial.captured = new Dictionary<float[], bool>();
         SaveSerial.locationsArmy = new Dictionary<float[], int[]>();
+
+        SaveSerial.locationsArmy.Add(new float[] { factory.transform.position.x, factory.transform.position.y }, factory.GetComponent<Location>().defendingArmy);
 
         var enumerator = locations.GetEnumerator();
         while (enumerator.MoveNext())
@@ -215,10 +217,10 @@ public class MapGrid : MonoBehaviour
 
     }
 
-    public void GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics, int chems)
+    public GameObject GenerateLocations(int scrapyards, int hydrophonics, int industrialParks, int shopingCenters, int metal, int electronics, int food, int plastics, int chems)
     {
 
-        GenerateCampFactory();
+        GameObject factory = GenerateCampFactory();
 
         for (int i = 0; i < scrapyards; i++)
         {
@@ -262,19 +264,22 @@ public class MapGrid : MonoBehaviour
         {
             var g = GeneratePile("Chems");
         }
-
+        return factory;
     }
 
-    public void GenerateCampFactory()
+    public GameObject GenerateCampFactory()
     {
         GameObject g = Instantiate(ChoosePrefab("Empty"));
 
-        g.transform.localScale = new Vector3(30, 30, 1);
-        GameObject factory = Instantiate(g, new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
+        //g.transform.localScale = new Vector3(30, 30, 1);
+        GameObject factory = Instantiate(ChoosePrefab("Battle"), new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
         factory.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.4f);
+        factory.transform.localScale = new Vector3(30, 30, 1);
         factory.name = "Factory";
         factory.transform.parent = gameObject.transform;
+        factory.GetComponent<Location>().generateDefendingArmy(20);
         locations.Add(factory.transform.position, factory);
+
 
         g.transform.localScale = new Vector3(20, 20, 1);
         GameObject camp = Instantiate(g, new Vector2(mapOriginCorner.x + 8, mapOriginCorner.y + 8), Quaternion.identity);
@@ -309,6 +314,7 @@ public class MapGrid : MonoBehaviour
             }
 
         }
+        return factory;
     }
 
     public GameObject GenerateLocation(string name)

@@ -175,10 +175,17 @@ public class GameEventSystem : MonoBehaviour
 
     }
 
+    public event Action OnNewWeek;
+
+
     public event Action OnNewTurn;
 
     public void NewTurn()
     {
+        if (SaveSerial.CurrentRound % 7 == 0 && SaveSerial.CurrentRound != 0)
+        {
+            OnNewWeek?.Invoke();
+        }
         //GridManager.Instance.ClearAllHighlightTiles();
         //GridManager.Instance.ClearAStarTiles();
         OnNewTurn?.Invoke();

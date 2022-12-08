@@ -39,6 +39,7 @@ public class Location : MonoBehaviour
         GameEventSystem.Instance.OnNewTurn += AddResource;
         GameEventSystem.Instance.OnLocationCapture += CapturedPrompt;
         GameEventSystem.Instance.OnScoutBattle += BattlePrompt;
+        GameEventSystem.Instance.OnNewWeek += updateArmyDuePassingTurns;
         for (int i = 0; i < defendingArmy.Length; i++)
         {
             //Debug.Log(defendingArmy[i] + " number of enemy [" + i + "] for location " + gameObject.name);
@@ -219,14 +220,14 @@ public class Location : MonoBehaviour
         {
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                melee = UnityEngine.Random.Range(1, maxDueLimit + 1);
+                melee += UnityEngine.Random.Range(1, maxDueLimit + 1);
                 currentSumOfUnits += melee;
                 maxDueLimit -= melee;
             }
 
             if (currentSumOfUnits < limitSumOfUnits)
             {
-                ranged = UnityEngine.Random.Range(1, maxDueLimit + 1);
+                ranged += UnityEngine.Random.Range(1, maxDueLimit + 1);
                 currentSumOfUnits += ranged;
                 maxDueLimit -= ranged;
             }
@@ -236,11 +237,11 @@ public class Location : MonoBehaviour
 
                 if (maxDueLimit < 2)
                 {
-                    elite = UnityEngine.Random.Range(0, maxDueLimit + 1);
+                    elite += UnityEngine.Random.Range(0, maxDueLimit + 1);
                 }
                 else
                 {
-                    elite = UnityEngine.Random.Range(0, 2);
+                    elite += UnityEngine.Random.Range(0, 2);
                 }
                 currentSumOfUnits += elite;
                 maxDueLimit -= elite;
@@ -258,8 +259,10 @@ public class Location : MonoBehaviour
 
     private void updateArmyDuePassingTurns()
     {
-        if (SaveSerial.CurrentRound >= 1 && defendingArmy != null && defendingArmy[0] != 1)
+        Debug.Log("Army added to " + this.gameObject.name);
+        if (SaveSerial.CurrentRound >= 1 && !gameObject.name.Equals("Camp") && defendingArmy != null && defendingArmy[0] != 1)
         {
+
             if (SaveSerial.CurrentRound % 7 == 0)
             {
                 defendingArmy[0] += 1;
