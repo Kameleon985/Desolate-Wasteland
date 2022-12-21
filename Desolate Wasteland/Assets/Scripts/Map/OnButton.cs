@@ -17,6 +17,7 @@ public class OnButton : MonoBehaviour
 
     public void EnterBattle()
     {
+        GameEventSystem.Instance.ConfirmEnter();
         /*
         location.GetComponent<Location>().SetCaptured(true);
         OnEnterLocation?.Invoke(location);

@@ -213,7 +213,7 @@ public class MapMovement : MonoBehaviour
             movePoints -= 1;
             GameEventSystem.Instance.PlayerMovement(movePoints);
             GameEventSystem.Instance.EnterLocation(atLocation);
-            GameEventSystem.Instance.EnterBattle(atLocation.GetComponent<Location>().defendingArmy);
+            GameEventSystem.Instance.EnterBattle(atLocation.GetComponent<Location>().GetDefendingArmy());
 
         }
         else if (moving == false && atPile != null && movePoints >= 1)

@@ -210,7 +210,7 @@ public class GameEventSystem : MonoBehaviour
     public void EnterBattle(int[] enemies)
     {
         currentEnemies = new int[3];
-        //OnEnterBattle?.Invoke(enemies);
+        OnEnterBattle?.Invoke(enemies);
         for (int i = 0; i < enemies.Length; i++)
         {
             currentEnemies[i] = enemies[i];

@@ -15,6 +15,21 @@ public class Location : MonoBehaviour
 
     public int[] defendingArmy;
 
+
+    public void SetDefendingArmy(int[] army)
+    {
+        defendingArmy = new int[army.Length];
+        for (int i = 0; i < army.Length; i++)
+        {
+            defendingArmy[i] = army[i];
+        }
+    }
+
+    public int[] GetDefendingArmy()
+    {
+        return defendingArmy;
+    }
+
     public void SetCaptured(bool b)
     {
         captured = b;

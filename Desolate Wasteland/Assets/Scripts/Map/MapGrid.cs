@@ -66,7 +66,7 @@ public class MapGrid : MonoBehaviour
         SaveSerial.captured = new Dictionary<float[], bool>();
         SaveSerial.locationsArmy = new Dictionary<float[], int[]>();
 
-        SaveSerial.locationsArmy.Add(new float[] { factory.transform.position.x, factory.transform.position.y }, factory.GetComponent<Location>().defendingArmy);
+        SaveSerial.locationsArmy.Add(new float[] { factory.transform.position.x, factory.transform.position.y }, factory.GetComponent<Location>().GetDefendingArmy());
 
         var enumerator = locations.GetEnumerator();
         while (enumerator.MoveNext())
@@ -112,10 +112,12 @@ public class MapGrid : MonoBehaviour
                 //Debug.Log("hydro saved");
             }
         }
+        SaveSerial.locationsArmy.Add(new float[] { factory.transform.position.x, factory.transform.position.y }, factory.GetComponent<Location>().GetDefendingArmy());
     }
 
     public void Load()
     {
+
         GenerateCampFactory();
         var dict = SaveSerial.terrain;
         var enumerator = dict.GetEnumerator();
@@ -141,12 +143,13 @@ public class MapGrid : MonoBehaviour
         }
 
         var dictLoc = SaveSerial.locationsType;
-        var dictLocArmy = SaveSerial.locationsArmy;
 
         //TODO wczytywanie armii
+        var xd = SaveSerial.locationsArmy.GetEnumerator();
         var enumeratorLocs = dictLoc.GetEnumerator();
         while (enumeratorLocs.MoveNext())
         {
+            xd.MoveNext();
             //GameObject g = Instantiate(pile, loc, Quaternion.identity);
             var x = enumeratorLocs.Current.Key[0];
             var y = enumeratorLocs.Current.Key[1];
@@ -171,6 +174,8 @@ public class MapGrid : MonoBehaviour
                     break;
                 }
             }
+            locLoad.GetComponent<Location>().SetDefendingArmy(xd.Current.Value);
+
             //Debug.Log(locLoad.name);
             locations.Add(locLoad.transform.position, locLoad);
 
@@ -278,6 +283,7 @@ public class MapGrid : MonoBehaviour
         factory.name = "Factory";
         factory.transform.parent = gameObject.transform;
         factory.GetComponent<Location>().generateDefendingArmy(20);
+
         locations.Add(factory.transform.position, factory);
 
 
