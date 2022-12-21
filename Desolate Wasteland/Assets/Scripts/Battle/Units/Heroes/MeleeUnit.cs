@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,11 +16,12 @@ public class MeleeUnit : BaseHero
     public static int currentHealth = 25;  
 
     int movementSpeed;
+
     public static int initiative = 10;
 
     public static int attackDamage = 10;
 
-    static int quantity = SaveSerial.MeleeUnit; //To read from SaveSerial PlayerArmy
+    public static int quantity = SaveSerial.MeleeUnit; //To read from SaveSerial PlayerArmy
 
     public static bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     public static bool buffBGiven = false; //Attack buff ?
@@ -34,7 +36,8 @@ public class MeleeUnit : BaseHero
 
     public int getAttackDamage()
     {
-        return attackDamage;
+        Debug.Log("Melee dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
+        return Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10));
     }
 
     public SpriteRenderer GetSpriteRenderer()

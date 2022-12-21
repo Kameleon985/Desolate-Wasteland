@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,8 +33,9 @@ public class RangedUnit : BaseHero
 	
 	public int getAttackDamage()
     {
-        return attackDamage;
-	}
+        Debug.Log("Ranged dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
+        return Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10));
+    }
 
     public override int getInitiative()
     {

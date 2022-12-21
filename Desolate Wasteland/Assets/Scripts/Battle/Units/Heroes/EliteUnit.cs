@@ -13,7 +13,7 @@ public class EliteUnit : BaseHero
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
     static int currentHealth = 40;
-    public static int meleeDamage = 10;
+    public static int meleeDamage = 14;
     int movementSpeed;
     public static int initiative = 8;
 
@@ -37,12 +37,14 @@ public class EliteUnit : BaseHero
 
     public int getAttackDamage()
     {
-        return meleeDamage;
+        Debug.Log("Elite dmg melee: " + Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10)) + " q:"+quantity+" baseDmg:"+meleeDamage);
+        return Convert.ToInt32(meleeDamage+meleeDamage*((double)quantity /10));
     }
 
     public int getRangeDamage()
     {
-        return rangeDamage;
+        Debug.Log("Elite dmg ranged: " + Convert.ToInt32(rangeDamage + rangeDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + rangeDamage);
+        return Convert.ToInt32(rangeDamage + rangeDamage * ((double)quantity / 10));
     }
 
     public int getAmmo()

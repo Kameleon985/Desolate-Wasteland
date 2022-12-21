@@ -282,7 +282,8 @@ public class MapGrid : MonoBehaviour
         factory.transform.localScale = new Vector3(30, 30, 1);
         factory.name = "Factory";
         factory.transform.parent = gameObject.transform;
-        factory.GetComponent<Location>().generateDefendingArmy(20);
+        factory.GetComponent<Location>().defendingArmy = new int[] { 15, 10, 10 };
+        //factory.GetComponent<Location>().generateDefendingArmy(20);
 
         locations.Add(factory.transform.position, factory);
 
