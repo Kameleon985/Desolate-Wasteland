@@ -46,7 +46,10 @@ public class GameEventSystem : MonoBehaviour
         else if (location.name == "Random")
         {
             OnEnterLocation?.Invoke(location);
-            SceneManager.LoadScene("Random");
+            GameObject g = new GameObject("random");
+            g.AddComponent<Location>();
+            EnterBattle(g.GetComponent<Location>().generateDefendingArmy(10));
+            SceneManager.LoadScene("Battle");
         }
         else
         {

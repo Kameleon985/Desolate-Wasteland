@@ -76,11 +76,11 @@ public class MapMovement : MonoBehaviour
                 if (encouterTimer > 1)
                 {
                     encouterTimer = 0;
-                    /*if (EncounterCheck())
+                    if (EncounterCheck())
                     {
                         atLocation = new GameObject("Random");
                         GameEventSystem.Instance.EnterLocation(atLocation);
-                    }*/
+                    }
                 }
             }
             if (Input.GetMouseButtonDown(0) && !mouseOver && !isMouseOverButtons)  //Lewy przycik Myszy
