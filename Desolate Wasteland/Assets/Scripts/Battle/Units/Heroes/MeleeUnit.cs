@@ -93,17 +93,19 @@ public class MeleeUnit : BaseHero
 
     internal static void Hungry()
     {
-        if (feedness > 0)
+        if(quantity > 0)
         {
-            feedness -= 1;
-            Debug.Log("MU feedness: " + feedness);
+            if (feedness > 0)
+            {
+                feedness -= 1;
+                Debug.Log("MU feedness: " + feedness);
+            }
+            else if (feedness <= 0)
+            {
+                dealDamage(5);
+                Debug.Log("MU health decreased due to hunger, current: " + currentHealth);
+            }
         }
-        else if (feedness <= 0)
-        {
-            dealDamage(5);
-            Debug.Log("MU health decreased due to hunger, current: " + currentHealth);
-        }
-
     }
 
     internal static void Feed()

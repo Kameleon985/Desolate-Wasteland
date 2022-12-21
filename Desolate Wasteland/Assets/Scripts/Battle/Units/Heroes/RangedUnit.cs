@@ -77,16 +77,19 @@ public class RangedUnit : BaseHero
 
     internal static void Hungry()
     {
-        if (feedness > 0)
+        if(quantity > 0)
         {
-            feedness -= 1;
-            Debug.Log("RU feedness: " + feedness);
-        }
-        else if (feedness <= 0)
-        {
-            dealDamage(5);
-            Debug.Log("RU health decreased due to hunger, current: " + currentHealth);
-        }
+            if (feedness > 0)
+            {
+                feedness -= 1;
+                Debug.Log("RU feedness: " + feedness);
+            }
+            else if (feedness <= 0)
+            {
+                dealDamage(5);
+                Debug.Log("RU health decreased due to hunger, current: " + currentHealth);
+            }
+        }        
 
     }
 

@@ -380,7 +380,7 @@ public class UICamp : MonoBehaviour
     {
         if (!HydroponicsBuild)
         {
-            roundTracker.isHydroponicsBuilt = false;
+            //roundTracker.isHydroponicsBuilt = false;
 
             bool sufficientScrap = false;
             bool sufficientPlastic = false;
@@ -405,7 +405,7 @@ public class UICamp : MonoBehaviour
                 HydroponicsBuild = true;
                 SaveSerial.HydroponicsBuild = HydroponicsBuild;
                 buildHydroponicsButton.interactable = false;
-                roundTracker.isHydroponicsBuilt = true;
+                //roundTracker.isHydroponicsBuilt = true;
                 hydroponicsImage.SetActive(true);
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
@@ -420,7 +420,7 @@ public class UICamp : MonoBehaviour
         else
         {
             buildHydroponicsButton.interactable = false;
-            roundTracker.isHydroponicsBuilt = true;
+            //roundTracker.isHydroponicsBuilt = true;
             hydroponicsImage.SetActive(true);
         }
 

@@ -7,10 +7,15 @@ public class RoundTracker : MonoBehaviour
 {
     public ArmyHandler armyHandler;
     public ResourcesHandler resourcesHandler;
-    public bool isHydroponicsBuilt = false;
+    private bool passedAtleastOnce = false;
+    //public bool isHydroponicsBuilt = false;
 
     public void IncrementRound()
     {
+        if (!passedAtleastOnce)
+        {
+            Debug.Log("RoundTracker incrementRound() has not been called before");
+        }
         //TempPlayerData.CurrentRound++;
         //UIUpdate.Instance.UpdateRound(TempPlayerData.CurrentRound);
 
@@ -18,22 +23,38 @@ public class RoundTracker : MonoBehaviour
         UIUpdate.Instance.UpdateRound(SaveSerial.CurrentRound);
         GameEventSystem.Instance.NewTurn();
         GameEventSystem.Instance.PlayerMovement(10);
-
-        if (SceneManager.GetActiveScene().name.Equals("Camp"))
+        if (passedAtleastOnce)
         {
-            if (SaveSerial.CurrentRound % 7 == 0)
+            GameEventSystem.Instance.OnNewTurn += increaseResourcesDueToBuildings;
+        }
+
+
+        //WARNING THIS HAS TO BE AT THE END OF THE METHOD!
+        passedAtleastOnce = true;
+
+
+
+        /*if (SceneManager.GetActiveScene().name.Equals("Camp"))
+        {
+            *//*if (SaveSerial.CurrentRound % 7 == 0)
             {
                 armyHandler.campIncrease();
 
-            }
+            }*//*
 
             armyHandler.ArmyCostPerTurn();
             if (isHydroponicsBuilt)
             {
                 resourcesHandler.AddVitals(3);
             }
+        }*/
+    }
+
+    public void increaseResourcesDueToBuildings()
+    {
+        if (SaveSerial.HydroponicsBuild)
+        {
+            resourcesHandler.AddVitals(3);
         }
-
-
     }
 }

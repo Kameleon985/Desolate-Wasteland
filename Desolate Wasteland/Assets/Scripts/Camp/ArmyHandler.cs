@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class ArmyHandler : MonoBehaviour
 {
+    public void Start()
+    {
+        GameEventSystem.Instance.OnNewWeek += campIncrease;
+        GameEventSystem.Instance.OnNewTurn += ArmyCostPerTurn;
+    }
+
     public void campIncrease()
     {
         if (SaveSerial.BarracksBuild)
         {
             SaveSerial.CampMeleeUnit += 3; //To Determine
-            UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit+"";
+            UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit + "";
         }
         if (SaveSerial.ShootingRangeBuild)
         {

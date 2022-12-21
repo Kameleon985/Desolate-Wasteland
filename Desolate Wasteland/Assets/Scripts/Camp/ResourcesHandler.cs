@@ -7,7 +7,7 @@ public class ResourcesHandler : MonoBehaviour
 
     public void AddVitals(int number)
     {
-
+        Debug.Log("Vitals increase, was:" + SaveSerial.Vitals + ", increase by:" + number);
         SaveSerial.Vitals += number;
         UIUpdate.Instance.SetVitals(SaveSerial.Vitals);
 
