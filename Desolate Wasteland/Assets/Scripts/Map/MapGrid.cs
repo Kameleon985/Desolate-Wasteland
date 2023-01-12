@@ -144,13 +144,12 @@ public class MapGrid : MonoBehaviour
 
         var dictLoc = SaveSerial.locationsType;
 
-        //TODO wczytywanie armii
-        var xd = SaveSerial.locationsArmy.GetEnumerator();
+        var enumeratorArmy = SaveSerial.locationsArmy.GetEnumerator();
         var enumeratorLocs = dictLoc.GetEnumerator();
         while (enumeratorLocs.MoveNext())
         {
-            xd.MoveNext();
-            //GameObject g = Instantiate(pile, loc, Quaternion.identity);
+            enumeratorArmy.MoveNext();
+
             var x = enumeratorLocs.Current.Key[0];
             var y = enumeratorLocs.Current.Key[1];
             enumeratorLocs.MoveNext();
@@ -162,7 +161,9 @@ public class MapGrid : MonoBehaviour
             enumeratorLocs.MoveNext();
             x += enumeratorLocs.Current.Key[0];
             y += enumeratorLocs.Current.Key[1];
-            var locLoad = Instantiate(ChoosePrefab(enumeratorLocs.Current.Value), new Vector2(x / 4, y / 4), Quaternion.identity);
+            var locLoad = Instantiate(ChoosePrefab(enumeratorLocs.Current.Value),
+                new Vector2(x / 4, y / 4),
+                Quaternion.identity);
             locLoad.name = enumeratorLocs.Current.Value;
             locLoad.transform.parent = gameObject.transform;
             var en = SaveSerial.captured.GetEnumerator();
@@ -174,9 +175,8 @@ public class MapGrid : MonoBehaviour
                     break;
                 }
             }
-            locLoad.GetComponent<Location>().SetDefendingArmy(xd.Current.Value);
+            locLoad.GetComponent<Location>().SetDefendingArmy(enumeratorArmy.Current.Value);
 
-            //Debug.Log(locLoad.name);
             locations.Add(locLoad.transform.position, locLoad);
 
         }
