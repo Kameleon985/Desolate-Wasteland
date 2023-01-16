@@ -8,7 +8,7 @@ public class MapGrid : MonoBehaviour
 
     [SerializeField] private SpriteRenderer map;
 
-    [SerializeField] private GameObject Hydrophonics, Scrapyard, Industrial_Park, Shoping_Center;
+    [SerializeField] private GameObject Hydrophonics, Scrapyard, Industrial_Park, Shoping_Center, Camp, Factory;
 
     [SerializeField] private GameObject Metal, Plastics, Food, Chems, Electronics;
 
@@ -274,12 +274,12 @@ public class MapGrid : MonoBehaviour
 
     public GameObject GenerateCampFactory()
     {
-        GameObject g = Instantiate(ChoosePrefab("Empty"));
+        //GameObject g = Instantiate();
 
         //g.transform.localScale = new Vector3(30, 30, 1);
-        GameObject factory = Instantiate(ChoosePrefab("Battle"), new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
-        factory.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.4f);
-        factory.transform.localScale = new Vector3(30, 30, 1);
+        GameObject factory = Instantiate(ChoosePrefab("Factory"), new Vector2((mapFarCorner.x + mapOriginCorner.x) / 4, (mapFarCorner.y + mapOriginCorner.y) / 2), Quaternion.identity);
+        //factory.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.4f);
+        //factory.transform.localScale = new Vector3(30, 30, 1);
         factory.name = "Factory";
         factory.transform.parent = gameObject.transform;
         factory.GetComponent<Location>().defendingArmy = new int[] { 15, 10, 10 };
@@ -288,14 +288,15 @@ public class MapGrid : MonoBehaviour
         locations.Add(factory.transform.position, factory);
 
 
-        g.transform.localScale = new Vector3(20, 20, 1);
-        GameObject camp = Instantiate(g, new Vector2(mapOriginCorner.x + 8, mapOriginCorner.y + 8), Quaternion.identity);
-        camp.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.2f, 0.4f);
+
+        GameObject camp = Instantiate(ChoosePrefab("Camp"), new Vector2(mapOriginCorner.x + 8, mapOriginCorner.y + 8), Quaternion.identity);
+        //camp.transform.localScale = new Vector3(20, 20, 1);
+        //camp.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.2f, 0.4f);
         camp.name = "Camp";
         camp.transform.parent = gameObject.transform;
         locations.Add(camp.transform.position, camp);
 
-        Destroy(g);
+        //Destroy(g);
 
         locations.Add(new Vector2(camp.transform.position.x + 1, camp.transform.position.y), camp);
         locations.Add(new Vector2(camp.transform.position.x, camp.transform.position.y + 1), camp);
@@ -390,7 +391,7 @@ public class MapGrid : MonoBehaviour
         {
             case "Hydrophonics":
                 return Hydrophonics;
-            case "Industrain Park":
+            case "Industrial Park":
                 return Industrial_Park;
             case "Shoping Center":
                 return Shoping_Center;
@@ -406,6 +407,10 @@ public class MapGrid : MonoBehaviour
                 return Metal;
             case "Plastics":
                 return Plastics;
+            case "Factory":
+                return Factory;
+            case "Camp":
+                return Camp;
         }
         return Hydrophonics;
     }

@@ -6355,7 +6355,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 12}
+    oldSize: {x: 20.48, y: 20.48}
     newSize: {x: 16, y: 12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6363,10 +6363,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -7.898542, y: 5.895131}
-      - {x: -7.904777, y: -5.8928676}
-      - {x: 7.9034624, y: -5.904656}
-      - {x: 7.896452, y: 5.897914}
+    - - {x: -10.239403, y: 10.248449}
+      - {x: -10.235401, y: -10.245741}
+      - {x: 10.238983, y: -10.237282}
+      - {x: 10.240248, y: 10.2408695}
 --- !u!212 &1586581763
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6406,7 +6406,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7534707723d40134b8ab43cddc369618, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7bbd797508c94c45b27affb765dc97b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7258,6 +7258,8 @@ MonoBehaviour:
     type: 3}
   Shoping_Center: {fileID: 8788581367237090882, guid: 99c5b18d258ef3847b09ca19ef8a11ea,
     type: 3}
+  Camp: {fileID: 1091693559357762127, guid: a319bef9e8452f64b8d6aefbf9d2484f, type: 3}
+  Factory: {fileID: 8025375484839369094, guid: ceef7b66a04d48e4b8871fdcde4c91bd, type: 3}
   Metal: {fileID: 5896222699731678626, guid: 4a8acbc8f7082b2428f3fac09f5eaf75, type: 3}
   Plastics: {fileID: 880024857817017464, guid: 1580e2a14795415408b575cabccdf732, type: 3}
   Food: {fileID: 8742526868337619203, guid: f58c124789f12884586603b83a5c7db8, type: 3}
@@ -8064,7 +8066,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armyHandler: {fileID: 0}
   resourcesHandler: {fileID: 1813095267}
-  isHydroponicsBuilt: 0
 --- !u!114 &1813095266
 MonoBehaviour:
   m_ObjectHideFlags: 0

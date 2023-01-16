@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c550f7c37061794dab92e9b399768ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 0.8078432, g: 0.7411765, b: 0.62352943, a: 0.5254902}
+  baseColor: {r: 0.8078432, g: 0.7411765, b: 0.62352943, a: 0}
   renderer: {fileID: 4814959003951007059}
 --- !u!1001 &1942499604224825424
 PrefabInstance:
@@ -29,6 +29,11 @@ PrefabInstance:
     - target: {fileID: 2595611245757253132, guid: aa4bb251263e74947845d26b291440c7,
         type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352061936304774403, guid: aa4bb251263e74947845d26b291440c7,
+        type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6460675181048806125, guid: aa4bb251263e74947845d26b291440c7,
