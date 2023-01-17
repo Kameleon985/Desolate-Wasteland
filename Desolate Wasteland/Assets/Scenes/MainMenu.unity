@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5956692b63c6b4e4c93b980748a6763d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3f33280736fe19040bdd5dea803e7061, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1021,8 +1021,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveNameInputField: {fileID: 0}
   rowTemplate: {fileID: 1895432245}
-  saveBtn: {fileID: 0}
-  delBtn: {fileID: 0}
   saveFilesFullPath: []
   saveFilesJustNames: []
   saveFilesNamesAndDates: []
@@ -3086,7 +3084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.1981132, g: 0.096274115, b: 0.027100397, a: 0.47058824}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

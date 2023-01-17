@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2576284105413337694}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 666.0208, y: 355.15555, z: -1563.6154}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 3742125823291468380}
   m_Father: {fileID: 0}
@@ -73,9 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
-  m_Color: {r: 1, g: 0.55344284, b: 0, a: 1}
-  m_FlipX: 0
+  m_Sprite: {fileID: 21300000, guid: 5c8c6d0a617c24246a1a5b88269febec, type: 3}
+  m_Color: {r: 0.93092996, g: 1, b: 0.4198113, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -99,6 +99,7 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitName: RangeEnemy
+  quantity: 1
   sr: {fileID: 9137449378593330969}
   unitCounter: {fileID: 5391407529348887391}
   attackRange: 50

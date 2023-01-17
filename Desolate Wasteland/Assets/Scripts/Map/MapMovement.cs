@@ -76,7 +76,7 @@ public class MapMovement : MonoBehaviour
                 if (encouterTimer > 1)
                 {
                     encouterTimer = 0;
-                    if (EncounterCheck())
+                    if (false)
                     {
                         atLocation = new GameObject("Random");
                         GameEventSystem.Instance.EnterLocation(atLocation);

@@ -6,51 +6,44 @@ public class ArmyHandler : MonoBehaviour
 {
     public void Start()
     {
-        GameEventSystem.Instance.OnNewWeek += campIncrease;
-        GameEventSystem.Instance.OnNewTurn += ArmyCostPerTurn;
+        //GameEventSystem.Instance.OnNewWeek += campIncrease;
+        //GameEventSystem.Instance.OnNewTurn += ArmyCostPerTurn;
+    }
+    private void OnDestroy()
+    {
+        //GameEventSystem.Instance.OnNewWeek -= campIncrease;
+        //GameEventSystem.Instance.OnNewTurn -= ArmyCostPerTurn;
     }
 
-    public void campIncrease()
+
+
+    public static void BarrackBuiltIncrease()
     {
         if (SaveSerial.BarracksBuild)
         {
             SaveSerial.CampMeleeUnit += 3; //To Determine
-            UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit + "";
-        }
-        if (SaveSerial.ShootingRangeBuild)
-        {
-            SaveSerial.CampRangeUnit += 2; //To Determine
-            UICamp.Instance.campRangeAmount.text = SaveSerial.CampRangeUnit + "";
-        }
-        if (SaveSerial.ArmoryBuild)
-        {
-            SaveSerial.CampEliteUnit += 1; //To Determine
-            UICamp.Instance.campEliteAmount.text = SaveSerial.CampEliteUnit + "";
-        }
-    }    
-
-    public void BarrackBuiltIncrease()
-    {
-        if (SaveSerial.BarracksBuild)
-        {
-            SaveSerial.CampMeleeUnit += 3; //To Determine
-            UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit + "";
+            if (UICamp.Instance != null)
+            {
+                UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit + "";
+            }
         }
     }
-    public void ShootingRangeBuiltIncrease()
+    public static void ShootingRangeBuiltIncrease()
     {
         if (SaveSerial.ShootingRangeBuild)
         {
             SaveSerial.CampRangeUnit += 2; //To Determine
-            UICamp.Instance.campRangeAmount.text = SaveSerial.CampRangeUnit + "";
+            if (UICamp.Instance != null)
+                UICamp.Instance.campRangeAmount.text = SaveSerial.CampRangeUnit + "";
         }
     }
-    public void ArmoryBuiltIncrease()
+    public static void ArmoryBuiltIncrease()
     {
         if (SaveSerial.ArmoryBuild)
         {
             SaveSerial.CampEliteUnit += 1; //To Determine
-            UICamp.Instance.campEliteAmount.text = SaveSerial.CampEliteUnit + "";
+            if (UICamp.Instance != null)
+                UICamp.Instance.campEliteAmount.text = SaveSerial.CampEliteUnit + "";
         }
     }
 
@@ -64,7 +57,8 @@ public class ArmyHandler : MonoBehaviour
             SaveSerial.CampMeleeUnit -= amount;
             UICamp.Instance.campMeleeAmount.text = SaveSerial.CampMeleeUnit + "";
             UICamp.Instance.MeleeAmount.text = SaveSerial.MeleeUnit + "";
-        } else if (armyType.Equals("Range"))
+        }
+        else if (armyType.Equals("Range"))
         {
             SaveSerial.RangeUnit += amount;
             Debug.Log("Transferred " + amount + " of Ranged Units");
@@ -79,12 +73,14 @@ public class ArmyHandler : MonoBehaviour
             SaveSerial.CampEliteUnit -= amount;
             UICamp.Instance.campEliteAmount.text = SaveSerial.CampEliteUnit + "";
             UICamp.Instance.EliteAmount.text = SaveSerial.EliteUnit + "";
-        } else {
-            Debug.LogError("Unknown army type in transfer attempt: ["+ armyType+"]");
+        }
+        else
+        {
+            Debug.LogError("Unknown army type in transfer attempt: [" + armyType + "]");
         }
     }
 
-    public void ArmyCostPerTurn()
+    public static void ArmyCostPerTurn()
     {
         //for each 3 melee units eat 1 vitals
         //for each 2 range units eat 1 vitals
@@ -95,42 +91,42 @@ public class ArmyHandler : MonoBehaviour
         int eliteSoldiersAmount = SaveSerial.EliteUnit;
         int toEat = 0;
 
-        for(int i = 0; i <= meleeSoldiersAmount; i += 3)
+        for (int i = 0; i <= meleeSoldiersAmount; i += 3)
         {
             //toEat++;
             //Debug.Log("meleeEat i:"+i);
             //Debug.Log("ToEat: "+toEat);
-            if(i % 3 == 0 && i!=0)
+            if (i % 3 == 0 && i != 0)
             {
                 //Debug.Log("meleeEat i-1: " + i);
-                
+
                 toEat++;
 
                 //Debug.Log("Melee toEat: " + toEat);
             }
         }
-        for(int i = 0; i <= rangeSoldiersAmount; i += 2)
+        for (int i = 0; i <= rangeSoldiersAmount; i += 2)
         {
-            if(i % 2 == 0 && i!=0)
+            if (i % 2 == 0 && i != 0)
             {
                 toEat++;
                 //Debug.Log("Range toEat: " + toEat);
             }
         }
 
-        for(int i = 0; i < eliteSoldiersAmount; i++)
+        for (int i = 0; i < eliteSoldiersAmount; i++)
         {
             Debug.Log(i);
-            if(eliteSoldiersAmount > 0)
+            if (eliteSoldiersAmount > 0)
             {
                 toEat++;
                 //Debug.Log("Elite toEat: " + toEat);
-            }            
+            }
         }
         int tempResult = SaveSerial.Vitals - toEat;
-        Debug.Log("This turn cost equals: " + toEat + " M: "+SaveSerial.Vitals+" = "+tempResult);
+        Debug.Log("This turn cost equals: " + toEat + " M: " + SaveSerial.Vitals + " = " + tempResult);
         SaveSerial.Vitals -= toEat;
-        if (toEat > 0 && SaveSerial.Vitals < toEat) 
+        if (toEat > 0 && SaveSerial.Vitals < toEat)
         {
             //inflict penalty
             MeleeUnit.Hungry();

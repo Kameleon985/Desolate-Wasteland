@@ -258,7 +258,7 @@ public class UICamp : MonoBehaviour
                 BarracksBuild = true;
                 SaveSerial.BarracksBuild = BarracksBuild;
                 buildBarracksButton.interactable = false;
-                armyHandler.BarrackBuiltIncrease();
+                ArmyHandler.BarrackBuiltIncrease();
                 barracksImage.SetActive(true);
 
 
@@ -309,7 +309,7 @@ public class UICamp : MonoBehaviour
                 ShootingRangeBuild = true;
                 SaveSerial.ShootingRangeBuild = ShootingRangeBuild;
                 buildShootingRangeButton.interactable = false;
-                armyHandler.ShootingRangeBuiltIncrease();
+                ArmyHandler.ShootingRangeBuiltIncrease();
                 shootingRangeImage.SetActive(true);
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)
@@ -356,7 +356,7 @@ public class UICamp : MonoBehaviour
                 ArmoryBuild = true;
                 SaveSerial.ArmoryBuild = ArmoryBuild;
                 buildArmoryButton.interactable = false;
-                armyHandler.ArmoryBuiltIncrease();
+                ArmyHandler.ArmoryBuiltIncrease();
                 armoryImage.SetActive(true);
             }
             else if (!sufficientScrap || !sufficientPlastic || !sufficientElectronics)

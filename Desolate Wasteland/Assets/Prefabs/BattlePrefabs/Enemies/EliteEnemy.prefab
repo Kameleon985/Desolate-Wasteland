@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4537076171721428846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.423879, y: -2.832573, z: -1563.6154}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 3375608033670809452}
   m_Father: {fileID: 0}
@@ -73,9 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3caef4bb34dc81048b6a828f65fe8abb, type: 3}
-  m_Color: {r: 0.754717, g: 0, b: 0.57500875, a: 1}
-  m_FlipX: 0
+  m_Sprite: {fileID: 21300000, guid: cce75d42619f1f24bb75d0bd971416e7, type: 3}
+  m_Color: {r: 0.9150943, g: 0.63908166, b: 0.26330543, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -99,6 +99,7 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitName: EliteEnemy
+  quantity: 1
   sr: {fileID: 7203683315618331177}
   unitCounter: {fileID: 6333189820932234863}
   attackRange: 50

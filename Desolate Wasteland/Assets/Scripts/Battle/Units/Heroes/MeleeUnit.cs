@@ -13,7 +13,7 @@ public class MeleeUnit : BaseHero
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    public static int currentHealth = 25;  
+    public static int currentHealth = 25;
 
     int movementSpeed;
 
@@ -74,8 +74,8 @@ public class MeleeUnit : BaseHero
                 SaveSerial.MeleeUnit = quantity;
                 Debug.Log("Unit died, only " + quantity + " units left");
 
-
-                //UICamp.Instance.updatePlayerArmy();
+                if (UICamp.Instance != null)
+                    UICamp.Instance.updatePlayerArmy();
 
 
                 if (quantity <= 0)
@@ -93,7 +93,7 @@ public class MeleeUnit : BaseHero
 
     internal static void Hungry()
     {
-        if(quantity > 0)
+        if (quantity > 0)
         {
             if (feedness > 0)
             {
@@ -116,7 +116,7 @@ public class MeleeUnit : BaseHero
             Debug.Log("MeleeUnits are feed from hunger currently: " + feedness);
             if (currentHealth < maxHealth)
             {
-                if(maxHealth - currentHealth < 5)
+                if (maxHealth - currentHealth < 5)
                 {
                     currentHealth = maxHealth;
                 }
@@ -138,7 +138,7 @@ public class MeleeUnit : BaseHero
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
     }
 
-	public override void takeDamage(int dmg)
+    public override void takeDamage(int dmg)
     {
         if (quantity > 0)
         {

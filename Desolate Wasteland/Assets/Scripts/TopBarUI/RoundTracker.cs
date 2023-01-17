@@ -10,12 +10,22 @@ public class RoundTracker : MonoBehaviour
     private bool passedAtleastOnce = false;
     //public bool isHydroponicsBuilt = false;
 
+    private void Awake()
+    {
+        GameEventSystem.Instance.OnNewTurn += increaseResourcesDueToBuildings;
+        GameEventSystem.Instance.OnNewWeek += campIncrease;
+        GameEventSystem.Instance.OnNewTurn += ArmyHandler.ArmyCostPerTurn;
+    }
+
+    public static void campIncrease()
+    {
+        ArmyHandler.BarrackBuiltIncrease();
+        ArmyHandler.ShootingRangeBuiltIncrease();
+        ArmyHandler.ArmoryBuiltIncrease();
+    }
+
     public void IncrementRound()
     {
-        if (!passedAtleastOnce)
-        {
-            Debug.Log("RoundTracker incrementRound() has not been called before");
-        }
         //TempPlayerData.CurrentRound++;
         //UIUpdate.Instance.UpdateRound(TempPlayerData.CurrentRound);
 
@@ -23,14 +33,10 @@ public class RoundTracker : MonoBehaviour
         UIUpdate.Instance.UpdateRound(SaveSerial.CurrentRound);
         GameEventSystem.Instance.NewTurn();
         GameEventSystem.Instance.PlayerMovement(10);
-        if (passedAtleastOnce)
-        {
-            GameEventSystem.Instance.OnNewTurn += increaseResourcesDueToBuildings;
-        }
+
 
 
         //WARNING THIS HAS TO BE AT THE END OF THE METHOD!
-        passedAtleastOnce = true;
 
 
 
@@ -56,5 +62,13 @@ public class RoundTracker : MonoBehaviour
         {
             resourcesHandler.AddVitals(3);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameEventSystem.Instance.OnNewTurn -= increaseResourcesDueToBuildings;
+        GameEventSystem.Instance.OnNewWeek -= campIncrease;
+        GameEventSystem.Instance.OnNewTurn -= ArmyHandler.ArmyCostPerTurn;
+
     }
 }

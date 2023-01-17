@@ -23,15 +23,15 @@ public class RangedUnit : BaseHero
     public static bool buffAGiven = false; //Health buff ? // This is the cheaper buff
     public static bool buffBGiven = false; //Attack buff ?
     public static bool buffCGiven = false; //Initiative buff ?
-	
+
     public GameObject unitCounter;
 
     public void Start()
     {
         setUnitCount();
     }
-	
-	public int getAttackDamage()
+
+    public int getAttackDamage()
     {
         Debug.Log("Ranged dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
         return Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10));
@@ -59,8 +59,8 @@ public class RangedUnit : BaseHero
 
                 SaveSerial.RangeUnit = quantity;
                 Debug.Log("Unit died, only " + quantity + " units left");
-
-                UICamp.Instance.updatePlayerArmy();
+                if (UICamp.Instance != null)
+                    UICamp.Instance.updatePlayerArmy();
 
                 if (quantity <= 0)
                 {
@@ -77,7 +77,7 @@ public class RangedUnit : BaseHero
 
     internal static void Hungry()
     {
-        if(quantity > 0)
+        if (quantity > 0)
         {
             if (feedness > 0)
             {
@@ -89,7 +89,7 @@ public class RangedUnit : BaseHero
                 dealDamage(5);
                 Debug.Log("RU health decreased due to hunger, current: " + currentHealth);
             }
-        }        
+        }
 
     }
 

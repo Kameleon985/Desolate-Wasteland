@@ -274,7 +274,7 @@ public class Location : MonoBehaviour
 
     private void updateArmyDuePassingTurns()
     {
-        Debug.Log("Army added to " + this.gameObject.name);
+        //Debug.Log("Army added to " + this.gameObject.name);
         if (SaveSerial.CurrentRound >= 1 && !gameObject.name.Equals("Camp") && defendingArmy != null && defendingArmy[0] != 1)
         {
 
@@ -299,5 +299,6 @@ public class Location : MonoBehaviour
         GameEventSystem.Instance.OnNewTurn -= AddResource;
         GameEventSystem.Instance.OnLocationCapture -= CapturedPrompt;
         GameEventSystem.Instance.OnScoutBattle -= BattlePrompt;
+        GameEventSystem.Instance.OnNewWeek -= updateArmyDuePassingTurns;
     }
 }

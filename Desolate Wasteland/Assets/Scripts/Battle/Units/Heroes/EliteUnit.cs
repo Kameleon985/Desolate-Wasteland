@@ -37,8 +37,8 @@ public class EliteUnit : BaseHero
 
     public int getAttackDamage()
     {
-        Debug.Log("Elite dmg melee: " + Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10)) + " q:"+quantity+" baseDmg:"+meleeDamage);
-        return Convert.ToInt32(meleeDamage+meleeDamage*((double)quantity /10));
+        Debug.Log("Elite dmg melee: " + Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + meleeDamage);
+        return Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10));
     }
 
     public int getRangeDamage()
@@ -79,8 +79,8 @@ public class EliteUnit : BaseHero
 
                 SaveSerial.EliteUnit = quantity;
                 Debug.Log("Unit died, only " + quantity + " units left");
-
-                UICamp.Instance.updatePlayerArmy();
+                if (UICamp.Instance != null)
+                    UICamp.Instance.updatePlayerArmy();
 
                 if (quantity <= 0)
                 {

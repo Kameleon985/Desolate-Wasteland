@@ -82,6 +82,7 @@ public class RangeAI : AI
         ConstructBehaviourTree();
         if (topNode.Evaluate() == NodeState.FAILURE)
         {
+            Debug.Log("nodestate failure");
             BattleMenuMenager.instance.UpdateQueue();
             if (BattleMenuMenager.instance.q1.Peek().faction == Faction.Enemy)
             {

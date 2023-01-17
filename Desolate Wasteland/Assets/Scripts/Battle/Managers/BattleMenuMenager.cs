@@ -40,6 +40,13 @@ public class BattleMenuMenager : MonoBehaviour
     public void UpdateQueue()
     {
         q1.Enqueue(q1.Dequeue());
+        //List<BaseUnit> que = new List<BaseUnit>();
+        string questate = "";
+        foreach (BaseUnit b in q1)
+        {
+            questate += b.name + " ; ";
+        }
+        Debug.Log(questate);
     }
     public void Rotate()
     {
