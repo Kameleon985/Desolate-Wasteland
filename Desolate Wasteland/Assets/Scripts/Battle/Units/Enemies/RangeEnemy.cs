@@ -7,16 +7,17 @@ public class RangeEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 25;
-    static int currentHealth = 25;
+    static readonly int maxHealth = 20;
+    static int currentHealth = 20;
     public static int initiative = 5;
     public GameObject unitCounter;
+    public GameObject healthCounter;
     public int attackRange = 50;
     static int damage = 7;
 
     public void Start()
     {
-        setUnitCount();
+        setUnitUIData();
         //takeDamage(0);
     }
 
@@ -49,7 +50,7 @@ public class RangeEnemy : BaseEnemy
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                setUnitCount();
+                setUnitUIData();
 
                 Debug.Log("Unit died, only " + quantity + " units left");
 
@@ -62,14 +63,17 @@ public class RangeEnemy : BaseEnemy
                 else
                 {
                     currentHealth = maxHealth;
+                    setUnitUIData();
                 }
             }
+            setUnitUIData();
         }
 
     }
 
-    public void setUnitCount()
+    public void setUnitUIData()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
     }
 }

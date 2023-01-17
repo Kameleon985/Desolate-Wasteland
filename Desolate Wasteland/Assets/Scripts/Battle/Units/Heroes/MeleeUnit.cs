@@ -28,6 +28,7 @@ public class MeleeUnit : BaseHero
     public static bool buffCGiven = false; //Initiative buff ?
 
     public GameObject unitCounter;
+    public GameObject healthCounter;
 
     public void setAttackDamage(int increase)
     {
@@ -57,7 +58,7 @@ public class MeleeUnit : BaseHero
 
     public void Start()
     {
-        setUnitCount();
+        setUnitUIData();
     }
 
     internal static void dealDamage(int dmg)
@@ -133,9 +134,10 @@ public class MeleeUnit : BaseHero
         }
     }
 
-    public void setUnitCount()
+    public void setUnitUIData()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
     }
 
     public override void takeDamage(int dmg)
@@ -147,7 +149,7 @@ public class MeleeUnit : BaseHero
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                setUnitCount();
+                setUnitUIData();
 
                 SaveSerial.MeleeUnit = quantity;
                 Debug.Log("Unit died, only " + quantity + " units left");
@@ -161,8 +163,10 @@ public class MeleeUnit : BaseHero
                 else
                 {
                     currentHealth = maxHealth;
+                    setUnitUIData();
                 }
             }
+            setUnitUIData();
 
         }
     }

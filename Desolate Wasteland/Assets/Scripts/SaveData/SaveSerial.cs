@@ -341,8 +341,8 @@ public class SaveSerial : MonoBehaviour
         RecipeBuffB[0] = -1;
         RecipeBuffC[0] = -1;
 
-        UIUpdate.Instance.UpdateUIValues();
-        UICamp.Instance.UpdateUIValues();
+        //UIUpdate.Instance.UpdateUIValues();
+        //UICamp.Instance.UpdateUIValues();
 
 
     }

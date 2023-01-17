@@ -25,10 +25,11 @@ public class RangedUnit : BaseHero
     public static bool buffCGiven = false; //Initiative buff ?
 
     public GameObject unitCounter;
+    public GameObject healthCounter;
 
     public void Start()
     {
-        setUnitCount();
+        setUnitUIData();
     }
 
     public int getAttackDamage()
@@ -114,9 +115,10 @@ public class RangedUnit : BaseHero
         }
     }
 
-    public void setUnitCount()
+    public void setUnitUIData()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
     }
 
     public override void takeDamage(int dmg)
@@ -128,7 +130,7 @@ public class RangedUnit : BaseHero
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                setUnitCount();
+                setUnitUIData();
 
                 SaveSerial.RangeUnit = quantity;
                 Debug.Log("Unit died, only " + quantity + " units left");
@@ -142,9 +144,10 @@ public class RangedUnit : BaseHero
                 else
                 {
                     currentHealth = maxHealth;
+                    setUnitUIData();
                 }
             }
-
+            setUnitUIData();
         }
     }
 }

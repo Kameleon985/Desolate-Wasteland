@@ -7,17 +7,18 @@ public class EliteEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 25;
-    static int currentHealth = 25;
+    static readonly int maxHealth = 40;
+    static int currentHealth = 40;
     public static int initiative = 8;
     public GameObject unitCounter;
+    public GameObject healthCounter;
     public int attackRange = 50;
     public int ammo = 2;
     static int damage = 10;
 
     public void Start()
     {
-        setUnitCount();
+        setUnitUIData();
         //takeDamage(0);
     }
 
@@ -48,7 +49,7 @@ public class EliteEnemy : BaseEnemy
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                setUnitCount();
+                setUnitUIData();
 
                 Debug.Log("Unit died, only " + quantity + " units left");
 
@@ -61,13 +62,16 @@ public class EliteEnemy : BaseEnemy
                 else
                 {
                     currentHealth = maxHealth;
+                    setUnitUIData();
                 }
             }
+            setUnitUIData();
         }
     }
 
-    public void setUnitCount()
+    public void setUnitUIData()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
     }
 }

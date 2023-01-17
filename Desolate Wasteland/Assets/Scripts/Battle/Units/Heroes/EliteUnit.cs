@@ -29,10 +29,11 @@ public class EliteUnit : BaseHero
     public static bool buffCGiven = false; //Initiative buff ?
 
     public GameObject unitCounter;
+    public GameObject healthCounter;
 
     public void Start()
     {
-        setUnitCount();
+        setUnitUIData();
     }
 
     public int getAttackDamage()
@@ -142,9 +143,9 @@ public class EliteUnit : BaseHero
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                setUnitCount();
+                setUnitUIData();
 
-                SaveSerial.RangeUnit = quantity;
+                SaveSerial.EliteUnit = quantity;
                 Debug.Log("Unit died, only " + quantity + " units left");
 
                 if (quantity <= 0)
@@ -156,14 +157,16 @@ public class EliteUnit : BaseHero
                 else
                 {
                     currentHealth = maxHealth;
+                    setUnitUIData();
                 }
             }
-
+            setUnitUIData();
         }
     }
 
-    public void setUnitCount()
+    public void setUnitUIData()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
     }
 }
