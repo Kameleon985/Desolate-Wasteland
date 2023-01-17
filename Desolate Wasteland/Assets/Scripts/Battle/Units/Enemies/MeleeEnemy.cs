@@ -12,11 +12,12 @@ public class MeleeEnemy : BaseEnemy
     public static int initiative = 10;
     static int damage = 10;
     public GameObject unitCounter;
+    public GameObject healthCounter;
 
     public void Start()
     {
 
-        setUnitCount();
+        setUnitUIData();
         //takeDamage(0);
     }
 
@@ -50,7 +51,7 @@ public class MeleeEnemy : BaseEnemy
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
-                setUnitCount();
+                setUnitUIData();
 
                 Debug.Log("Unit died, only " + quantity + " units left");
 
@@ -63,14 +64,17 @@ public class MeleeEnemy : BaseEnemy
                 else
                 {
                     currentHealth = maxHealth;
+                    setUnitUIData();
                 }
             }
+            setUnitUIData();
         }
 
     }
 
-    public void setUnitCount()
+    public void setUnitUIData()
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
+        healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
     }
 }
