@@ -169,7 +169,7 @@ public class MapGrid : MonoBehaviour
             var en = SaveSerial.captured.GetEnumerator();
             while (en.MoveNext())
             {
-                if (en.Current.Key[0] == x / 4 && en.Current.Key[1] == y / 4)
+                if (Mathf.Floor(en.Current.Key[0]) == Mathf.Floor(x / 4) && Mathf.Floor(en.Current.Key[1]) == Mathf.Floor(y / 4))
                 {
                     locLoad.GetComponent<Location>().SetCaptured(true);
                     break;
@@ -333,8 +333,8 @@ public class MapGrid : MonoBehaviour
         {
             if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
             {
-                Vector2 loc = new Vector2(x, y);
-                GameObject g = Instantiate(ChoosePrefab(name), new Vector2(loc.x + 0.5f, loc.y + 0.5f), Quaternion.identity);
+                Vector2 loc = new Vector2(Mathf.Floor(x), Mathf.Floor(y));
+                GameObject g = Instantiate(ChoosePrefab(name), new Vector2(Mathf.Floor(x) + 0.5f, Mathf.Floor(y) + 0.5f), Quaternion.identity);
                 g.name = name;
                 locations.Add(loc, g);
                 locations.Add(new Vector2(loc.x + 1, loc.y), g);

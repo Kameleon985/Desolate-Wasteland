@@ -77,8 +77,9 @@ public class GameEventSystem : MonoBehaviour
     {
         location.GetComponent<Location>().SetCaptured(true);
         OnEnterLocation?.Invoke(location);
-        float[] l = { location.transform.position.x, location.transform.position.y };
+        float[] l = { Mathf.Floor(location.transform.position.x), Mathf.Floor(location.transform.position.y) };
         SaveSerial.captured.Add(l, true);
+
         SceneManager.LoadScene(location.name);
     }
 

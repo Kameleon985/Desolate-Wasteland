@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Location : MonoBehaviour
 {
-    private bool captured = false;
+    public bool captured = false;
 
     public GameObject OnMapMessagePanel;
     public TextMeshProUGUI promptText;
@@ -131,7 +131,7 @@ public class Location : MonoBehaviour
                         UIUpdate.Instance.UpdateUIValues();
 
                         OnMapMessagePanel.SetActive(true);
-                        promptText.text = "Przejąłeś złomowisko, zdobyto " + amount + " złomu";
+                        promptText.text = "Przejąłeś Złomowisko, zdobyto " + amount + " złomu";
                         break;
                     }
                 case "Shoping Center":
@@ -143,7 +143,7 @@ public class Location : MonoBehaviour
 
 
                         OnMapMessagePanel.SetActive(true);
-                        promptText.text = "Przejąłeś 'Plastics', zdobyto " + amount + " plastiku";
+                        promptText.text = "Przejąłeś Sklep, zdobyto " + amount + " plastiku";
                         break;
                     }
                 case "Hydrophonics":
@@ -155,7 +155,7 @@ public class Location : MonoBehaviour
 
 
                         OnMapMessagePanel.SetActive(true);
-                        promptText.text = "Przejąłeś Sklep, zdobyto " + amount + " pożywienia";
+                        promptText.text = "Przejąłeś Farme, zdobyto " + amount + " pożywienia";
                         break;
                     }
             }
