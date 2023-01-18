@@ -8,11 +8,13 @@ public class RangedUnit : BaseHero
 {
     public SpriteRenderer sr;
 
-    public static readonly int maxHealth = 20;
+    public static int maxHealth = 20;
+    public static readonly int maxDefaultHealth = 20;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
     public static int attackDamage = 8;
+    public static readonly int defaultAttackDamage = 8;
     public static int currentHealth = 20;
     public int attackRange = 5;
     int movementSpeed;
@@ -28,6 +30,19 @@ public class RangedUnit : BaseHero
     public GameObject healthCounter;
 
     public void Start()
+    {
+        maxHealth = maxDefaultHealth;
+        attackDamage = defaultAttackDamage;
+        if (currentHealth > maxDefaultHealth)
+        {
+            maxHealth = maxDefaultHealth;
+            currentHealth = maxDefaultHealth;
+        }
+        setUnitUIData();
+        
+    }
+
+    public void Update()
     {
         setUnitUIData();
     }
@@ -149,5 +164,23 @@ public class RangedUnit : BaseHero
             }
             setUnitUIData();
         }
+    }
+
+    public static void giveBuffA()
+    {
+        maxHealth += 10;
+        currentHealth = maxHealth;
+    }
+
+    public static void giveBuffB()
+    {
+        attackDamage += 6;
+    }
+
+    public static void giveBuffC()
+    {
+        maxHealth += 5;
+        currentHealth = maxHealth;
+        attackDamage += 3;
     }
 }

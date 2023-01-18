@@ -9,7 +9,8 @@ public class MeleeUnit : BaseHero
 {
     public SpriteRenderer sr;
 
-    public static readonly int maxHealth = 25;
+    public static int maxHealth = 25;
+    public static readonly int maxDefaultHealth = 25;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
@@ -20,6 +21,7 @@ public class MeleeUnit : BaseHero
     public static int initiative = 10;
 
     public static int attackDamage = 10;
+    public static readonly int defaultAttackDamage = 10;
 
     public static int quantity = SaveSerial.MeleeUnit; //To read from SaveSerial PlayerArmy
 
@@ -57,6 +59,18 @@ public class MeleeUnit : BaseHero
     }
 
     public void Start()
+    {
+        maxHealth = maxDefaultHealth;
+        attackDamage = defaultAttackDamage;
+        if (currentHealth > maxDefaultHealth)
+        {
+            maxHealth = maxDefaultHealth;
+            currentHealth = maxDefaultHealth;
+        }
+        setUnitUIData();
+    }
+
+    public void Update()
     {
         setUnitUIData();
     }
@@ -170,4 +184,24 @@ public class MeleeUnit : BaseHero
 
         }
     }
+
+    public static void giveBuffA()
+    {
+        maxHealth += 10;
+        currentHealth = maxHealth;
+    }
+
+    public static void giveBuffB()
+    {
+        attackDamage += 6;
+    }
+
+    public static void giveBuffC()
+    {
+        maxHealth += 5;
+        currentHealth = maxHealth;
+        attackDamage += 3;
+    }
+
+
 }

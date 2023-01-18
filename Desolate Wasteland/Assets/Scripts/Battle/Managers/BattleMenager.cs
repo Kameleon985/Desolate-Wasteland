@@ -32,6 +32,9 @@ public class BattleMenager : MonoBehaviour
             {
                 SceneManager.LoadScene("Win");
             }
+            MeleeUnit.maxHealth = MeleeUnit.maxDefaultHealth;
+            RangedUnit.maxHealth = RangedUnit.maxDefaultHealth;
+            EliteUnit.maxHealth = EliteUnit.maxDefaultHealth;
             GameObject g = new GameObject();
             g.name = "Map";
             GameEventSystem.Instance.EnterLocation(g);
