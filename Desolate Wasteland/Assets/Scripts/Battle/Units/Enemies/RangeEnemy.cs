@@ -7,8 +7,8 @@ public class RangeEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 20;
-    static int currentHealth = 20;
+    public static readonly int maxHealth = 20;
+    public static int currentHealth = 20;
     public static int initiative = 5;
     public GameObject unitCounter;
     public GameObject healthCounter;

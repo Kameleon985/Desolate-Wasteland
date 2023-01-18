@@ -7,8 +7,8 @@ public class EliteEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 40;
-    static int currentHealth = 40;
+    public static readonly int maxHealth = 40;
+    public static int currentHealth = 40;
     public static int initiative = 8;
     public GameObject unitCounter;
     public GameObject healthCounter;

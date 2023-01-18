@@ -20,6 +20,7 @@ public class MoveToRangeNode : Node
         Tile start = GridManager.Instance.GetTileAtPosition(enemy.transform.position);
         Tile closest = GridManager.Instance.GetTileAtPosition(closestHero.position);
         List<Tile> path = pf.FindPath(start, closest);
+
         if (path != null)
         {
             GridManager.Instance.ClearAStarTiles();

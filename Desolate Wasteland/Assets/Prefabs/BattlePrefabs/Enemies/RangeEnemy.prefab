@@ -99,7 +99,7 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitName: RangeEnemy
-  quantity: 1
+  quantity: 10
   sr: {fileID: 9137449378593330969}
   unitCounter: {fileID: 5391407529348887391}
   healthCounter: {fileID: 9025076937364298964}
@@ -117,10 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 25
-  lowHealthThreshold: 20
+  lowHealthThreshold: 10
   healthRestoreRate: 0
   chasingRange: 0
-  distanceRange: 120
+  distanceRange: 5000
   enemy: {fileID: 1649183430979494267}
 --- !u!1 &5391407529348887391
 GameObject:

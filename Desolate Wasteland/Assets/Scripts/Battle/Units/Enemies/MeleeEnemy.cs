@@ -7,8 +7,8 @@ public class MeleeEnemy : BaseEnemy
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 25;
-    static int currentHealth = 25;
+    public static readonly int maxHealth = 25;
+    public static int currentHealth = 25;
     public static int initiative = 10;
     static int damage = 10;
     public GameObject unitCounter;

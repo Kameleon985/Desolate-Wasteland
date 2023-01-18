@@ -27,15 +27,19 @@ public class BattleMenager : MonoBehaviour
 
         if (UnitManager.Instance.enemyList.Count == 0)
         {
-            Debug.Log("You win!");
+            //Debug.Log("You win!");
+            if (SceneManager.GetActiveScene().name.Equals("Factory"))
+            {
+                SceneManager.LoadScene("Win");
+            }
             GameObject g = new GameObject();
             g.name = "Map";
             GameEventSystem.Instance.EnterLocation(g);
         }
         if (UnitManager.Instance.heroList.Count == 0)
         {
-            Debug.Log("You lose!");
-            SceneManager.LoadScene("Map");
+            //Debug.Log("You lose!");
+            SceneManager.LoadScene("Game Over");
         }
     }
 
