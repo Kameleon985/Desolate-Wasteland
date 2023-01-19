@@ -172,7 +172,7 @@ public class MapMovement : MonoBehaviour
     {
         float rand = UnityEngine.Random.Range(0f, 1f);
         //Debug.Log(rand);
-        if (rand < 0.05)
+        if (rand < 0.03)
         {
 
             return true;
