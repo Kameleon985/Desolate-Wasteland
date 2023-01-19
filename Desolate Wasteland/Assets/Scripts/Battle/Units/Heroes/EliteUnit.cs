@@ -44,6 +44,7 @@ public class EliteUnit : BaseHero
             maxHealth = maxDefaultHealth;
             currentHealth = maxDefaultHealth;
         }
+        quantity = SaveSerial.EliteUnit;
         setUnitUIData();
 
     }

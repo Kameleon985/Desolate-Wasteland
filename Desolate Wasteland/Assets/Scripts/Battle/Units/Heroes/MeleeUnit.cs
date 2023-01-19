@@ -67,6 +67,7 @@ public class MeleeUnit : BaseHero
             maxHealth = maxDefaultHealth;
             currentHealth = maxDefaultHealth;
         }
+        quantity = SaveSerial.MeleeUnit;
         setUnitUIData();
     }
 

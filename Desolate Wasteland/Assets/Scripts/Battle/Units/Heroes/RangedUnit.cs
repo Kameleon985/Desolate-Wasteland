@@ -38,8 +38,9 @@ public class RangedUnit : BaseHero
             maxHealth = maxDefaultHealth;
             currentHealth = maxDefaultHealth;
         }
+        quantity = SaveSerial.RangeUnit;
         setUnitUIData();
-        
+
     }
 
     public void Update()

@@ -214,6 +214,7 @@ public class Tile : MonoBehaviour
                             else if (UnitManager.Instance.SelectedHero is RangedUnit)
                             {
                                 var heroUnit = (RangedUnit)UnitManager.Instance.SelectedHero;
+                                GridManager.Instance.ClearAllHighlightTiles();
                                 if (enemy.occupiedTile.x >= heroUnit.occupiedTile.x)
                                 {
                                     if (enemy.occupiedTile.x <= heroUnit.occupiedTile.x + heroUnit.attackRange)

@@ -26,6 +26,7 @@ public class BattleMenuMenager : MonoBehaviour
 
     public void SetQueue()
     {
+        q1 = new Queue<BaseUnit>(6);
         //Debug.Log(UnitManager.Instance.heroList.Count);
         foreach (BaseHero b in UnitManager.Instance.heroList)
         {
@@ -46,7 +47,7 @@ public class BattleMenuMenager : MonoBehaviour
         {
             questate += b.name + " ; ";
         }
-        //Debug.Log(questate);
+        Debug.Log(questate);
     }
     public void Rotate()
     {
@@ -71,9 +72,6 @@ public class BattleMenuMenager : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// hahah tu sie zaczyna kupa :]
-    /// </summary>
     //public static BattleMenuMenager instance;
 
     public GameObject selectedHeroObject;
