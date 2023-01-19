@@ -331,9 +331,12 @@ public class MapGrid : MonoBehaviour
         int y = (int)Random.Range(mapOriginCorner.y + 2, mapFarCorner.y - 2);
         while (true)
         {
-            if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
+            Vector2 loc = new Vector2(Mathf.Floor(x), Mathf.Floor(y));
+            Collider2D[] colliders = new Collider2D[2];
+            int col = Physics2D.OverlapBoxNonAlloc(loc, new Vector2(5f, 5f), 0, colliders);
+            //if (!locations.ContainsKey(new Vector2(x, y)) && !locations.ContainsKey(new Vector2(x + 1, y)) && !locations.ContainsKey(new Vector2(x + 1, y + 1)) && !locations.ContainsKey(new Vector2(x, y + 1)))
+            if (col <= 1)
             {
-                Vector2 loc = new Vector2(Mathf.Floor(x), Mathf.Floor(y));
                 GameObject g = Instantiate(ChoosePrefab(name), new Vector2(Mathf.Floor(x) + 0.5f, Mathf.Floor(y) + 0.5f), Quaternion.identity);
                 g.name = name;
                 locations.Add(loc, g);
@@ -360,7 +363,9 @@ public class MapGrid : MonoBehaviour
         while (true)
         {
             Vector2 loc = new Vector2(x, y);
-            if (!locations.ContainsKey(loc))
+            Collider2D[] colliders = new Collider2D[2];
+            int col = Physics2D.OverlapBoxNonAlloc(loc, new Vector2(1f, 1f), 0, colliders);
+            if (col <= 1)
             {
                 GameObject g = Instantiate(ChoosePrefab(name), loc, Quaternion.identity);
                 g.name = name;

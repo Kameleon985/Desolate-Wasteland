@@ -38,13 +38,13 @@ public class EliteUnit : BaseHero
 
     public int getAttackDamage()
     {
-        Debug.Log("Elite dmg melee: " + Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + meleeDamage);
+        //Debug.Log("Elite dmg melee: " + Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + meleeDamage);
         return Convert.ToInt32(meleeDamage + meleeDamage * ((double)quantity / 10));
     }
 
     public int getRangeDamage()
     {
-        Debug.Log("Elite dmg ranged: " + Convert.ToInt32(rangeDamage + rangeDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + rangeDamage);
+        //Debug.Log("Elite dmg ranged: " + Convert.ToInt32(rangeDamage + rangeDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + rangeDamage);
         return Convert.ToInt32(rangeDamage + rangeDamage * ((double)quantity / 10));
     }
 
@@ -73,13 +73,13 @@ public class EliteUnit : BaseHero
         if (quantity > 0)
         {
             currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            //Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
 
                 SaveSerial.EliteUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
+                //Debug.Log("Unit died, only " + quantity + " units left");
                 if (UICamp.Instance != null)
                     UICamp.Instance.updatePlayerArmy();
 
@@ -103,12 +103,12 @@ public class EliteUnit : BaseHero
             if (feedness > 0)
             {
                 feedness -= 1;
-                Debug.Log("EU feedness: " + feedness);
+                //Debug.Log("EU feedness: " + feedness);
             }
             else if (feedness <= 0)
             {
                 dealDamage(5);
-                Debug.Log("EU health decreased due to hunger, current: " + currentHealth);
+                //Debug.Log("EU health decreased due to hunger, current: " + currentHealth);
             }
         }
     }
@@ -118,19 +118,19 @@ public class EliteUnit : BaseHero
         if (feedness < 3)
         {
             feedness += 1;
-            Debug.Log("EU are feed from hunger currently: " + feedness);
+            //Debug.Log("EU are feed from hunger currently: " + feedness);
             if (currentHealth < maxHealth)
             {
-                Debug.Log("EU Healed from: " + currentHealth);
+                //Debug.Log("EU Healed from: " + currentHealth);
                 currentHealth += 5;
-                Debug.Log("EU Healed to: " + currentHealth);
+                //Debug.Log("EU Healed to: " + currentHealth);
             }
 
         }
         else if (feedness == 3)
         {
             currentHealth = maxHealth;
-            Debug.Log("Feed to max hp ~EU");
+            //Debug.Log("Feed to max hp ~EU");
         }
     }
 
@@ -139,14 +139,14 @@ public class EliteUnit : BaseHero
         if (quantity > 0)
         {
             currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            //Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
                 setUnitUIData();
 
                 SaveSerial.EliteUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
+                //Debug.Log("Unit died, only " + quantity + " units left");
 
                 if (quantity <= 0)
                 {

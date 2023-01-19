@@ -16,8 +16,8 @@ public class ArmySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Dropped on item slot - ArmySlot");
-        if(eventData.pointerDrag != null)// && eventData.pointerDrag.gameObject.tag == this.gameObject.tag)
+        //Debug.Log("Dropped on item slot - ArmySlot");
+        if (eventData.pointerDrag != null)// && eventData.pointerDrag.gameObject.tag == this.gameObject.tag)
         {
             type = eventData.pointerDrag.gameObject.tag;
             //Open Transfer
@@ -26,16 +26,16 @@ public class ArmySlot : MonoBehaviour, IDropHandler
             int intMaxValue = int.Parse(stringMaxValue);
             sliderMaxValueText.text = stringMaxValue;
             slider.maxValue = intMaxValue;
-            Debug.Log("Dropped on slot - Same Tag");
+            //Debug.Log("Dropped on slot - Same Tag");
 
 
         }
-        
+
     }
 
     public void armyTransfer()
     {
-       
+
         amount = (int)slider.value;
         Debug.LogWarning("armyTransfer amount: " + amount);
         ArmyHandler.ArmyCampTransfer(amount, type);

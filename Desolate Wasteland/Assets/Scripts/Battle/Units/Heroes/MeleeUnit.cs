@@ -37,7 +37,7 @@ public class MeleeUnit : BaseHero
 
     public int getAttackDamage()
     {
-        Debug.Log("Melee dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
+        //Debug.Log("Melee dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
         return Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10));
     }
 
@@ -66,14 +66,14 @@ public class MeleeUnit : BaseHero
         if (quantity > 0)
         {
             currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            //Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
                 //setUnitCount();
 
                 SaveSerial.MeleeUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
+                //Debug.Log("Unit died, only " + quantity + " units left");
 
                 if (UICamp.Instance != null)
                     UICamp.Instance.updatePlayerArmy();
@@ -99,12 +99,12 @@ public class MeleeUnit : BaseHero
             if (feedness > 0)
             {
                 feedness -= 1;
-                Debug.Log("MU feedness: " + feedness);
+                //Debug.Log("MU feedness: " + feedness);
             }
             else if (feedness <= 0)
             {
                 dealDamage(5);
-                Debug.Log("MU health decreased due to hunger, current: " + currentHealth);
+                //Debug.Log("MU health decreased due to hunger, current: " + currentHealth);
             }
         }
     }
@@ -114,23 +114,23 @@ public class MeleeUnit : BaseHero
         if (feedness < 3)
         {
             feedness += 1;
-            Debug.Log("MeleeUnits are feed from hunger currently: " + feedness);
+            //Debug.Log("MeleeUnits are feed from hunger currently: " + feedness);
             if (currentHealth < maxHealth)
             {
                 if (maxHealth - currentHealth < 5)
                 {
                     currentHealth = maxHealth;
                 }
-                Debug.Log("MU Healed from: " + currentHealth);
+                //Debug.Log("MU Healed from: " + currentHealth);
                 currentHealth += 5;
-                Debug.Log("MU Healed to: " + currentHealth);
+                //Debug.Log("MU Healed to: " + currentHealth);
             }
 
         }
         else if (feedness == 3)
         {
             currentHealth = maxHealth;
-            Debug.Log("Feed to max hp ~MeleeUnit");
+            //Debug.Log("Feed to max hp ~MeleeUnit");
         }
     }
 
@@ -145,14 +145,14 @@ public class MeleeUnit : BaseHero
         if (quantity > 0)
         {
             currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            //Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
                 setUnitUIData();
 
                 SaveSerial.MeleeUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
+                //Debug.Log("Unit died, only " + quantity + " units left");
 
                 if (quantity <= 0)
                 {

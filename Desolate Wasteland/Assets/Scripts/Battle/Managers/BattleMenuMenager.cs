@@ -46,7 +46,7 @@ public class BattleMenuMenager : MonoBehaviour
         {
             questate += b.name + " ; ";
         }
-        Debug.Log(questate);
+        //Debug.Log(questate);
     }
     public void Rotate()
     {

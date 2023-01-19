@@ -25,6 +25,7 @@ public class BattleMenager : MonoBehaviour
     {
         BattleMenuMenager.instance.ShowCurrentGameState();
 
+        //Debug.Log(SceneManager.GetActiveScene().name);
         if (UnitManager.Instance.enemyList.Count == 0)
         {
             //Debug.Log("You win!");
@@ -32,14 +33,17 @@ public class BattleMenager : MonoBehaviour
             {
                 SceneManager.LoadScene("Win");
             }
-            GameObject g = new GameObject();
-            g.name = "Map";
-            GameEventSystem.Instance.EnterLocation(g);
+            else
+            {
+                GameObject g = new GameObject();
+                g.name = "Map";
+                GameEventSystem.Instance.EnterLocation(g);
+            }
         }
         if (UnitManager.Instance.heroList.Count == 0)
         {
             //Debug.Log("You lose!");
-            SceneManager.LoadScene("Game Over");
+            SceneManager.LoadScene("GameOver");
         }
     }
 

@@ -34,7 +34,7 @@ public class RangedUnit : BaseHero
 
     public int getAttackDamage()
     {
-        Debug.Log("Ranged dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
+        //Debug.Log("Ranged dmg: " + Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10)) + " q:" + quantity + " baseDmg:" + attackDamage);
         return Convert.ToInt32(attackDamage + attackDamage * ((double)quantity / 10));
     }
 
@@ -53,13 +53,13 @@ public class RangedUnit : BaseHero
         if (quantity > 0)
         {
             currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            //Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
 
                 SaveSerial.RangeUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
+                //Debug.Log("Unit died, only " + quantity + " units left");
                 if (UICamp.Instance != null)
                     UICamp.Instance.updatePlayerArmy();
 
@@ -83,12 +83,12 @@ public class RangedUnit : BaseHero
             if (feedness > 0)
             {
                 feedness -= 1;
-                Debug.Log("RU feedness: " + feedness);
+                //Debug.Log("RU feedness: " + feedness);
             }
             else if (feedness <= 0)
             {
                 dealDamage(5);
-                Debug.Log("RU health decreased due to hunger, current: " + currentHealth);
+                //Debug.Log("RU health decreased due to hunger, current: " + currentHealth);
             }
         }
 
@@ -99,19 +99,19 @@ public class RangedUnit : BaseHero
         if (feedness < 3)
         {
             feedness += 1;
-            Debug.Log("RU are feed from hunger currently: " + feedness);
+            //Debug.Log("RU are feed from hunger currently: " + feedness);
             if (currentHealth < maxHealth)
             {
-                Debug.Log("RU Healed from: " + currentHealth);
+                //Debug.Log("RU Healed from: " + currentHealth);
                 currentHealth += 5;
-                Debug.Log("RU Healed to: " + currentHealth);
+                //Debug.Log("RU Healed to: " + currentHealth);
             }
 
         }
         else if (feedness == 3)
         {
             currentHealth = maxHealth;
-            Debug.Log("Feed to max hp ~RU");
+            //Debug.Log("Feed to max hp ~RU");
         }
     }
 
@@ -126,14 +126,14 @@ public class RangedUnit : BaseHero
         if (quantity > 0)
         {
             currentHealth -= dmg;
-            Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
+            //Debug.Log("Unit is taking " + dmg + " damage, currentHP: " + currentHealth);
             if (currentHealth <= 0) //If unit health in stack <= 0
             {
                 quantity--; //One unit in stack died
                 setUnitUIData();
 
                 SaveSerial.RangeUnit = quantity;
-                Debug.Log("Unit died, only " + quantity + " units left");
+                //Debug.Log("Unit died, only " + quantity + " units left");
 
                 if (quantity <= 0)
                 {

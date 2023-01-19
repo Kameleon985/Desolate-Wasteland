@@ -6,26 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Map.unity
-    guid: d59c80ffcaac0824fbd2a62b8b629001
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: ff3b05d73d4c54d479318274a8f37b94
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: d59c80ffcaac0824fbd2a62b8b629001
   - enabled: 1
     path: Assets/Scenes/Camp.unity
     guid: f931d432399030145826595e408d44a5
   - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 239345867b6abf04eaee575dcf8e198d
-  - enabled: 1
-    path: Assets/Scenes/Map&UI.unity
-    guid: e230e56eec6f32748aacf80c599360a3
-  - enabled: 1
-    path: Assets/Scenes/UI Surowce.unity
-    guid: af7fe526f7732ab4cba37be184525ff1
-  - enabled: 1
-    path: Assets/Scenes/PauseMenu.unity
-    guid: f53cd63bf12c6a547b9fe993b212c98c
   - enabled: 1
     path: Assets/Scenes/Hydrophonics.unity
     guid: e9fdab4aa06a18640a9033448565d4a6
@@ -44,4 +35,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Industrial Park.unity
     guid: d690122af96ca2d4f891a174ba92dba0
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: b2f451b5598e3b942adfda4f1feb403c
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: ef8d568a386e5ad4491762be25eb9212
   m_configObjects: {}
