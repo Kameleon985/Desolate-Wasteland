@@ -76,7 +76,7 @@ public class MapMovement : MonoBehaviour
                 if (encouterTimer > 1)
                 {
                     encouterTimer = 0;
-                    if (false)
+                    if (EncounterCheck())
                     {
                         atLocation = new GameObject("Random");
                         GameEventSystem.Instance.EnterLocation(atLocation);
@@ -172,7 +172,7 @@ public class MapMovement : MonoBehaviour
     {
         float rand = UnityEngine.Random.Range(0f, 1f);
         //Debug.Log(rand);
-        if (rand < 0.5)
+        if (rand < 0.05)
         {
 
             return true;
