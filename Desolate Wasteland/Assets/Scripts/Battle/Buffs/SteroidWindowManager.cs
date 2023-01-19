@@ -64,6 +64,33 @@ public class SteroidWindowManager : MonoBehaviour
             BuffCToggle.interactable = false;
         }
 
+        if(SaveSerial.MeleeUnit > 0)
+        {
+            MeleeToggle.interactable = true;
+        } 
+        else
+        {
+            MeleeToggle.interactable = false;
+        }
+        if (SaveSerial.RangeUnit > 0)
+        {
+            RangeToggle.interactable = true;
+        }
+        else
+        {
+            RangeToggle.interactable = false;
+        }
+        if (SaveSerial.EliteUnit > 0)
+        {
+            EliteToggle.interactable = true;
+        }
+        else
+        {
+            EliteToggle.interactable = false;
+        }
+
+
+
         if ((MeleeToggle.isOn || RangeToggle.isOn || EliteToggle.isOn) && (BuffAToggle.isOn || BuffBToggle.isOn || BuffCToggle.isOn))
         {
             administerBuffs.interactable = true;
@@ -89,8 +116,9 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 MeleeUnit.buffAGiven = true;
                 SaveSerial.BuffA -= 1;
-                
-                MeleeUnit.currentHealth = MeleeUnit.maxHealth + 10;  //To Determine if balanced
+
+                //MeleeUnit.currentHealth = MeleeUnit.maxHealth + 10;  //To Determine if balanced
+                MeleeUnit.giveBuffA();
 
                 Debug.Log("Melee Unit : BuffA" +
                     " Increased maxHealth to " + MeleeUnit.currentHealth);//What to decrease?
@@ -99,8 +127,9 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 MeleeUnit.buffBGiven = true;
                 SaveSerial.BuffB -= 1;
+                MeleeUnit.giveBuffB();
 
-                MeleeUnit.attackDamage = MeleeUnit.attackDamage + 10; // To determine if balanced
+                //MeleeUnit.attackDamage += 10; // To determine if balanced
                 Debug.Log("Melee Unit : BuffB" +
                     " Increased attackDamage");//What to decrease?
             }
@@ -109,10 +138,11 @@ public class SteroidWindowManager : MonoBehaviour
                 MeleeUnit.buffCGiven = true;
                 SaveSerial.BuffC -= 1;
 
-                MeleeUnit.initiative += 5; // To determine if balanced
-                MeleeUnit.attackDamage = MeleeUnit.attackDamage - 2; // to determine if balanced
+                //MeleeUnit.initiative += 5; // To determine if balanced
+                //MeleeUnit.attackDamage = MeleeUnit.attackDamage - 2; // to determine if balanced
+                MeleeUnit.giveBuffC();
                 Debug.Log("Melee Unit : BuffC" +
-                    " Increased initiative, decreased damage");//What to decrease?
+                    " Increased health and damage");//What to decrease?
             }
             else
             {
@@ -128,7 +158,9 @@ public class SteroidWindowManager : MonoBehaviour
                 RangedUnit.buffAGiven = true;
                 SaveSerial.BuffA -= 1;
 
-                RangedUnit.currentHealth = RangedUnit.maxHealth + 10;
+                //RangedUnit.currentHealth = RangedUnit.maxHealth + 10;
+
+                RangedUnit.giveBuffA();
 
                 Debug.Log("Ranged Unit : BuffA" +
                     " Increased maxHealth to: "+ RangedUnit.currentHealth);//What to decrease?
@@ -138,7 +170,9 @@ public class SteroidWindowManager : MonoBehaviour
                 RangedUnit.buffBGiven = true;
                 SaveSerial.BuffB -= 1;
 
-                RangedUnit.attackDamage = RangedUnit.attackDamage + 5;
+                //RangedUnit.attackDamage += 5;
+
+                RangedUnit.giveBuffB();
 
                 Debug.Log("Ranged Unit : BuffB" +
                     " Increased attackDamage");//What to decrease?
@@ -148,8 +182,10 @@ public class SteroidWindowManager : MonoBehaviour
                 RangedUnit.buffCGiven = true;
                 SaveSerial.BuffC -= 1;
 
-                RangedUnit.initiative += 5; // To determine if balanced
-                RangedUnit.attackDamage -= 2; // To determine if balanced
+                //RangedUnit.initiative += 5; // To determine if balanced
+                //RangedUnit.attackDamage -= 2; // To determine if balanced
+
+                RangedUnit.giveBuffC();
                 Debug.Log("Ranged Unit : BuffC" +
                     " Increased initiative, decreased damage");//What to decrease?
             }
@@ -165,6 +201,8 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 EliteUnit.buffAGiven = true;
                 SaveSerial.BuffA -= 1;
+                //EliteUnit.currentHealth += 10;
+                EliteUnit.giveBuffA();
                 Debug.Log("Elite Unit : BuffA" +
                     " Increased maxHealth");//What to decrease?
             }
@@ -172,6 +210,7 @@ public class SteroidWindowManager : MonoBehaviour
             {
                 EliteUnit.buffBGiven = true;
                 SaveSerial.BuffB -= 1;
+                EliteUnit.giveBuffB();
                 Debug.Log("Elite Unit : BuffB" +
                     " Increased attackDamage");//What to decrease?
             }
@@ -180,8 +219,9 @@ public class SteroidWindowManager : MonoBehaviour
                 EliteUnit.buffCGiven = true;
                 SaveSerial.BuffC -= 1;
 
-                EliteUnit.initiative += 5; // To determine if balanced
-                EliteUnit.meleeDamage -= 2; // To determine if balanced
+                EliteUnit.giveBuffC();
+                //EliteUnit.initiative += 5; // To determine if balanced
+                //EliteUnit.meleeDamage -= 2; // To determine if balanced
                 Debug.Log("Elite Unit : BuffC" +
                     " Increased initiative, decreased damage"); //What to decrease?
             }

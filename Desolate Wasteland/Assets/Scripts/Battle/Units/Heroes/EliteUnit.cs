@@ -8,18 +8,21 @@ public class EliteUnit : BaseHero
 {
     public SpriteRenderer sr;
 
-    static readonly int maxHealth = 40;
+    public static int maxHealth = 40;
+    public static readonly int maxDefaultHealth = 40;
 
     static int feedness = 3; // 1 for each day of not being fed, after depleeted start decreasing health (-5 for each day?)
 
-    static int currentHealth = 40;
+    public static int currentHealth = 40;
     public static int meleeDamage = 14;
+    public static readonly int defaultMeleeDamage = 14;
     int movementSpeed;
     public static int initiative = 8;
 
 
     public int attackRange = 4; //TO DISCUSS
-    public int rangeDamage = 15;
+    public static int rangeDamage = 15;
+    public static readonly int defaultRangeDamage = 15;
     public int ammo = 3;  //TO DISCUSS
 
     static int quantity = SaveSerial.EliteUnit; //To read from SaveSerial PlayerArmy
@@ -32,6 +35,20 @@ public class EliteUnit : BaseHero
     public GameObject healthCounter;
 
     public void Start()
+    {
+        maxHealth = maxDefaultHealth;
+        meleeDamage = defaultMeleeDamage;
+        rangeDamage = defaultRangeDamage;
+        if (currentHealth > maxDefaultHealth)
+        {
+            maxHealth = maxDefaultHealth;
+            currentHealth = maxDefaultHealth;
+        }
+        setUnitUIData();
+
+    }
+
+    public void Update()
     {
         setUnitUIData();
     }
@@ -168,5 +185,25 @@ public class EliteUnit : BaseHero
     {
         unitCounter.GetComponentInChildren<Text>().text = quantity.ToString();
         healthCounter.GetComponentInChildren<Text>().text = currentHealth + "/" + maxHealth;
+    }
+
+    public static void giveBuffA()
+    {
+        maxHealth += 10;
+        currentHealth = maxHealth;
+    }
+
+    public static void giveBuffB()
+    {
+        meleeDamage += 6;
+        rangeDamage += 6;
+    }
+
+    public static void giveBuffC()
+    {
+        maxHealth += 5;
+        currentHealth = maxHealth;
+        meleeDamage += 3;
+        rangeDamage += 3;
     }
 }

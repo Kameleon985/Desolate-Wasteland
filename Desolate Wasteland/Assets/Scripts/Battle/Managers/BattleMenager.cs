@@ -28,6 +28,9 @@ public class BattleMenager : MonoBehaviour
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (UnitManager.Instance.enemyList.Count == 0)
         {
+			MeleeUnit.maxHealth = MeleeUnit.maxDefaultHealth;
+            RangedUnit.maxHealth = RangedUnit.maxDefaultHealth;
+            EliteUnit.maxHealth = EliteUnit.maxDefaultHealth;
             //Debug.Log("You win!");
             if (SceneManager.GetActiveScene().name.Equals("Factory"))
             {
@@ -39,6 +42,7 @@ public class BattleMenager : MonoBehaviour
                 g.name = "Map";
                 GameEventSystem.Instance.EnterLocation(g);
             }
+
         }
         if (UnitManager.Instance.heroList.Count == 0)
         {
