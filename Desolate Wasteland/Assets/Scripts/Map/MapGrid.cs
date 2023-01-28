@@ -71,45 +71,19 @@ public class MapGrid : MonoBehaviour
         var enumerator = locations.GetEnumerator();
         while (enumerator.MoveNext())
         {
-            if (enumerator.Current.Value.name.Equals("Metal") || enumerator.Current.Value.name.Equals("Electronics") || enumerator.Current.Value.name.Equals("Plastics") || enumerator.Current.Value.name.Equals("Food"))
+            if (enumerator.Current.Value.name.Equals("Metal") || enumerator.Current.Value.name.Equals("Electronics") || enumerator.Current.Value.name.Equals("Plastics") || enumerator.Current.Value.name.Equals("Food") || enumerator.Current.Value.name.Equals("Chems"))
             {
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
                 SaveSerial.piles.Add(new float[] { x, y }, enumerator.Current.Value.name);
                 //Debug.Log("Pile saved");
             }
-            if (enumerator.Current.Value.name.Equals("Scrapyard"))
+            if (enumerator.Current.Value.name.Equals("Scrapyard") || enumerator.Current.Value.name.Equals("Shoping Center") || enumerator.Current.Value.name.Equals("Industrial Park") || enumerator.Current.Value.name.Equals("Hydrophonics"))
             {
                 float x = enumerator.Current.Key.x;
                 float y = enumerator.Current.Key.y;
                 SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
                 SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
-                //Debug.Log("scrapyard saved");
-            }
-            if (enumerator.Current.Value.name.Equals("Shoping Center"))
-            {
-                float x = enumerator.Current.Key.x;
-                float y = enumerator.Current.Key.y;
-                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
-
-                //Debug.Log("center saved");
-            }
-            if (enumerator.Current.Value.name.Equals("Industrial Park"))
-            {
-                float x = enumerator.Current.Key.x;
-                float y = enumerator.Current.Key.y;
-                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
-                //Debug.Log("park saved");
-            }
-            if (enumerator.Current.Value.name.Equals("Hydrophonics"))
-            {
-                float x = enumerator.Current.Key.x;
-                float y = enumerator.Current.Key.y;
-                SaveSerial.locationsType.Add(new float[] { x, y }, enumerator.Current.Value.name);
-                SaveSerial.locationsArmy.Add(new float[] { x, y }, enumerator.Current.Value.GetComponent<Location>().generateDefendingArmy(5));
-                //Debug.Log("hydro saved");
             }
         }
         SaveSerial.locationsArmy.Add(new float[] { factory.transform.position.x, factory.transform.position.y }, factory.GetComponent<Location>().GetDefendingArmy());
@@ -131,14 +105,13 @@ public class MapGrid : MonoBehaviour
         }
 
         var dictPiles = SaveSerial.piles;
+
         var enumeratorPiles = dictPiles.GetEnumerator();
         while (enumeratorPiles.MoveNext())
         {
-            //GameObject g = Instantiate(pile, loc, Quaternion.identity);
             var pileLoad = Instantiate(ChoosePrefab(enumeratorPiles.Current.Value), new Vector2(enumeratorPiles.Current.Key[0], enumeratorPiles.Current.Key[1]), Quaternion.identity);
             pileLoad.name = enumeratorPiles.Current.Value;
             pileLoad.transform.parent = gameObject.transform;
-            //Debug.Log(pileLoad.name);
             locations.Add(pileLoad.transform.position, pileLoad);
         }
 
@@ -203,7 +176,6 @@ public class MapGrid : MonoBehaviour
                     int col = Physics2D.OverlapBoxNonAlloc(spawn, new Vector2(0.1f, 0.1f), 0, colliders);
                     if (!loaded && (j + 1 >= mapFarCorner.y || i + 1 >= mapFarCorner.x || j == (int)(mapOriginCorner.y + 0.5f) || i == (int)(mapOriginCorner.x + 0.5f) || Random.Range(0, 30) <= 1 && col <= 1))
                     {
-                        //Debug.Log("XDD");
                         spawnedTile = Instantiate(terrainTile, spawn, Quaternion.identity);
                     }
                     else
